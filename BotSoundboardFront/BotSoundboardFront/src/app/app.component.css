@@ -1,0 +1,27 @@
+:host{
+    display: block;
+}
+
+body{
+    background-color: #2b2d31;
+    color: #989aa2;
+}
+
+.test{
+    display: flex;
+}
+
+.filter-green {
+    margin-top: 2vh;
+    filter: invert(97%) sepia(63%) saturate(990%) hue-rotate(49deg) brightness(84%) contrast(107%);
+}
+
+.filter-red {
+    margin-top: 2vh;
+    filter: invert(54%) sepia(9%) saturate(3650%) hue-rotate(314deg) brightness(100%) contrast(103%);
+}
+
+mat-slider {
+    width: 800px;
+  }
+  

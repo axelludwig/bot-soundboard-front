@@ -1,0 +1,19 @@
+<ng-container *ngIf="gotCurrentChannel; then loaded; else notLoaded"> </ng-container>
+
+<ng-template #loaded>
+    <div *ngFor="let channel of channels" class="channels">
+        <div [class.selected-channel]="currentChannel !== null && channel.id === currentChannel.id"
+            (click)="channelClick(channel.id)" class="channel">
+            <h4> {{channel.name}} </h4>
+            <div class="members" *ngFor="let member of channel.members">
+                <h5> {{member.name}} </h5>
+            </div>
+        </div>
+        <mat-divider class="divider"></mat-divider>
+    </div>
+    <button (click)="leaveChannel()"> quitter </button>
+</ng-template>
+
+<ng-template #notLoaded>
+    <mat-spinner></mat-spinner>
+</ng-template>

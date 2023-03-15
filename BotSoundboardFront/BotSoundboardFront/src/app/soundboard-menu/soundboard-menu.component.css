@@ -1,0 +1,33 @@
+:host {
+    width: 70%;
+    border: 1px solid black;
+    float: left;
+    margin-right: 5vw;
+    margin-top: 5vw;
+}
+
+.wrapper {
+    aspect-ratio: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 5vh;
+}
+
+.sound {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    word-break: break-all;  
+    user-select: none  
+}
+
+.sound:hover {
+    background-color: green;
+    cursor: pointer;
+    border-color: blue;
+}
