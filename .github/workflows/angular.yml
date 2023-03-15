@@ -36,8 +36,9 @@ jobs:
 
     - name: Compress and Copy New Files to server
       run : |
-            cd dist/Viusasa/
-            tar -czvf ../../viusasa.tar.gz ./
+            cd /home/runner/work/bot-soundboard-front/bot-soundboard-front/BotSoundboardFront/BotSoundboardFront
+            tar -czvf ../../../viusasa.tar.gz ./
+            cd ..
             cd ..
             cd ..
             sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r viusasa.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }}:/var/www/bot-soundboard-front
