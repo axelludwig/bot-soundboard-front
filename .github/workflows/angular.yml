@@ -31,16 +31,14 @@ jobs:
       run: npm install -g @angular/cli > /dev/null
     - name: NPM build Angular
       run: ng build
-    - name: Delete Existing Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASSWORD }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} 'rm -rf /var/www/bot-soundboard-front/*'
-
-    - name: Compress and Copy New Files to server
-      run : |
-            cd /home/runner/work/bot-soundboard-front/bot-soundboard-front/BotSoundboardFront/BotSoundboardFront
-            tar -czvf ../../../viusasa.tar.gz ./
-            cd ..
-            cd ..
-            cd ..
-            sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r viusasa.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }}:/var/www/bot-soundboard-front
-    - name: Uncompress new Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} 'cd /var/www/bot-soundboard-front/ && tar -xzvf viusasa.tar.gz && rm viusasa.tar.gz'
+      
+    - name: "Push to server"
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password : ${{ secrets.SSH_PASSWORD }}
+        port: ${{ secrets.SSH_PORT }}
+        source: "/home/runner/work/bot-soundboard-front/bot-soundboard-front/BotSoundboardFront/BotSoundboardFront"
+        strip_components: 4
+        target: "/var/www/bot-soundboard-front/"
