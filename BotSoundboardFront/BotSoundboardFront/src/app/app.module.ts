@@ -18,8 +18,9 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatDividerModule } from '@angular/material/divider'
 import { ReactiveFormsModule} from '@angular/forms';
 import { MatRadioModule} from '@angular/material/radio';
+import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
 @NgModule({
   declarations: [
