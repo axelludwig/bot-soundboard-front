@@ -42,3 +42,11 @@ jobs:
         source: "/home/runner/work/bot-soundboard-front/bot-soundboard-front/BotSoundboardFront/BotSoundboardFront"
         strip_components: 4
         target: "/var/www/bot-soundboard-front/"
+    - name: Restarting node
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+        command: cd /var/www/bot-soundboard-front/; ng build
+        host: ${{ secrets.SSH_HOST }}
+        port: ${{ secrets.SSH_PORT }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
