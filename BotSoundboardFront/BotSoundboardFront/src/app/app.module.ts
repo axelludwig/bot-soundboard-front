@@ -21,7 +21,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { environment } from 'src/environments/environment';
 import { MatCardModule } from "@angular/material/card"
 
-
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
 @NgModule({
