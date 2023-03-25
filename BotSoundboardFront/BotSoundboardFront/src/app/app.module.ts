@@ -16,9 +16,10 @@ import { SoundboardMenuComponent } from './soundboard-menu/soundboard-menu.compo
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon'
 import { MatDividerModule } from '@angular/material/divider'
-import { ReactiveFormsModule} from '@angular/forms';
-import { MatRadioModule} from '@angular/material/radio';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
 import { environment } from 'src/environments/environment';
+import { MatCardModule } from "@angular/material/card"
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -28,7 +29,7 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     GuildsListComponent,
     SoundboardMenuComponent
   ],
-  imports: [MatRadioModule, ReactiveFormsModule,CommonModule,MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule,
+  imports: [MatRadioModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule,
     BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule
   ],
   exports: [],

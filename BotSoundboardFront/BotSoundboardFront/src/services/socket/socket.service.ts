@@ -26,6 +26,9 @@ export class SocketService {
 	private _botChangeMode = new Subject<string>();
 	botChangeMode$ = this._botChangeMode.asObservable();
 
+	private _deleteSound = new Subject<string>();
+	deleteSound$ = this._deleteSound.asObservable();
+
 	constructor(private socket: Socket) {
 		this.socket.on('connect', () => {
 			this.onConnect();
@@ -55,12 +58,16 @@ export class SocketService {
 			this.onBotChangeVolume(data);
 		})
 
-		this.socket.on('botChangeMode', (value: string) =>  {
+		this.socket.on('botChangeMode', (value: string) => {
 			this.onBotChangeMode(value);
 		})
-	}
 
-	// ඞ emitting ඞ \\
+		this.socket.on('soundDeleted', (sound: string) => {
+			console.log(sound);
+			
+			this.onDeleteSound(sound);
+		});
+	}
 
 	test() {
 		this.socket.emit('test');
@@ -94,16 +101,20 @@ export class SocketService {
 		this.socket.emit("setVolume", value);
 	}
 
-	setMode(value: boolean) {		
+	setMode(value: boolean) {
 		this.socket.emit("setMode", value);
 	}
 
+	deleteSound(sound: string) {
+		this.socket.emit('deleteSound', sound);
+	}
+
 	// ඞ listenin ඞ \\
-	pauseSound(){
+	pauseSound() {
 		this.socket.emit("pauseSound");
 	}
 
-	unpauseSound(){
+	unpauseSound() {
 		this.socket.emit("unpauseSound");
 	}
 
@@ -127,7 +138,11 @@ export class SocketService {
 		this._botChangeVolume.next(value);
 	}
 
-	onBotChangeMode(value: string ) {
+	onBotChangeMode(value: string) {
 		this._botChangeMode.next(value);
+	}
+
+	onDeleteSound(sound: string) {
+		this._deleteSound.next(sound)
 	}
 }

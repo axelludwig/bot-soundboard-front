@@ -31,12 +31,10 @@ export class AppComponent {
 
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
-      console.log('connexion socket super géniale');
     })
 
     this.socketService.disconnect$.subscribe(() => {
       this.socketConnection = false;
-      console.log('déconnexion :( pas super géniale');
     })
 
     this.socketService.botChangeVolume$.subscribe((value: number) => {
