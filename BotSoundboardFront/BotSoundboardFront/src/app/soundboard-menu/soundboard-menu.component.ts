@@ -16,12 +16,14 @@ export class SoundboardMenuComponent {
 
   sounds: string[] = [];
   soundsCopy: string[] = [];
-  public searchValue: string = "";
+  searchValue: string = "";
+  editMode = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.newSound !== "" && this.newSound !== null && changes['newSound']) {
       this.sounds.push(changes['newSound'].currentValue);
-      this.soundsCopy.push(changes['newSound'].currentValue);
+      this.sortSounds();
+      // this.soundsCopy.push(changes['newSound'].currentValue);
     }
   }
 
@@ -29,6 +31,12 @@ export class SoundboardMenuComponent {
     this.axiosService = axiosService;
     this.socketService = socketService;
     this.getSounds();
+
+    this.socketService.deleteSound$.subscribe((sound: string) => {
+      this.sounds = this.sounds.filter((s) => {
+        return s !== sound
+      })
+    })
   }
 
   getSounds() {
@@ -45,11 +53,11 @@ export class SoundboardMenuComponent {
       })
   }
 
-  soundClicked(sound: string) {
+  soundClicked(event: any, sound: string) {
     this.socketService.playSound(sound);
   }
 
-  textChange() {  
+  textChange() {
     this.sounds = this.soundsCopy;
     this.sounds = this.sounds.filter((sound) => {
       var s = sound.toLocaleLowerCase();
@@ -61,5 +69,23 @@ export class SoundboardMenuComponent {
   clearText() {
     this.searchValue = "";
     this.sounds = this.soundsCopy;
+  }
+
+  rename(event: any, sound: string) {
+    event.stopPropagation()
+    console.log('rename');
+  }
+
+  delete(event: any, sound: string) {    
+    event.stopPropagation()
+    this.socketService.deleteSound(sound)
+  }
+
+  sortSounds(): void {
+    this.sounds.sort((a, b): number => {
+      if (a < b) return -1;
+      else if (a > b) return 1;
+      else return 0
+    })
   }
 }
