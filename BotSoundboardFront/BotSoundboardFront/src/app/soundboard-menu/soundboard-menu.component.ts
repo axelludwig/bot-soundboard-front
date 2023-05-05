@@ -18,6 +18,9 @@ export class SoundboardMenuComponent {
   soundsCopy: string[] = [];
   searchValue: string = "";
   editMode = false;
+  showHidden = false;
+
+  hiddenSounds: string[] = []
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.newSound !== "" && this.newSound !== null && changes['newSound']) {
@@ -47,6 +50,7 @@ export class SoundboardMenuComponent {
       .then((res: any) => {
         this.sounds = res;
         this.soundsCopy = res;
+        this.sortSounds();
       })
       .catch((err) => {
         console.log(err);
@@ -76,9 +80,28 @@ export class SoundboardMenuComponent {
     console.log('rename');
   }
 
-  delete(event: any, sound: string) {    
+  delete(event: any, sound: string) {
     event.stopPropagation()
     this.socketService.deleteSound(sound)
+  }
+
+  hide(event: any, sound: string) {
+    // event.stopPropagation()
+    // let hiddenSounds: string[] = [];
+    // let localStorageSounds = localStorage.getItem("hiddenSounds");
+    // if (localStorageSounds) {
+    //   if (!localStorageSounds?.includes)
+
+    // } 
+  }
+
+  stringToArray(str: string): string[] {
+    return str.split('|');
+  }
+
+  arrayToString(array: string[]): string {
+    if (!array) return '';
+    return array.join('|')
   }
 
   sortSounds(): void {
