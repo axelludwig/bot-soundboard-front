@@ -3,11 +3,11 @@
     float: left;
     border: 1px solid black;
     margin-left: 5vw;
-    margin-top: 5vw;
+    margin-top: 5vw;    
+    height: 80%;
 }
 
 .channel {
-    /* color: black; */
     display: inline-block;
     user-select: none;
 }
@@ -24,7 +24,6 @@
 }
 
 .members {
-    /* color: black; */
     padding-left: 2vw;
     user-select: none;
 }

@@ -1,14 +1,16 @@
-<div style="position: relative;">
+<div class="top-buttons-fixed">
+    <mat-form-field >
+        <mat-label>Search</mat-label>
+        <input (keyup)="textChange()" matInput type="text" [(ngModel)]="searchValue">
+        <button *ngIf="searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
     <button class="edit-button" type="button" mat-raised-button color="primary" (click)="editMode = !editMode">Edit
         mode</button>
+    <button class="hide-button" type="button" mat-raised-button color="primary" (click)="showHidden = !showHidden">Show
+        hidden</button>
 </div>
-<mat-form-field class="example-form-field">
-    <mat-label>Search</mat-label>
-    <input (keyup)="textChange()" matInput type="text" [(ngModel)]="searchValue">
-    <button *ngIf="searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
-        <mat-icon>close</mat-icon>
-    </button>
-</mat-form-field>
 
 <div *ngIf="sounds.length > 0" class="wrapper">
     <div class="grid">
@@ -24,12 +26,9 @@
                 <mat-card-actions class="card-actions" [class.hidden]="!editMode">
                     <button (click)="rename($event, sound)" mat-button>Rename</button>
                     <button (click)="delete($event, sound)" mat-button>Delete</button>
+                    <button (click)="hide($event, sound)" mat-button>Hide sound</button>
                 </mat-card-actions>
             </mat-card>
-            <!-- <div class="sound">
-                <h5> {{sound}} </h5>
-                <button class="delete-button"> X </button>
-            </div> -->
         </span>
     </div>
 </div>
