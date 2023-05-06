@@ -53,12 +53,13 @@ export class AppComponent {
     this.socketService.unpauseSound$.subscribe(() => {
       this.isPaused = false;
     })
-  }
 
-  ngOnInit() {
     this.getVolume();
     this.getQueueMode();
+    this.getIsPaused();
   }
+
+  ngOnInit() { }
 
   onSliderChange(event: any) {
     this.socketService.setVolume(event.value)
@@ -104,6 +105,19 @@ export class AppComponent {
           })
       }
     })
+  }
+
+  getIsPaused() {
+    var options: GetOptions = {
+      url: "/pause"
+    }
+    this.axiosService.get(options)
+      .then((res: any) => {
+        this.isPaused = res
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   getVolume() {
