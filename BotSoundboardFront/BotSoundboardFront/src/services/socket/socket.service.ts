@@ -29,6 +29,11 @@ export class SocketService {
 	private _deleteSound = new Subject<string>();
 	deleteSound$ = this._deleteSound.asObservable();
 
+	private _pauseSound = new Subject<any>();
+	pauseSound$ = this._pauseSound.asObservable();
+	private _unpauseSound = new Subject<any>();
+	unpauseSound$ = this._unpauseSound.asObservable();
+
 	constructor(private socket: Socket) {
 		this.socket.on('connect', () => {
 			this.onConnect();
@@ -63,10 +68,18 @@ export class SocketService {
 		})
 
 		this.socket.on('soundDeleted', (sound: string) => {
-			console.log(sound);
-			
 			this.onDeleteSound(sound);
 		});
+
+		this.socket.on('soundPaused', () => {
+			this.onPauseSound();
+		})
+
+		this.socket.on('soundUnpaused', () => {
+			this.onUnpauseSound();
+		});
+
+
 	}
 
 	test() {
@@ -116,6 +129,7 @@ export class SocketService {
 
 	unpauseSound() {
 		this.socket.emit("unpauseSound");
+
 	}
 
 	onBotChangeChannel(id: string) {
@@ -144,5 +158,13 @@ export class SocketService {
 
 	onDeleteSound(sound: string) {
 		this._deleteSound.next(sound)
+	}
+
+	onPauseSound() {
+		this._pauseSound.next(1);
+	}
+
+	onUnpauseSound() {
+		this._unpauseSound.next(1)
 	}
 }

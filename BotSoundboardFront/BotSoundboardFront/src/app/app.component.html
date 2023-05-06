@@ -18,12 +18,23 @@
 
     <!-- <mat-slide-toggle [checked]="queueMode" (change)="onToggle($event)">Slide me!</mat-slide-toggle> -->
 
-    <button mat-mini-fab matTooltip="Primary" color="primary" (click)=unpauseSound()>
+    <!-- <button mat-mini-fab matTooltip="Primary" color="primary" (click)=unpauseSound()>
         <mat-icon>play_arrow</mat-icon>
     </button>
-
     <button mat-mini-fab matTooltip="Primary" color="primary" (click)="pauseSound()">
         <mat-icon>pause</mat-icon>
+    </button> -->
+
+    <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary" >
+        <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
+
+        <ng-template #paused>
+            <mat-icon>pause</mat-icon>
+        </ng-template>
+
+        <ng-template #play>
+            <mat-icon>play_arrow</mat-icon>
+        </ng-template>
     </button>
 
     <label id="example-radio-group-label"> mode </label>
