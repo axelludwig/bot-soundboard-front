@@ -10,8 +10,6 @@ import { Params } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
-  title = 'BotSoundboardFront';
-
   public socketConnection: boolean = false;
 
   private axiosService: AxiosService;
@@ -24,6 +22,8 @@ export class AppComponent {
   public volume: number = 0;
   public queueMode: string = '';
   queueModes: string[] = ['queue', 'overwrite'];
+
+  public isPaused = false;
 
   constructor(socketService: SocketService, axiosService: AxiosService) {
     this.axiosService = axiosService;
@@ -43,6 +43,15 @@ export class AppComponent {
 
     this.socketService.botChangeMode$.subscribe((value: string) => {
       this.queueMode = value;
+    })
+
+    this.socketService.pauseSound$.subscribe(() => {
+      this.isPaused = true;
+
+    })
+
+    this.socketService.unpauseSound$.subscribe(() => {
+      this.isPaused = false;
     })
   }
 
@@ -139,11 +148,9 @@ export class AppComponent {
       })
   }
 
-  unpauseSound() {
-    this.socketService.unpauseSound();
-  }
-
-  pauseSound() {
-    this.socketService.pauseSound();
+  togglePause() {
+    if (this.isPaused) this.socketService.unpauseSound();
+    else this.socketService.pauseSound();
+    console.log(this.isPaused);
   }
 }
