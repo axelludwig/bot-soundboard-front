@@ -9,17 +9,16 @@ import { SocketService } from 'src/services/socket/socket.service';
 })
 export class StoreService {
 
-  private axiosService: AxiosService;
-  private socketService: SocketService;
-
   currentChannel: Channel | null = null;
   public channels: Channel[] = [];
   public gotCurrentChannel: boolean = false;
   public queue: string[] = [];
 
-  constructor(socketService: SocketService, axiosService: AxiosService) {
-    this.axiosService = axiosService;
-    this.socketService = socketService;
+  constructor(private socketService: SocketService, private axiosService: AxiosService) {
+
+    socketService.queueUpdate$.subscribe((queue: string[]) => {
+      this.queue = queue;
+    })
 
     this.getQueue();
     this.getChannels();

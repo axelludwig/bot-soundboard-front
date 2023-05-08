@@ -2,8 +2,8 @@
     width: 70%;
     border: 1px solid black;
     float: left;
-    margin-right: 5vw;
-    margin-top: 5vw;
+    margin-right: 1em;
+    margin-top: 1em;
     overflow-y: scroll;
     height: 80%;
 }
@@ -22,7 +22,7 @@
 .sound {
     align-items: stretch;
     background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
+    /* border: 1px solid rgba(0, 0, 0, 0.8); */
     padding: 20px;
     font-size: 30px;
     text-align: center;
@@ -86,7 +86,7 @@
 .top-buttons-fixed {
     overflow: hidden;
     position: fixed;
-    width: 60%;
+    width: 61%;
     background-color: #2b2d31;
     z-index: 100;
 }

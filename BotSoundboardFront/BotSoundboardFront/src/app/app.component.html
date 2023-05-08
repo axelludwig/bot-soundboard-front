@@ -13,7 +13,7 @@
             </button>
 
             <span class="slider">
-                <mat-slider  min="0" max="1" step="0.01">
+                <mat-slider min="0" max="1" step="0.01">
                     <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
                 </mat-slider>
             </span>
@@ -25,20 +25,27 @@
                     {{mode}}
                 </mat-radio-button>
             </mat-radio-group>
-            <!-- <app-queue /> -->
+
+            <div class="upload">
+
+                <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
+                <input accept="sound/mp3, sound/ogg" multiple hidden (change)="onFileChange()" #fileInput type="file"
+                    id="file">
+                <button disabled="{{!this.hasFiles}}" mat-raised-button color="primary" (click)="uploadFile()">Upload
+                    sound</button>
+
+                <!-- <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
+                <ng-template #online>
+                    <img src="../assets/wifi.svg" class="filter-green" />
+                </ng-template>
+                <ng-template #offline>
+                    <img src="../assets/wifi.svg" class="filter-red" />
+                </ng-template> -->
+            </div>
+
+            <app-queue />
         </div>
 
-        <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
-        <input accept="sound/mp3, sound/ogg" multiple hidden (change)="onFileChange()" #fileInput type="file" id="file">
-        <button disabled="{{!this.hasFiles}}" mat-raised-button color="primary" (click)="uploadFile()">Upload
-            sound</button>
-        <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
-        <ng-template #online>
-            <img src="../assets/wifi.svg" class="filter-green" />
-        </ng-template>
-        <ng-template #offline>
-            <img src="../assets/wifi.svg" class="filter-red" />
-        </ng-template>
 
         <!-- <mat-slide-toggle [checked]="queueMode" (change)="onToggle($event)">Slide me!</mat-slide-toggle> -->
 

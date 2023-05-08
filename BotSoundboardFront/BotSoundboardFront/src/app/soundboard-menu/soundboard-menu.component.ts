@@ -6,6 +6,7 @@ import { StoreService } from 'src/services/store/store.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { RenameModalComponent } from '../rename-modal/rename-modal.component';
+import { soundRenamedSocketResponse } from '../declarations';
 
 @Component({
   selector: 'app-soundboard-menu',
@@ -43,6 +44,16 @@ export class SoundboardMenuComponent {
         return s !== sound
       })
     })
+
+    this.socketService.soundRenamed$.subscribe((res: soundRenamedSocketResponse) => {
+      let sounds = this.sounds;
+      let soundsCopy = this.soundsCopy;
+      let oldName = res.oldName;
+      let newName = res.newName;
+      for (let i = 0; i < sounds.length; i++) if (sounds[i] == oldName) sounds[i] = newName;
+      for (let i = 0; i < soundsCopy.length; i++) if (soundsCopy[i] == oldName) soundsCopy[i] = newName;
+      this.sortSounds();
+    });
   }
 
   getSounds() {
@@ -104,17 +115,16 @@ export class SoundboardMenuComponent {
     });
 
     dialog.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
-      console.log("Your Name: " + result);
+      if (result === undefined || result === null || result === '') return;
 
       var options: GetOptions = { url: "/sound" }
       options.params = {
         oldName: oldName,
         newName: result
       };
-      
+
       this.axiosService.put(options).then((res) => {
-          console.log(res);
+        console.log(res);
       })
         .catch((err) => {
           console.log(err);
@@ -133,6 +143,8 @@ export class SoundboardMenuComponent {
 
   sortSounds(): void {
     this.sounds.sort((a, b): number => {
+      a = a.toLowerCase();
+      b = b.toLowerCase();
       if (a < b) return -1;
       else if (a > b) return 1;
       else return 0
