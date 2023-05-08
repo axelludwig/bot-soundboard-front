@@ -6,10 +6,8 @@
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
-    <button class="edit-button" type="button" mat-raised-button color="primary" (click)="editMode = !editMode">Edit
-        mode</button>
-    <button class="hide-button" type="button" mat-raised-button color="primary" (click)="showHidden = !showHidden">Show
-        hidden</button>
+    <button class="edit-button" type="button" mat-raised-button color="primary" (click)="editMode = !editMode">Edit mode </button>
+    <!-- <button class="hide-button" type="button" mat-raised-button color="primary" (click)="showHidden = !showHidden">Show hidden</button> -->
 </div>
 
 <div *ngIf="sounds.length > 0" class="wrapper">
@@ -26,7 +24,7 @@
                 <mat-card-actions class="card-actions" [class.hidden]="!editMode">
                     <button (click)="openDialog($event, sound)" mat-button>Rename</button>
                     <button (click)="delete($event, sound)" mat-button>Delete</button>
-                    <button (click)="hide($event, sound)" mat-button>Hide sound</button>
+                    <!-- <button (click)="hide($event, sound)" mat-button>Hide sound</button> -->
                 </mat-card-actions>
             </mat-card>
         </span>

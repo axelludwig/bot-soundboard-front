@@ -7,6 +7,10 @@ body {
     color: #989aa2;
 }
 
+.upload {
+    float: right;
+}
+
 .test {
     display: flex;
     height: 90%;

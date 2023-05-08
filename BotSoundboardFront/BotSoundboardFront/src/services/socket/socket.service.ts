@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable, Subject } from 'rxjs';
+import { soundRenamedSocketResponse } from 'src/app/declarations';
 
 @Injectable({
 	providedIn: 'root'
@@ -33,6 +34,12 @@ export class SocketService {
 	pauseSound$ = this._pauseSound.asObservable();
 	private _unpauseSound = new Subject<any>();
 	unpauseSound$ = this._unpauseSound.asObservable();
+
+	private _queueUpdate = new Subject<any>();
+	queueUpdate$ = this._queueUpdate.asObservable();
+
+	private _soundRenamed = new Subject<any>();
+	soundRenamed$ = this._soundRenamed.asObservable();
 
 	constructor(private socket: Socket) {
 		this.socket.on('connect', () => {
@@ -79,6 +86,15 @@ export class SocketService {
 			this.onUnpauseSound();
 		});
 
+		this.socket.on('queueUpdated', (queue: string[]) => {
+			this.onQueueUpdate(queue);
+		});
+
+		this.socket.on('soundRenamed', (res: soundRenamedSocketResponse) => {
+			console.log(res);
+
+			this.onSoundRename(res);
+		});
 
 	}
 
@@ -166,5 +182,13 @@ export class SocketService {
 
 	onUnpauseSound() {
 		this._unpauseSound.next(1)
+	}
+
+	onQueueUpdate(queue: string[]) {
+		this._queueUpdate.next(queue);
+	}
+
+	onSoundRename(res: soundRenamedSocketResponse) {
+		this._soundRenamed.next(res);
 	}
 }
