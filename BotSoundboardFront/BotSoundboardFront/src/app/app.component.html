@@ -1,16 +1,28 @@
 <div id="main">
     <div class="menu">
         <div class="controls">
-            <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary">
-                <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
-                <ng-template #paused>
-                    <mat-icon>play_arrow</mat-icon>
-                </ng-template>
+            <div class="play-pause-button">
+                <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary">
+                    <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
+                    <ng-template #paused>
+                        <mat-icon>play_arrow</mat-icon>
+                    </ng-template>
 
-                <ng-template #play>
-                    <mat-icon>pause</mat-icon>
-                </ng-template>
-            </button>
+                    <ng-template #play>
+                        <mat-icon>pause</mat-icon>
+                    </ng-template>
+                </button>
+            </div>
+
+            <div class="skip-button">
+                <button (click)="skipSound()" mat-mini-fab matTooltip="Primary" color="primary">
+                    <mat-icon>skip_next</mat-icon>
+                </button>
+            </div>
+
+            <div class="now-playing">
+                {{soundPlaying && soundPlaying !== '' ? 'playing : '+ soundPlaying : 'no sound playing' }}
+            </div>
 
             <span class="slider">
                 <mat-slider min="0" max="1" step="0.01">

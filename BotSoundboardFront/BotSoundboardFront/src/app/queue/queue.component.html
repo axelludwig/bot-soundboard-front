@@ -1,14 +1,20 @@
-<div *ngIf="store.queue.length > 0">
-    <h3 class="queue-title">
-        queue :
-    </h3>
-    <div class="queue-list">
-        <div *ngFor="let item of store.queue; index as i" class="item">
-            {{item}}
-            <button color="primary" mat-icon-button>
-                <mat-icon>close</mat-icon>
-            </button>
-            <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
+<div class="queue">
+    <div *ngIf="store.queue.length > 0">
+        <!-- <h3 class="queue-title">
+            queue :
+        </h3> -->
+        <div class="queue-list">
+            <div *ngFor="let item of store.queue; index as i" class="item">
+                {{item}}
+                <button color="primary" mat-icon-button>
+                    <mat-icon>close</mat-icon>
+                </button>
+                <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
+            </div>
         </div>
+    </div>
+    <div class="empty" *ngIf="store.queue.length === 0">
+        Empty queue
+        <mat-icon style="padding-left: 0.5vw;" fontIcon="block"></mat-icon>
     </div>
 </div>
