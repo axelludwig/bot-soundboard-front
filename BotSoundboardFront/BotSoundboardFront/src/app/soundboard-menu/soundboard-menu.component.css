@@ -100,3 +100,8 @@
 .hide-button {
     float: right;
 }
+
+.grayed {
+    pointer-events: none;
+    opacity: 10%;
+}

@@ -1,7 +1,11 @@
-import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, Inject } from '@angular/core';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SocketService } from 'src/services/socket/socket.service';
+import { StoreService } from 'src/services/store/store.service';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatFormField } from '@angular/material/form-field';
+import { RenameModalComponent } from '../rename-modal/rename-modal.component';
 
 @Component({
   selector: 'app-soundboard-menu',
@@ -26,11 +30,10 @@ export class SoundboardMenuComponent {
     if (this.newSound !== "" && this.newSound !== null && changes['newSound']) {
       this.sounds.push(changes['newSound'].currentValue);
       this.sortSounds();
-      // this.soundsCopy.push(changes['newSound'].currentValue);
     }
   }
 
-  constructor(socketService: SocketService, axiosService: AxiosService) {
+  constructor(socketService: SocketService, axiosService: AxiosService, public store: StoreService, public dialog: MatDialog) {
     this.axiosService = axiosService;
     this.socketService = socketService;
     this.getSounds();
@@ -91,8 +94,32 @@ export class SoundboardMenuComponent {
     // let localStorageSounds = localStorage.getItem("hiddenSounds");
     // if (localStorageSounds) {
     //   if (!localStorageSounds?.includes)
-
     // } 
+  }
+
+  openDialog(event: Event, oldName: string) {
+    event.stopPropagation()
+    let dialog = this.dialog.open(RenameModalComponent, {
+      data: oldName,
+    });
+
+    dialog.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+      console.log("Your Name: " + result);
+
+      var options: GetOptions = { url: "/sound" }
+      options.params = {
+        oldName: oldName,
+        newName: result
+      };
+      
+      this.axiosService.put(options).then((res) => {
+          console.log(res);
+      })
+        .catch((err) => {
+          console.log(err);
+        })
+    });
   }
 
   stringToArray(str: string): string[] {
