@@ -64,6 +64,19 @@ export class AxiosService {
     }
   }
 
+  public async put<T>(options: GetOptions): Promise<T> {
+    try {
+      var axiosResponse = await this.axiosClient.request<T>({
+        method: "put",
+        url: environment.serverURL + options.url,
+        data: options.params
+      });
+      return (axiosResponse.data);
+    } catch (error) {
+      return (Promise.reject(this.normalizeError(error)));
+    }
+  }
+
   // Errors can occur for a variety of reasons. I normalize the error response so that
   // the calling context can assume a standard error structure.
   private normalizeError(error: any): ErrorResponse {

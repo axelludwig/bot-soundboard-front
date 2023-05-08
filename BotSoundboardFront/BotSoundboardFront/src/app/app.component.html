@@ -1,53 +1,59 @@
 <div id="main">
-    <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
-    <input accept="sound/mp3, sound/ogg" multiple hidden (change)="onFileChange()" #fileInput type="file" id="file">
-    <button disabled="{{!this.hasFiles}}" mat-raised-button color="primary" (click)="uploadFile()">Upload sound</button>
+    <div class="menu">
+        <div class="controls">
+            <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary">
+                <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
+                <ng-template #paused>
+                    <mat-icon>play_arrow</mat-icon>
+                </ng-template>
 
-    <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
-    <ng-template #online>
-        <img src="../assets/wifi.svg" class="filter-green" />
-    </ng-template>
-    <ng-template #offline>
-        <img src="../assets/wifi.svg" class="filter-red" />
-    </ng-template>
+                <ng-template #play>
+                    <mat-icon>pause</mat-icon>
+                </ng-template>
+            </button>
 
-    <mat-slider min="0" max="1" step="0.01">
-        <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
-    </mat-slider>
-    <br>
+            <span class="slider">
+                <mat-slider  min="0" max="1" step="0.01">
+                    <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
+                </mat-slider>
+            </span>
 
-    <!-- <mat-slide-toggle [checked]="queueMode" (change)="onToggle($event)">Slide me!</mat-slide-toggle> -->
+            <label id="example-radio-group-label"> mode </label>
+            <mat-radio-group color="primary" class="example-radio-group" [(ngModel)]="queueMode">
+                <mat-radio-button (change)="onRadioClick($event)" class="" *ngFor="let mode of queueModes"
+                    [value]="mode">
+                    {{mode}}
+                </mat-radio-button>
+            </mat-radio-group>
+            <!-- <app-queue /> -->
+        </div>
 
-    <!-- <button mat-mini-fab matTooltip="Primary" color="primary" (click)=unpauseSound()>
-        <mat-icon>play_arrow</mat-icon>
-    </button>
-    <button mat-mini-fab matTooltip="Primary" color="primary" (click)="pauseSound()">
-        <mat-icon>pause</mat-icon>
-    </button> -->
-
-    <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary" >
-        <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
-
-        <ng-template #paused>
-            <mat-icon>pause</mat-icon>
+        <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
+        <input accept="sound/mp3, sound/ogg" multiple hidden (change)="onFileChange()" #fileInput type="file" id="file">
+        <button disabled="{{!this.hasFiles}}" mat-raised-button color="primary" (click)="uploadFile()">Upload
+            sound</button>
+        <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
+        <ng-template #online>
+            <img src="../assets/wifi.svg" class="filter-green" />
+        </ng-template>
+        <ng-template #offline>
+            <img src="../assets/wifi.svg" class="filter-red" />
         </ng-template>
 
-        <ng-template #play>
+        <!-- <mat-slide-toggle [checked]="queueMode" (change)="onToggle($event)">Slide me!</mat-slide-toggle> -->
+
+        <!-- <button mat-mini-fab matTooltip="Primary" color="primary" (click)=unpauseSound()>
             <mat-icon>play_arrow</mat-icon>
-        </ng-template>
-    </button>
+        </button>
+        <button mat-mini-fab matTooltip="Primary" color="primary" (click)="pauseSound()">
+            <mat-icon>pause</mat-icon>
+        </button> -->
 
-    <label id="example-radio-group-label"> mode </label>
-    <mat-radio-group color="primary" class="example-radio-group" [(ngModel)]="queueMode">
-        <mat-radio-button (change)="onRadioClick($event)" class="" *ngFor="let mode of queueModes" [value]="mode">
-            {{mode}}
-        </mat-radio-button>
-    </mat-radio-group>
+
+    </div>
 
     <div class="test">
         <app-guilds-list />
         <app-soundboard-menu [newSound]="newSound" />
     </div>
-
-
 </div>

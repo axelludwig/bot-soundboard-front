@@ -1,0 +1,8 @@
+<!-- <h1 mat-dialog-title> Rename sound </h1> -->
+<div mat-dialog-content class="form">
+    <mat-form-field appearance="fill" >
+        <mat-label>Rename sound</mat-label>
+        <input matInput placeholder="New name" (keyup.enter)="updateName()" [(ngModel)]="data">
+    </mat-form-field>
+    <button type="button" mat-raised-button color="primary" [mat-dialog-close]="data" (click)="updateName()">Save</button>
+</div>

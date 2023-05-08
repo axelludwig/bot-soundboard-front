@@ -1,7 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { SocketService } from 'src/services/socket/socket.service';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { Params } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { Params } from '@angular/router';
   styleUrls: ['./app.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
+
 export class AppComponent {
   public socketConnection: boolean = false;
 
@@ -20,10 +22,12 @@ export class AppComponent {
 
   public newSound: string | null = null;
   public volume: number = 0;
+
   public queueMode: string = '';
   queueModes: string[] = ['queue', 'overwrite'];
 
-  public isPaused = false;
+  public isPaused = true;
+
 
   constructor(socketService: SocketService, axiosService: AxiosService) {
     this.axiosService = axiosService;
@@ -144,7 +148,7 @@ export class AppComponent {
       .catch((err) => {
         console.log(err);
       })
-  }
+  } 
 
   test() {
     this.socketService.test();

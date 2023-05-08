@@ -1,17 +1,8 @@
 import { Component } from '@angular/core';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { SocketService } from 'src/services/socket/socket.service';
-
-export interface Channel {
-  name: string,
-  id: string,
-  members: Member[]
-}
-
-export interface Member {
-  id: string,
-  name: string
-}
+import { StoreService } from "../../services/store/store.service"
+import { Channel, Member } from '../declarations';
 
 @Component({
   selector: 'app-guilds-list',
@@ -20,22 +11,11 @@ export interface Member {
 })
 
 export class GuildsListComponent {
-  private axiosService: AxiosService;
-  private socketService: SocketService;
 
-  channels: Channel[] = [];
-  currentChannel: Channel | null = null;
-  gotCurrentChannel: boolean = false;
-
-  constructor(socketService: SocketService, axiosService: AxiosService) {
-    this.axiosService = axiosService;
-    this.socketService = socketService;
-
-    this.getChannels();
-    this.getCurrentChannel();
+  constructor(public socketService: SocketService, public axiosService: AxiosService, public store: StoreService) {
 
     this.socketService.botChangeChannel$.subscribe((id: string) => {
-      this.currentChannel = this.getChannelById(id);
+      this.store.currentChannel = this.getChannelById(id);
     })
 
     this.socketService.userChangeChannel$.subscribe((res: any) => {
@@ -44,8 +24,8 @@ export class GuildsListComponent {
         name: res.name
       }; var channelId = res.channelId;
 
-      this.channels.forEach((c) => {
-        c.members = c.members.filter((m) => {
+      this.store.channels.forEach((c) => {
+        c.members = c.members.filter((m: any) => {
           return m.id !== member.id
         }); if (c.id == channelId) {
           c.members.push(member);
@@ -54,50 +34,21 @@ export class GuildsListComponent {
     })
 
     this.socketService.userDisconnectsChannel$.subscribe((id: string) => {
-      this.channels.forEach((c) => {
-        c.members = c.members.filter((m) => {
+      this.store.channels.forEach((c) => {
+        c.members = c.members.filter((m: any) => {
           return m.id !== id
         })
       })
     })
 
     this.socketService.botDisconnect$.subscribe((res: object) => {
-      this.currentChannel = null;
+      this.store.currentChannel = null;
     })
   }
 
-  getChannels() {
-    var options: GetOptions = {
-      url: "/channels"
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        res.map((c: Channel) => {
-          this.channels.push(c)
-        })
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  getCurrentChannel() {
-    var options: GetOptions = {
-      url: "/currentChannel"
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        this.currentChannel = res;
-        this.gotCurrentChannel = true;
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
   getChannelById(id: string): Channel | null {
-    for (let index = 0; index < this.channels.length; index++) {
-      const element = this.channels[index];
+    for (let index = 0; index < this.store.channels.length; index++) {
+      const element = this.store.channels[index];
       if (element.id === id) return element;
     } return null;
   }
@@ -108,6 +59,6 @@ export class GuildsListComponent {
 
   leaveChannel() {
     this.socketService.leaveChannel();
-    this.currentChannel = null;
+    this.store.currentChannel = null;
   }
 }
