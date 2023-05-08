@@ -11,11 +11,11 @@
 }
 
 .vertical-divider {
-    border-left: 1px solid white;
+    border-left: 3px solid black;
     height: 75%;
     width: 1px;
     margin-right: 1em;
-    border-radius: 1em;
+    border-radius: 2em;
 }
 
 .mat-mdc-icon-button.mat-mdc-button-base {
@@ -26,4 +26,21 @@
 h3 {
     margin: 0 !important;
     padding-left: 1em;
+}
+
+.queue {
+    min-height: 8vh;
+    max-height: 8vh;
+    border: solid 4px black;
+    border-radius: 0.5em;
+    margin: 1vh 2vw 1vh 2vw;
+    overflow: auto;
+}
+
+.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-top: 3vh;    
 }

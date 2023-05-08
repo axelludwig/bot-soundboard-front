@@ -41,6 +41,9 @@ export class SocketService {
 	private _soundRenamed = new Subject<any>();
 	soundRenamed$ = this._soundRenamed.asObservable();
 
+	private _soundPlaying = new Subject<any>();
+	soundPlaying$ = this._soundPlaying.asObservable();
+
 	constructor(private socket: Socket) {
 		this.socket.on('connect', () => {
 			this.onConnect();
@@ -91,9 +94,11 @@ export class SocketService {
 		});
 
 		this.socket.on('soundRenamed', (res: soundRenamedSocketResponse) => {
-			console.log(res);
-
 			this.onSoundRename(res);
+		});
+
+		this.socket.on('soundPlaying', (sound: string) => {
+			this.onSoundPlaying(sound);
 		});
 
 	}
@@ -136,6 +141,10 @@ export class SocketService {
 
 	deleteSound(sound: string) {
 		this.socket.emit('deleteSound', sound);
+	}
+
+	skipSound() {
+		this.socket.emit('skipSound');
 	}
 
 	// ඞ listenin ඞ \\
@@ -190,5 +199,9 @@ export class SocketService {
 
 	onSoundRename(res: soundRenamedSocketResponse) {
 		this._soundRenamed.next(res);
+	}
+
+	onSoundPlaying(sound: string) {
+		this._soundPlaying.next(sound);
 	}
 }

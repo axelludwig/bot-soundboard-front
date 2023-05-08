@@ -4,7 +4,7 @@
 
 body {
     background-color: #2b2d31;
-    color: #989aa2;
+    color: #a7b3e2;
 }
 
 .upload {
@@ -45,4 +45,23 @@ mat-slider {
 
 .slider {
     margin-left: 1em;
+    margin-right: 1em;
+}
+
+.play-pause-button {
+    margin-left: 1em;
+    margin-top: 1em !important;
+    display: inline-flex;
+}
+
+.skip-button {
+    display: inline-flex;
+    padding-left: 1vw;
+}
+
+.now-playing {
+    display: inline-flex;
+    padding-left: 1vw;
+    padding-right: 1vw;
+
 }

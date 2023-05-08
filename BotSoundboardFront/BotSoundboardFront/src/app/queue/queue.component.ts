@@ -8,5 +8,5 @@ import { StoreService } from 'src/services/store/store.service';
   styleUrls: ['./queue.component.css']
 })
 export class QueueComponent {
-  constructor(public store: StoreService, socketService: SocketService) { }
+  constructor(public store: StoreService) { }
 }

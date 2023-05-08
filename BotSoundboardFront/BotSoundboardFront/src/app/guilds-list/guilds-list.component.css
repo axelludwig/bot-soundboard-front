@@ -1,28 +1,30 @@
 :host {
     width: 30%;
     float: left;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
+    border-top: 4px solid black;
+    border-left: 4px solid black;
+    border-bottom: 4px solid black;
     border-radius: 0.5em 0 0 0.5em;
-    margin-left: 5vw;
-    margin-top: 1em;    
+    margin-left: 2vw;
+    margin-top: 1em;
     height: 80%;
+
+    padding: 0 1vw 0 1vw;
 }
 
 .channel {
     display: inline-block;
     user-select: none;
+    color: rgb(255, 255, 255);
 }
 
 .channel:hover {
-    color: green;
-    background-color: gray;
     cursor: pointer;
+    color: #a7b3e2;
 }
 
 .selected-channel {
-    color: #989aa2;
+    color: #a7b3e2;
 
 }
 
@@ -31,6 +33,10 @@
     user-select: none;
 }
 
-.divider{
-    background-color: white;
+.divider {
+    width: 100%;
+    border: 0;
+    border-top: 3px solid black;
+    align-self: center;
+    border-radius: 2em;
 }

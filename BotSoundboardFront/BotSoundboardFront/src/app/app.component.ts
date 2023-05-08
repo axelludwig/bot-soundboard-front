@@ -27,7 +27,7 @@ export class AppComponent {
   queueModes: string[] = ['queue', 'overwrite'];
 
   public isPaused = true;
-
+  public soundPlaying: string | null = null;
 
   constructor(socketService: SocketService, axiosService: AxiosService) {
     this.axiosService = axiosService;
@@ -58,12 +58,20 @@ export class AppComponent {
       this.isPaused = false;
     })
 
+    this.socketService.soundPlaying$.subscribe((sound: string) => {
+      this.soundPlaying = sound;
+    })
+
     this.getVolume();
     this.getQueueMode();
     this.getIsPaused();
   }
 
   ngOnInit() { }
+
+  skipSound() {
+    this.socketService.skipSound();
+  }
 
   onSliderChange(event: any) {
     this.socketService.setVolume(event.value)
@@ -148,7 +156,7 @@ export class AppComponent {
       .catch((err) => {
         console.log(err);
       })
-  } 
+  }
 
   test() {
     this.socketService.test();
