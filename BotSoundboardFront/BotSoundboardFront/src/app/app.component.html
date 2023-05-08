@@ -46,13 +46,13 @@
                 <button disabled="{{!this.hasFiles}}" mat-raised-button color="primary" (click)="uploadFile()">Upload
                     sound</button>
 
-                <!-- <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
+                <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
                 <ng-template #online>
                     <img src="../assets/wifi.svg" class="filter-green" />
                 </ng-template>
                 <ng-template #offline>
                     <img src="../assets/wifi.svg" class="filter-red" />
-                </ng-template> -->
+                </ng-template>
             </div>
 
             <app-queue />

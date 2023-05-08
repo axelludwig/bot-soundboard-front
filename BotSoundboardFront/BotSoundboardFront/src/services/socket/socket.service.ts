@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable, Subject } from 'rxjs';
-import { soundRenamedSocketResponse } from 'src/app/declarations';
+import { queueItem, soundRenamedSocketResponse } from 'src/app/declarations';
 
 @Injectable({
 	providedIn: 'root'
@@ -89,7 +89,9 @@ export class SocketService {
 			this.onUnpauseSound();
 		});
 
-		this.socket.on('queueUpdated', (queue: string[]) => {
+		this.socket.on('queueUpdated', (queue: queueItem[]) => {
+			console.log(queue);
+			
 			this.onQueueUpdate(queue);
 		});
 
@@ -193,7 +195,7 @@ export class SocketService {
 		this._unpauseSound.next(1)
 	}
 
-	onQueueUpdate(queue: string[]) {
+	onQueueUpdate(queue: queueItem[]) {
 		this._queueUpdate.next(queue);
 	}
 
