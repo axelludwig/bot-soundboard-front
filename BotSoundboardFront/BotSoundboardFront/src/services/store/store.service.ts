@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Component } from '@angular/core';
-import { Channel } from 'src/app/declarations';
+import { Channel, queueItem } from 'src/app/declarations';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { SocketService } from 'src/services/socket/socket.service';
 
@@ -12,11 +12,11 @@ export class StoreService {
   currentChannel: Channel | null = null;
   public channels: Channel[] = [];
   public gotCurrentChannel: boolean = false;
-  public queue: string[] = [];
+  public queue: queueItem[] = [];
 
   constructor(private socketService: SocketService, private axiosService: AxiosService) {
 
-    socketService.queueUpdate$.subscribe((queue: string[]) => {
+    socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
       this.queue = queue;
     })
 

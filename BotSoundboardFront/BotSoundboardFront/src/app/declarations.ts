@@ -13,3 +13,8 @@ export interface soundRenamedSocketResponse {
 oldName: string;
 newName: string;
 }
+
+export interface queueItem {
+  name: string;
+  id: string;
+  }

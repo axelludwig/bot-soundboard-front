@@ -65,3 +65,73 @@ mat-slider {
     padding-right: 1vw;
 
 }
+
+
+/* ---------------------------------------------------- */
+
+marquee {
+    background: #0089fa;
+}
+
+.rightTI {
+    background: #ff002b;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 18s linear infinite;
+}
+
+.rightTI:hover {
+    animation-play-state: paused;
+}
+
+@-webkit-keyframes marquee {
+    0% {
+        text-indent: 100%;
+    }
+
+    100% {
+        text-indent: -100%;
+    }
+}
+
+.rightCSS {
+    background: #a35dc1;
+    overflow: hidden;
+}
+
+.rightCSS div {
+    position: relative;
+    animation: CSSright linear 18s infinite;
+}
+
+@keyframes CSSright {
+    0% {
+        right: -100%
+    }
+
+    100% {
+        right: 100%
+    }
+}
+
+.rightCSS:hover div {
+    animation-play-state: paused;
+}
+
+.rightJS {
+    background: #ffa900;
+}
+
+.rightJQ {
+    background: #00a753;
+}
+
+.li {
+    float: left;
+    width: 80%;
+    padding: 1%;
+    margin: 1% 10%;
+    height: 20px;
+    border-radius: 0.5em;
+    box-shadow: 0 0.1em 0.5em;
+}
