@@ -44,6 +44,9 @@ export class SocketService {
 	private _soundPlaying = new Subject<any>();
 	soundPlaying$ = this._soundPlaying.asObservable();
 
+	private _log = new Subject<any>();
+	log$ = this._log.asObservable();
+
 	constructor(private socket: Socket) {
 		this.socket.on('connect', () => {
 			this.onConnect();
@@ -91,7 +94,7 @@ export class SocketService {
 
 		this.socket.on('queueUpdated', (queue: queueItem[]) => {
 			console.log(queue);
-			
+
 			this.onQueueUpdate(queue);
 		});
 
@@ -101,6 +104,10 @@ export class SocketService {
 
 		this.socket.on('soundPlaying', (sound: string) => {
 			this.onSoundPlaying(sound);
+		});
+
+		this.socket.on('log', (message: string) => {
+			this.onLog(message);
 		});
 
 	}
@@ -156,7 +163,6 @@ export class SocketService {
 
 	unpauseSound() {
 		this.socket.emit("unpauseSound");
-
 	}
 
 	onBotChangeChannel(id: string) {
@@ -205,5 +211,9 @@ export class SocketService {
 
 	onSoundPlaying(sound: string) {
 		this._soundPlaying.next(sound);
+	}
+
+	onLog(message: string) {
+		console.log(message);
 	}
 }
