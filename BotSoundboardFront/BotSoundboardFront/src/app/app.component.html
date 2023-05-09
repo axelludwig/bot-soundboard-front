@@ -21,7 +21,10 @@
             </div>
 
             <div class="now-playing">
-                {{soundPlaying && soundPlaying !== '' ? 'playing : '+ soundPlaying : 'no sound playing' }}
+                <a *ngIf="soundPlaying && soundPlaying.length > 25" class="link link_animated" href=""> {{soundPlaying}}
+                </a>
+                <a *ngIf="soundPlaying && soundPlaying.length <= 24" class="link"> {{soundPlaying}} </a>
+                <a *ngIf="!soundPlaying" class="link"> no sound playing </a>
             </div>
 
             <span class="slider">
