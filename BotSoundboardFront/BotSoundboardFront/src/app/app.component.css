@@ -61,77 +61,56 @@ mat-slider {
 
 .now-playing {
     display: inline-flex;
-    padding-left: 1vw;
-    padding-right: 1vw;
-
+    margin-left: 2vw;
+    line-height: 1.5;
+    overflow: hidden;
+    width: 20vw;
+    text-align: center;
+    overflow: hidden;
 }
 
-
-/* ---------------------------------------------------- */
-
-marquee {
-    background: #0089fa;
-}
-
-.rightTI {
-    background: #ff002b;
+.link {
+    color: white;
+    text-decoration: none;
+    text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    animation: marquee 18s linear infinite;
+    display: inline-flex;
+    line-height: 2;
+    cursor: default;
 }
 
-.rightTI:hover {
+
+.link_animated {
+    animation: backAndForth 7s linear infinite;
+    animation-play-state: running;
+}
+
+.link_animated:hover{
     animation-play-state: paused;
 }
 
-@-webkit-keyframes marquee {
+@keyframes backAndForth {
     0% {
-        text-indent: 100%;
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(0);
+    }
+
+    45% {
+        transform: translateX(calc(-100% + 20vw));
+    }
+
+    55% {
+        transform: translateX(calc(-100% + 20vw));
+    }
+
+    90% {
+        transform: translateX(0);
     }
 
     100% {
-        text-indent: -100%;
+        transform: translateX(0);
     }
-}
-
-.rightCSS {
-    background: #a35dc1;
-    overflow: hidden;
-}
-
-.rightCSS div {
-    position: relative;
-    animation: CSSright linear 18s infinite;
-}
-
-@keyframes CSSright {
-    0% {
-        right: -100%
-    }
-
-    100% {
-        right: 100%
-    }
-}
-
-.rightCSS:hover div {
-    animation-play-state: paused;
-}
-
-.rightJS {
-    background: #ffa900;
-}
-
-.rightJQ {
-    background: #00a753;
-}
-
-.li {
-    float: left;
-    width: 80%;
-    padding: 1%;
-    margin: 1% 10%;
-    height: 20px;
-    border-radius: 0.5em;
-    box-shadow: 0 0.1em 0.5em;
 }
