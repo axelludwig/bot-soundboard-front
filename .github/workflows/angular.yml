@@ -32,7 +32,7 @@ jobs:
     - name: Restarting nginx
       uses: garygrossgarten/github-action-ssh@release
       with:
-        command: npm install;ng build --configuration=production;sudo /etc/init.d/nginx restart;cd /var/www/bot-soundboard-back/;pm2 start bot-soundboard-pm2.json;pm2 restart bot-soundboard-back
+        command: cd /var/www/bot-soundboard-front/;npm install;ng build --configuration=production;sudo /etc/init.d/nginx restart;cd /var/www/bot-soundboard-back/;pm2 start bot-soundboard-pm2.json;pm2 restart bot-soundboard-back
         host: ${{ secrets.SSH_HOST }}
         port: ${{ secrets.SSH_PORT }}
         username: ${{ secrets.SSH_USERNAME }}
