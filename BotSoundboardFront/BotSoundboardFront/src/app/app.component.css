@@ -61,10 +61,10 @@ mat-slider {
 
 .now-playing {
     display: inline-flex;
-    margin-left: 2vw;
+    margin-left: 1vw;
     line-height: 1.5;
     overflow: hidden;
-    width: 20vw;
+    width: 200px;
     text-align: center;
     overflow: hidden;
 }
@@ -81,7 +81,7 @@ mat-slider {
 
 
 .link_animated {
-    animation: backAndForth 7s linear infinite;
+    animation: backAndForth 6s linear infinite;
     animation-play-state: running;
 }
 
@@ -99,11 +99,11 @@ mat-slider {
     }
 
     45% {
-        transform: translateX(calc(-100% + 20vw));
+        transform: translateX(calc(-100% + 200px));
     }
 
     55% {
-        transform: translateX(calc(-100% + 20vw));
+        transform: translateX(calc(-100% + 200px));
     }
 
     90% {
