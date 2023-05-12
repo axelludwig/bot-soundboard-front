@@ -19,8 +19,6 @@ export class SoundboardMenuComponent {
   private axiosService: AxiosService;
   private socketService: SocketService;
 
-  sounds: string[] = [];
-  soundsCopy: string[] = [];
   searchValue: string = "";
   editMode = false;
   showHidden = false;
@@ -29,46 +27,31 @@ export class SoundboardMenuComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.newSound !== "" && this.newSound !== null && changes['newSound']) {
-      this.sounds.push(changes['newSound'].currentValue);
-      this.sortSounds();
+      this.store.sounds.push(changes['newSound'].currentValue);
+      this.store.sortSounds();
     }
   }
 
   constructor(socketService: SocketService, axiosService: AxiosService, public store: StoreService, public dialog: MatDialog) {
     this.axiosService = axiosService;
     this.socketService = socketService;
-    this.getSounds();
+    // this.getSounds();
 
     this.socketService.deleteSound$.subscribe((sound: string) => {
-      this.sounds = this.sounds.filter((s) => {
+      this.store.sounds = this.store.sounds.filter((s) => {
         return s !== sound
       })
     })
 
     this.socketService.soundRenamed$.subscribe((res: soundRenamedSocketResponse) => {
-      let sounds = this.sounds;
-      let soundsCopy = this.soundsCopy;
+      let sounds = this.store.sounds;
+      let soundsCopy = this.store.soundsCopy;
       let oldName = res.oldName;
       let newName = res.newName;
       for (let i = 0; i < sounds.length; i++) if (sounds[i] == oldName) sounds[i] = newName;
       for (let i = 0; i < soundsCopy.length; i++) if (soundsCopy[i] == oldName) soundsCopy[i] = newName;
-      this.sortSounds();
+      this.store.sortSounds();
     });
-  }
-
-  getSounds() {
-    var options: GetOptions = {
-      url: "/sounds"
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        this.sounds = res;
-        this.soundsCopy = res;
-        this.sortSounds();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
   }
 
   soundClicked(event: any, sound: string) {
@@ -76,8 +59,8 @@ export class SoundboardMenuComponent {
   }
 
   textChange() {
-    this.sounds = this.soundsCopy;
-    this.sounds = this.sounds.filter((sound) => {
+    this.store.sounds = this.store.soundsCopy;
+    this.store.sounds = this.store.sounds.filter((sound) => {
       var s = sound.toLocaleLowerCase();
       var search = this.searchValue.toLocaleLowerCase()
       return s.includes(search);
@@ -86,26 +69,12 @@ export class SoundboardMenuComponent {
 
   clearText() {
     this.searchValue = "";
-    this.sounds = this.soundsCopy;
-  }
-
-  rename(event: any, sound: string) {
-    event.stopPropagation()
-    console.log('rename');
+    this.store.sounds = this.store.soundsCopy;
   }
 
   delete(event: any, sound: string) {
     event.stopPropagation()
     this.socketService.deleteSound(sound)
-  }
-
-  hide(event: any, sound: string) {
-    // event.stopPropagation()
-    // let hiddenSounds: string[] = [];
-    // let localStorageSounds = localStorage.getItem("hiddenSounds");
-    // if (localStorageSounds) {
-    //   if (!localStorageSounds?.includes)
-    // } 
   }
 
   openDialog(event: Event, oldName: string) {
@@ -124,7 +93,6 @@ export class SoundboardMenuComponent {
       };
 
       this.axiosService.put(options).then((res) => {
-        console.log(res);
       })
         .catch((err) => {
           console.log(err);
@@ -139,15 +107,5 @@ export class SoundboardMenuComponent {
   arrayToString(array: string[]): string {
     if (!array) return '';
     return array.join('|')
-  }
-
-  sortSounds(): void {
-    this.sounds.sort((a, b): number => {
-      a = a.toLowerCase();
-      b = b.toLowerCase();
-      if (a < b) return -1;
-      else if (a > b) return 1;
-      else return 0
-    })
   }
 }

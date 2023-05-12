@@ -14,56 +14,51 @@ export class StoreService {
   public gotCurrentChannel: boolean = false;
   public queue: queueItem[] = [];
 
+  public sounds: string[] = [];
+  soundsCopy: string[] = [];
+
   constructor(private socketService: SocketService, private axiosService: AxiosService) {
 
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
       this.queue = queue;
     })
 
-    this.getQueue();
-    this.getChannels();
-    this.getCurrentChannel();
+    socketService.channels$.subscribe((channels) => {
+      this.channels = channels
+    })
+
+    this.socketService.botChangeChannel$.subscribe((id: string) => {
+      console.log(id);
+
+      this.currentChannel = this.getChannelById(id);
+      this.gotCurrentChannel = true;
+    })
+
+    this.socketService.channels$.subscribe((channels: Channel[]) => {
+      this.channels = channels;
+    })
+
+    this.socketService.sounds$.subscribe((sounds: string[]) => {
+      this.sounds = sounds;
+      this.soundsCopy = sounds;
+      this.sortSounds();
+
+    })
   }
 
-  getChannels() {
-    var options: GetOptions = {
-      url: "/channels"
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        res.map((c: Channel) => {
-          this.channels.push(c)
-        })
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+  sortSounds(): void {
+    this.sounds.sort((a, b): number => {
+      a = a.toLowerCase();
+      b = b.toLowerCase();
+      if (a < b) return -1;
+      else if (a > b) return 1;
+      else return 0
+    })
   }
-
-  getCurrentChannel() {
-    var options: GetOptions = {
-      url: "/currentChannel"
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        this.currentChannel = res;
-        this.gotCurrentChannel = true;
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  getQueue() {
-    var options: GetOptions = {
-      url: "/queue"
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        this.queue = res
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+  getChannelById(id: string): Channel | null {
+    for (let index = 0; index < this.channels.length; index++) {
+      const element = this.channels[index];
+      if (element.id === id) return element;
+    } return null;
   }
 }

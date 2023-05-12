@@ -13,11 +13,6 @@ import { Channel, Member } from '../declarations';
 export class GuildsListComponent {
 
   constructor(public socketService: SocketService, public axiosService: AxiosService, public store: StoreService) {
-
-    this.socketService.botChangeChannel$.subscribe((id: string) => {
-      this.store.currentChannel = this.getChannelById(id);
-    })
-
     this.socketService.userChangeChannel$.subscribe((res: any) => {
       var member: Member = {
         id: res.userId,
@@ -44,13 +39,6 @@ export class GuildsListComponent {
     this.socketService.botDisconnect$.subscribe((res: object) => {
       this.store.currentChannel = null;
     })
-  }
-
-  getChannelById(id: string): Channel | null {
-    for (let index = 0; index < this.store.channels.length; index++) {
-      const element = this.store.channels[index];
-      if (element.id === id) return element;
-    } return null;
   }
 
   channelClick(id: string) {
