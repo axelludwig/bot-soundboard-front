@@ -3,7 +3,6 @@ import { SocketService } from 'src/services/socket/socket.service';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { Params } from '@angular/router';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -42,6 +41,8 @@ export class AppComponent {
     })
 
     this.socketService.botChangeVolume$.subscribe((value: number) => {
+      console.log('volume changed');
+      
       this.volume = value;
     })
 
@@ -49,22 +50,17 @@ export class AppComponent {
       this.queueMode = value;
     })
 
-    this.socketService.pauseSound$.subscribe(() => {
-      this.isPaused = true;
-
-    })
-
-    this.socketService.unpauseSound$.subscribe(() => {
-      this.isPaused = false;
+    this.socketService.botChangePauseState$.subscribe((state: boolean) => {      
+      this.isPaused = state;
     })
 
     this.socketService.soundPlaying$.subscribe((sound: string) => {
       this.soundPlaying = sound;
     })
 
-    this.getVolume();
-    this.getQueueMode();
-    this.getIsPaused();
+    // this.getVolume();
+    // this.getQueueMode();
+    // this.getIsPaused();
   }
 
   ngOnInit() { }
@@ -119,48 +115,44 @@ export class AppComponent {
     })
   }
 
-  getIsPaused() {
-    var options: GetOptions = {
-      url: "/pause"
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        this.isPaused = res
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+  // getIsPaused() {
+  //   var options: GetOptions = {
+  //     url: "/pause"
+  //   }
+  //   this.axiosService.get(options)
+  //     .then((res: any) => {
+  //       this.isPaused = res
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }
 
-  getVolume() {
-    var options: GetOptions = {
-      url: "/volume"
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        this.volume = res
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+  // getVolume() {
+  //   var options: GetOptions = {
+  //     url: "/volume"
+  //   }
+  //   this.axiosService.get(options)
+  //     .then((res: any) => {
+  //       this.volume = res
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }
 
-  getQueueMode() {
-    var options: GetOptions = {
-      url: "/mode"
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        this.queueMode = res
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  test() {
-    this.socketService.test();
-  }
+  // getQueueMode() {
+  //   var options: GetOptions = {
+  //     url: "/mode"
+  //   }
+  //   this.axiosService.get(options)
+  //     .then((res: any) => {
+  //       this.queueMode = res
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }
 
   testHttp() {
     var options: GetOptions = {
@@ -174,9 +166,7 @@ export class AppComponent {
       })
   }
 
-  togglePause() {
-    if (this.isPaused) this.socketService.unpauseSound();
-    else this.socketService.pauseSound();
-    console.log(this.isPaused);
+  togglePause() {    
+    this.socketService.botChangePauseState(this.isPaused);
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable, Subject } from 'rxjs';
-import { queueItem, soundRenamedSocketResponse } from 'src/app/declarations';
+import { Channel, queueItem, soundRenamedSocketResponse } from 'src/app/declarations';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,206 +14,152 @@ export class SocketService {
 
 	private _botChangeChannel = new Subject<string>();
 	botChangeChannel$ = this._botChangeChannel.asObservable();
+	private _botDisconnect = new Subject<object>();
+	botDisconnect$ = this._botDisconnect.asObservable();
+
 	private _userChangeChannel = new Subject<object>();
 	userChangeChannel$ = this._userChangeChannel.asObservable();
 	private _userDisconnectsChannel = new Subject<string>();
 	userDisconnectsChannel$ = this._userDisconnectsChannel.asObservable();
+	private _channels = new Subject<Channel[]>();
+	channels$ = this._channels.asObservable();
+	private _currentChannel = new Subject<Channel>();
+	currentChannel$ = this._currentChannel.asObservable();
 
-	private _botDisconnect = new Subject<object>();
-	botDisconnect$ = this._botDisconnect.asObservable();
-
+	private _soundPlaying = new Subject<any>();
+	soundPlaying$ = this._soundPlaying.asObservable();
 	private _botChangeVolume = new Subject<number>();
 	botChangeVolume$ = this._botChangeVolume.asObservable();
 	private _botChangeMode = new Subject<string>();
 	botChangeMode$ = this._botChangeMode.asObservable();
+	private _botChangePauseState = new Subject<boolean>();
+	botChangePauseState$ = this._botChangePauseState.asObservable();	
 
+	private _sounds = new Subject<string[]>();
+	sounds$ = this._sounds.asObservable();
 	private _deleteSound = new Subject<string>();
 	deleteSound$ = this._deleteSound.asObservable();
+	private _soundRenamed = new Subject<any>();
+	soundRenamed$ = this._soundRenamed.asObservable();
 
-	private _pauseSound = new Subject<any>();
-	pauseSound$ = this._pauseSound.asObservable();
-	private _unpauseSound = new Subject<any>();
-	unpauseSound$ = this._unpauseSound.asObservable();
 
 	private _queueUpdate = new Subject<any>();
 	queueUpdate$ = this._queueUpdate.asObservable();
 
-	private _soundRenamed = new Subject<any>();
-	soundRenamed$ = this._soundRenamed.asObservable();
-
-	private _soundPlaying = new Subject<any>();
-	soundPlaying$ = this._soundPlaying.asObservable();
 
 	private _log = new Subject<any>();
 	log$ = this._log.asObservable();
+
+
 
 	constructor(private socket: Socket) {
 		this.socket.on('connect', () => {
 			this.onConnect();
 		})
-
 		this.socket.on('disconnect', () => {
 			this.onDisconnect();
 		})
 
+		// bot management
 		this.socket.on('botChangeChannel', (id: string) => {
-			this.onBotChangeChannel(id);
+			this._botChangeChannel.next(id);
 		})
-
-		this.socket.on('userChangeChannel', (res: any) => {
-			this.onUserChangeChannel(res);
-		})
-
-		this.socket.on('userDisconnect', (res: string) => {
-			this.onUserDisconnect(res);
-		})
-
 		this.socket.on('botDisconnect', (res: any) => {
-			this.onBotDisconnect(res)
+			this._botDisconnect.next(res);
 		})
 
-		this.socket.on('botChangeVolume', (data: number) => {
-			this.onBotChangeVolume(data);
+
+		// user management		
+		this.socket.on('userChangeChannel', (res: any) => {
+			this._userChangeChannel.next(res);
 		})
-
-		this.socket.on('botChangeMode', (value: string) => {
-			this.onBotChangeMode(value);
+		this.socket.on('userDisconnect', (res: string) => {
+			this._userDisconnectsChannel.next(res);
 		})
-
-		this.socket.on('soundDeleted', (sound: string) => {
-			this.onDeleteSound(sound);
-		});
-
-		this.socket.on('soundPaused', () => {
-			this.onPauseSound();
+		this.socket.on('channelsLoaded', (channels: Channel[]) => {
+			console.log(channels);			
+			this._channels.next(channels);
 		})
+		this.socket.on('currentChannel', (channel: Channel) => {
+			this._currentChannel.next(channel);
+		})
+		// this.socket.on('currentChannelLoaded', (channels: Channel[]) => {
+		// 	this._currentChannelLoaded.next(channels);
+		// })		
 
-		this.socket.on('soundUnpaused', () => {
-			this.onUnpauseSound();
-		});
-
-		this.socket.on('queueUpdated', (queue: queueItem[]) => {
-			console.log(queue);
-
-			this.onQueueUpdate(queue);
-		});
-
-		this.socket.on('soundRenamed', (res: soundRenamedSocketResponse) => {
-			this.onSoundRename(res);
-		});
-
+		//sound management
 		this.socket.on('soundPlaying', (sound: string) => {
-			this.onSoundPlaying(sound);
+			this._soundPlaying.next(sound);
+		});
+		this.socket.on('botChangeVolume', (data: number) => {
+			this._botChangeVolume.next(data);
+		})
+		this.socket.on('botChangeMode', (value: string) => {
+			this._botChangeMode.next(value);
+		})
+		this.socket.on('botChangePauseState', (state: boolean) => {			
+			this._botChangePauseState.next(state);
+		})
+
+
+		// sound crud
+		this.socket.on('soundsLoaded', (sounds: string[]) => {
+			this._sounds.next(sounds);
+		});
+		this.socket.on('soundDeleted', (sound: string) => {
+			this._deleteSound.next(sound)
+		});
+		this.socket.on('soundRenamed', (res: soundRenamedSocketResponse) => {
+			this._soundRenamed.next(res);
+		});
+
+		//queue management
+		this.socket.on('queueUpdated', (queue: queueItem[]) => {
+			this._queueUpdate.next(queue);
 		});
 
 		this.socket.on('log', (message: string) => {
-			this.onLog(message);
+			console.log(message);
 		});
-
 	}
 
-	test() {
-		this.socket.emit('test');
-	}
-
-	onRestest() {
-		return this.socket.fromEvent('restest');
-	}
-
+	//emmiting
 	onConnect(): void {
 		this._connect.next(true);
 	}
-
 	onDisconnect(): void {
 		this._disconnect.next(true);
 	}
 
+	// bot management
 	joinChannel(id: string) {
 		this.socket.emit("joinChannel", id);
 	}
-
 	leaveChannel() {
 		this.socket.emit("leaveChannel");
 	}
 
+	//sound management
 	playSound(sound: string) {
 		this.socket.emit("playSound", sound);
 	}
-
+	skipSound() {
+		this.socket.emit('skipSound');
+	}
+	botChangePauseState(state: boolean) {
+		state = !state;	
+		let event = state ? 'pauseSound' : 'unpauseSound'			
+		this.socket.emit(event, state);
+	}
+	
 	setVolume(value: number) {
 		this.socket.emit("setVolume", value);
 	}
-
 	setMode(value: boolean) {
 		this.socket.emit("setMode", value);
 	}
 
 	deleteSound(sound: string) {
 		this.socket.emit('deleteSound', sound);
-	}
-
-	skipSound() {
-		this.socket.emit('skipSound');
-	}
-
-	// ඞ listenin ඞ \\
-	pauseSound() {
-		this.socket.emit("pauseSound");
-	}
-
-	unpauseSound() {
-		this.socket.emit("unpauseSound");
-	}
-
-	onBotChangeChannel(id: string) {
-		this._botChangeChannel.next(id);
-	}
-
-	onUserChangeChannel(res: object) {
-		this._userChangeChannel.next(res);
-	}
-
-	onUserDisconnect(id: string) {
-		this._userDisconnectsChannel.next(id);
-	}
-
-	onBotDisconnect(res: object) {
-		this._botDisconnect.next(res);
-	}
-
-	onBotChangeVolume(value: number) {
-		this._botChangeVolume.next(value);
-	}
-
-	onBotChangeMode(value: string) {
-		this._botChangeMode.next(value);
-	}
-
-	onDeleteSound(sound: string) {
-		this._deleteSound.next(sound)
-	}
-
-	onPauseSound() {
-		this._pauseSound.next(1);
-	}
-
-	onUnpauseSound() {
-		this._unpauseSound.next(1)
-	}
-
-	onQueueUpdate(queue: queueItem[]) {
-		this._queueUpdate.next(queue);
-	}
-
-	onSoundRename(res: soundRenamedSocketResponse) {
-		this._soundRenamed.next(res);
-	}
-
-	onSoundPlaying(sound: string) {
-		this._soundPlaying.next(sound);
-	}
-
-	onLog(message: string) {
-		console.log(message);
 	}
 }
