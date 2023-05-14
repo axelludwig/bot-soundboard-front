@@ -1,4 +1,4 @@
-<ng-container *ngIf="store.gotCurrentChannel; then loaded; else notLoaded"> </ng-container>
+<ng-container *ngIf="store.channelsLoaded; then loaded; else notLoaded"> </ng-container>
 
 <ng-template #loaded>
     <div *ngFor="let channel of store.channels; index as i" class="channels">

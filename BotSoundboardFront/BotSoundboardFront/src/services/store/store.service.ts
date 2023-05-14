@@ -11,7 +11,7 @@ export class StoreService {
 
   currentChannel: Channel | null = null;
   public channels: Channel[] = [];
-  public gotCurrentChannel: boolean = false;
+  public channelsLoaded: boolean = true;
   public queue: queueItem[] = [];
 
   public sounds: string[] = [];
@@ -28,14 +28,12 @@ export class StoreService {
     })
 
     this.socketService.botChangeChannel$.subscribe((id: string) => {
-      console.log(id);
-
-      this.currentChannel = this.getChannelById(id);
-      this.gotCurrentChannel = true;
+      this.currentChannel = this.getChannelById(id);      
     })
 
     this.socketService.channels$.subscribe((channels: Channel[]) => {
       this.channels = channels;
+      this.channelsLoaded = true;
     })
 
     this.socketService.sounds$.subscribe((sounds: string[]) => {
