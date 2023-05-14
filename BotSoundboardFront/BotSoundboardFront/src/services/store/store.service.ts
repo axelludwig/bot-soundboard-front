@@ -22,13 +22,13 @@ export class StoreService {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
       this.queue = queue;
     })
-
-    socketService.channels$.subscribe((channels) => {
-      this.channels = channels
-    })
+    /*
+        socketService.channels$.subscribe((channels) => {
+          this.channels = channels
+        })*/
 
     this.socketService.botChangeChannel$.subscribe((id: string) => {
-      this.currentChannel = this.getChannelById(id);      
+      this.currentChannel = this.getChannelById(id);
     })
 
     this.socketService.channels$.subscribe((channels: Channel[]) => {
