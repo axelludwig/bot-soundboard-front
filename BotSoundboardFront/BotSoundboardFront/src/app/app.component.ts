@@ -3,6 +3,8 @@ import { SocketService } from 'src/services/socket/socket.service';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { Params } from '@angular/router';
 
+declare var WaveSurfer: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,9 +14,6 @@ import { Params } from '@angular/router';
 
 export class AppComponent {
   public socketConnection: boolean = false;
-
-  private axiosService: AxiosService;
-  private socketService: SocketService;
 
   public filesToUpload: Iterable<File> = [];
   public hasFiles: boolean = false;
@@ -28,42 +27,42 @@ export class AppComponent {
   public isPaused = true;
   public soundPlaying: string | null = null;
 
-  constructor(socketService: SocketService, axiosService: AxiosService) {
-    this.axiosService = axiosService;
-    this.socketService = socketService;
+  public youtubeUrl: string = '';
+  public wavesurfer: any;
+
+
+  constructor(private socketService: SocketService, private axiosService: AxiosService) {
 
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
     })
-
     this.socketService.disconnect$.subscribe(() => {
       this.socketConnection = false;
     })
-
     this.socketService.botChangeVolume$.subscribe((value: number) => {
-      console.log('volume changed');
-      
       this.volume = value;
     })
-
     this.socketService.botChangeMode$.subscribe((value: string) => {
       this.queueMode = value;
     })
-
-    this.socketService.botChangePauseState$.subscribe((state: boolean) => {      
+    this.socketService.botChangePauseState$.subscribe((state: boolean) => {
       this.isPaused = state;
     })
-
     this.socketService.soundPlaying$.subscribe((sound: string) => {
       this.soundPlaying = sound;
     })
-
-    // this.getVolume();
-    // this.getQueueMode();
-    // this.getIsPaused();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.wavesurfer = WaveSurfer.create({
+      container: '#waveform',
+      waveColor: 'white',
+      progressColor: '#5600ed',
+      cursorColor: 'transparent',
+      barWidth: 2.5,
+      height: 100
+    });
+  }
 
   skipSound() {
     this.socketService.skipSound();
@@ -113,6 +112,37 @@ export class AppComponent {
           })
       }
     })
+  }
+
+  getSoundFromUrl() {
+    console.log(this.youtubeUrl);
+    var options: GetOptions = {
+
+      url: "/convertYoutubeToMp3",
+      params: {
+        "link": this.youtubeUrl
+      }
+    }
+    this.axiosService.get(options)
+      .then((res: any) => {
+        console.log(res);
+        this.wavesurfer.on('ready', () => {
+          this.wavesurfer.play();
+        });
+        WaveSurfer.loadArrayBuffer(this.base64ToArrayBuffer(res));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  base64ToArrayBuffer(base64: string) {
+    var binaryString = atob(base64);
+    var bytes = new Uint8Array(binaryString.length);
+    for (var i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
   }
 
   // getIsPaused() {
@@ -166,7 +196,7 @@ export class AppComponent {
       })
   }
 
-  togglePause() {    
+  togglePause() {
     this.socketService.botChangePauseState(this.isPaused);
   }
 }
