@@ -24,6 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RenameModalComponent } from './rename-modal/rename-modal.component';
 import { QueueComponent } from './queue/queue.component';
+import { AudioEditorComponent } from './audio-editor/audio-editor.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -33,7 +34,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     GuildsListComponent,
     SoundboardMenuComponent,
     RenameModalComponent,
-    QueueComponent
+    QueueComponent,
+    AudioEditorComponent
   ],
   imports: [MatRadioModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule,
   ],
