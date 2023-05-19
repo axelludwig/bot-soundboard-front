@@ -1,3 +1,5 @@
+@import '../styles.css';
+
 :host {
     display: block;
 }
@@ -8,7 +10,14 @@ body {
 }
 
 .upload {
+    /* float: right; */
+    display: inline;
+    margin-left: 1em;
+}
+
+.status {
     float: right;
+    margin: 1em 2em 0 0;
 }
 
 .test {

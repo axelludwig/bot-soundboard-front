@@ -2,16 +2,18 @@
     <div class="menu">
         <div class="controls">
             <div class="play-pause-button">
-                <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary">
-                    <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
-                    <ng-template #paused>
+                <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
+                <ng-template #paused>
+                    <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary">
                         <mat-icon>play_arrow</mat-icon>
-                    </ng-template>
+                    </button>
+                </ng-template>
 
-                    <ng-template #play>
+                <ng-template #play>
+                    <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary">
                         <mat-icon>pause</mat-icon>
-                    </ng-template>
-                </button>
+                    </button>
+                </ng-template>
             </div>
 
             <div class="skip-button">
@@ -41,21 +43,14 @@
                 </mat-radio-button>
             </mat-radio-group>
 
-            <!-- <div class="youtube">
-                <input (keyup.enter)="getSoundFromUrl()" matInput type="text" [(ngModel)]="youtubeUrl">
-                <div class="audio_card card">
-                    <div id="waveform" class="waveform"></div>
-                </div>
-            </div> -->
+            <div style="margin-left: 1em;" class="vertical-divider"> </div>
 
             <div class="upload">
+                <button type="button" mat-raised-button color="primary" (click)="openUploadDialog()">Add sounds</button>
+            </div>
 
-                <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
-                <input accept="sound/mp3, sound/ogg" multiple hidden (change)="onFileChange()" #fileInput type="file"
-                    id="file">
-                <button disabled="{{!this.hasFiles}}" mat-raised-button color="primary" (click)="uploadFile()">Upload
-                    sound</button>
 
+            <div class="status">
                 <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
                 <ng-template #online>
                     <img src="../assets/wifi.svg" class="filter-green" />
@@ -68,7 +63,6 @@
             <app-queue />
         </div>
 
-        <app-audio-editor></app-audio-editor>
         <!-- <mat-slide-toggle [checked]="queueMode" (change)="onToggle($event)">Slide me!</mat-slide-toggle> -->
 
         <!-- <button mat-mini-fab matTooltip="Primary" color="primary" (click)=unpauseSound()>
@@ -83,6 +77,6 @@
 
     <div class="test">
         <app-guilds-list />
-        <app-soundboard-menu [newSound]="newSound" />
+        <app-soundboard-menu />
     </div>
 </div>

@@ -1,1 +1,29 @@
-<div id="waveform"></div>
+<!-- <div [class.hidden]="!isLoaded"> -->
+
+<div id="waveform"> </div>
+<!-- <button (click)="test()" mat-mini-fab matTooltip="Primary" color="primary">
+        <mat-icon>add</mat-icon>  
+      </button> -->
+
+<div class="play-pause-button">
+    <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
+    <ng-template #paused>
+        <button (click)="playPause()" mat-mini-fab matTooltip="Primary" color="primary">
+            <mat-icon>play_arrow</mat-icon>
+        </button>
+    </ng-template>
+
+    <ng-template #play>
+        <button (click)="playPause()" mat-mini-fab matTooltip="Primary" color="primary">
+            <mat-icon>pause</mat-icon>
+        </button>
+    </ng-template>
+</div>
+
+<mat-slider class="slider" min="1" max="100" step="1">
+    <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
+</mat-slider>
+
+<button type="button" mat-raised-button color="primary" (click)="downloadMp3()"></button>
+
+<!-- </div> -->

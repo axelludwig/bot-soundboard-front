@@ -5,7 +5,7 @@ import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
-import { RenameModalComponent } from '../rename-modal/rename-modal.component';
+import { RenameModalComponent } from '../modals/rename-modal/rename-modal.component';
 import { soundRenamedSocketResponse } from '../declarations';
 
 @Component({
@@ -14,10 +14,6 @@ import { soundRenamedSocketResponse } from '../declarations';
   styleUrls: ['./soundboard-menu.component.css']
 })
 export class SoundboardMenuComponent {
-  @Input() newSound: string | null = null;
-
-  private axiosService: AxiosService;
-  private socketService: SocketService;
 
   searchValue: string = "";
   editMode = false;
@@ -25,25 +21,20 @@ export class SoundboardMenuComponent {
 
   hiddenSounds: string[] = []
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.newSound !== "" && this.newSound !== null && changes['newSound']) {
-      this.store.sounds.push(changes['newSound'].currentValue);
+  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
+
+    this.socket.newSound$.subscribe((sound: string) => {
+      this.store.sounds.push(sound);
       this.store.sortSounds();
-    }
-  }
+    })
 
-  constructor(socketService: SocketService, axiosService: AxiosService, public store: StoreService, public dialog: MatDialog) {
-    this.axiosService = axiosService;
-    this.socketService = socketService;
-    // this.getSounds();
-
-    this.socketService.deleteSound$.subscribe((sound: string) => {
+    this.socket.deleteSound$.subscribe((sound: string) => {
       this.store.sounds = this.store.sounds.filter((s) => {
         return s !== sound
       })
     })
 
-    this.socketService.soundRenamed$.subscribe((res: soundRenamedSocketResponse) => {
+    this.socket.soundRenamed$.subscribe((res: soundRenamedSocketResponse) => {
       let sounds = this.store.sounds;
       let soundsCopy = this.store.soundsCopy;
       let oldName = res.oldName;
@@ -55,7 +46,7 @@ export class SoundboardMenuComponent {
   }
 
   soundClicked(event: any, sound: string) {
-    this.socketService.playSound(sound);
+    this.socket.playSound(sound);
   }
 
   textChange() {
@@ -74,13 +65,15 @@ export class SoundboardMenuComponent {
 
   delete(event: any, sound: string) {
     event.stopPropagation()
-    this.socketService.deleteSound(sound)
+    this.socket.deleteSound(sound)
   }
 
   openDialog(event: Event, oldName: string) {
     event.stopPropagation()
     let dialog = this.dialog.open(RenameModalComponent, {
+      disableClose: true,
       data: oldName,
+      width: '40%',
     });
 
     dialog.afterClosed().subscribe(result => {
@@ -92,7 +85,7 @@ export class SoundboardMenuComponent {
         newName: result
       };
 
-      this.axiosService.put(options).then((res) => {
+      this.axios.put(options).then((res) => {
       })
         .catch((err) => {
           console.log(err);

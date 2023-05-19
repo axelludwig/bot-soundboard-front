@@ -16,7 +16,7 @@ body {
     ::-webkit-scrollbar-track {
         background: transparent;
     }
-    
+
     ::-webkit-scrollbar-thumb {
         background: transparent;
         border-radius: 5em;
@@ -30,4 +30,12 @@ body {
         background: #cfcfcf;
     }
 
+    .vertical-divider {
+        border-left: 3px solid black;
+        height: 75%;
+        width: 1px;
+        margin-right: 1em;
+        border-radius: 2em;
+        display: inline;
+    }
 }
