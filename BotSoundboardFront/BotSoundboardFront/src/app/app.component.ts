@@ -53,6 +53,10 @@ export class AppComponent {
     this.socketService.skipSound();
   }
 
+  clearQueue(){
+    this.socketService.clearQueue();
+  }
+
   onSliderChange(event: any) {
     this.socketService.setVolume(event.value)
   }
@@ -60,10 +64,6 @@ export class AppComponent {
   onRadioClick(event: any) {
     this.socketService.setMode(event.value)
   }
-
-  
-
-
 
   openUploadDialog() {
     let dialog = this.dialog.open(SoundUploadModalComponent, {

@@ -6,7 +6,7 @@
         <div class="queue-list">
             <div *ngFor="let item of store.queue; index as i" class="item">
                 {{item.name}}
-                <button color="primary" mat-icon-button>
+                <button color="primary" mat-icon-button (click)="removeSoundFromQueue(item.id)">
                     <mat-icon>close</mat-icon>
                 </button>
                 <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
