@@ -44,32 +44,30 @@ mat-slider {
     overflow-y: hidden;
 }
 
-.menu {
-    /* display: flex; */
-}
-
-.controls {
-    /* display: flex; */
-}
-
 .slider {
     margin-left: 1em;
     margin-right: 1em;
 }
 
-.play-pause-button {
-    margin-left: 1em;
-    margin-top: 1em !important;
+.manage-element {
     display: inline-flex;
 }
 
+.play-pause-button {
+    margin-left: 1em;
+    margin-top: 1em !important;
+
+}
+
 .skip-button {
-    display: inline-flex;
+    padding-left: 1vw;
+}
+
+.clear-button {
     padding-left: 1vw;
 }
 
 .now-playing {
-    display: inline-flex;
     margin-left: 1vw;
     line-height: 1.5;
     overflow: hidden;
@@ -94,7 +92,7 @@ mat-slider {
     animation-play-state: running;
 }
 
-.link_animated:hover{
+.link_animated:hover {
     animation-play-state: paused;
 }
 

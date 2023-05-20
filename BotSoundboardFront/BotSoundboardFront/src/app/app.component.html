@@ -1,7 +1,7 @@
 <div id="main">
     <div class="menu">
         <div class="controls">
-            <div class="play-pause-button">
+            <div class="play-pause-button manage-element">
                 <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
                 <ng-template #paused>
                     <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary">
@@ -16,13 +16,19 @@
                 </ng-template>
             </div>
 
-            <div class="skip-button">
+            <div class="skip-button manage-element">
                 <button (click)="skipSound()" mat-mini-fab matTooltip="Primary" color="primary">
                     <mat-icon>skip_next</mat-icon>
                 </button>
             </div>
 
-            <div class="now-playing">
+            <div class="clear-button manage-element">
+                <button (click)="clearQueue()" mat-mini-fab matTooltip="Primary" color="primary">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+
+            <div class="now-playing manage-element">
                 <a *ngIf="soundPlaying && soundPlaying.length > 25" class="link link_animated" href=""> {{soundPlaying}}
                 </a>
                 <a *ngIf="soundPlaying && soundPlaying.length <= 24" class="link"> {{soundPlaying}} </a>

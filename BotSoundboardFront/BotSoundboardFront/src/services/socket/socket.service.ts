@@ -150,6 +150,15 @@ export class SocketService {
 	skipSound() {
 		this.socket.emit('skipSound');
 	}
+
+	clearQueue(){
+		this.socket.emit('clearQueue');
+	}
+
+	removeSoundFromQueue(elementId: string){
+		this.socket.emit('removeSoundFromQueue', elementId);
+	}
+
 	botChangePauseState(state: boolean) {
 		state = !state;
 		let event = state ? 'pauseSound' : 'unpauseSound'

@@ -53,6 +53,10 @@ export class AppComponent {
     this.socketService.skipSound();
   }
 
+  clearQueue(){
+    this.socketService.clearQueue();
+  }
+
   onSliderChange(event: any) {
     this.socketService.setVolume(event.value)
   }
