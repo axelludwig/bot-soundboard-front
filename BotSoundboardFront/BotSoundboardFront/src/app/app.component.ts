@@ -1,7 +1,9 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { SocketService } from 'src/services/socket/socket.service';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
-import { Params } from '@angular/router';
+import { StoreService } from 'src/services/store/store.service';
+import { SoundUploadModalComponent } from './modals/sound-upload-modal/sound-upload-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 declare var WaveSurfer: any;
 
@@ -15,10 +17,6 @@ declare var WaveSurfer: any;
 export class AppComponent {
   public socketConnection: boolean = false;
 
-  public filesToUpload: Iterable<File> = [];
-  public hasFiles: boolean = false;
-
-  public newSound: string | null = null;
   public volume: number = 0;
 
   public queueMode: string = '';
@@ -27,11 +25,7 @@ export class AppComponent {
   public isPaused = true;
   public soundPlaying: string | null = null;
 
-  public youtubeUrl: string = '';
-  public wavesurfer: any;
-
-
-  constructor(private socketService: SocketService, private axiosService: AxiosService) {
+  constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
 
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
@@ -53,19 +47,14 @@ export class AppComponent {
     })
   }
 
-  ngOnInit() {
-    this.wavesurfer = WaveSurfer.create({
-      container: '#waveform',
-      waveColor: 'white',
-      progressColor: '#5600ed',
-      cursorColor: 'transparent',
-      barWidth: 2.5,
-      height: 100
-    });
-  }
+  ngOnInit() { }
 
   skipSound() {
     this.socketService.skipSound();
+  }
+
+  clearQueue(){
+    this.socketService.clearQueue();
   }
 
   onSliderChange(event: any) {
@@ -76,113 +65,16 @@ export class AppComponent {
     this.socketService.setMode(event.value)
   }
 
-  onFileSelect(event: any) {
-    var files = event.target.files;
-    this.filesToUpload = files;
-    this.hasFiles = true;
+  openUploadDialog() {
+    let dialog = this.dialog.open(SoundUploadModalComponent, {
+      height: '60%',
+      width: '40%',
+    });
+
+    dialog.afterClosed().subscribe(result => {
+      if (result === undefined || result === null || result === '') return;
+    });
   }
-
-  onFileChange() {
-    const inputNode: any = document.querySelector('#file');
-    this.filesToUpload = inputNode.files;
-    this.hasFiles = true;
-  }
-
-  uploadFile() {
-    var options: GetOptions = { url: "/sounds" }
-
-    Array.from(this.filesToUpload).forEach(file => {
-      var filereader = new FileReader();
-      filereader.readAsDataURL(file);
-      filereader.onload = (evt) => {
-        var base64 = evt.target?.result;
-        var params: Params = {
-          "data": base64,
-          "name": file.name,
-          "type": file.type
-        }
-        options.params = params;
-        this.newSound = file.name.replace(/\.[^/.]+$/, "");
-        this.axiosService.post(options).then((res) => {
-          this.hasFiles = false;
-          this.filesToUpload = [];
-        })
-          .catch((err) => {
-            console.log(err);
-          })
-      }
-    })
-  }
-
-  getSoundFromUrl() {
-    console.log(this.youtubeUrl);
-    var options: GetOptions = {
-
-      url: "/convertYoutubeToMp3",
-      params: {
-        "link": this.youtubeUrl
-      }
-    }
-    this.axiosService.get(options)
-      .then((res: any) => {
-        console.log(res);
-        this.wavesurfer.on('ready', () => {
-          this.wavesurfer.play();
-        });
-        WaveSurfer.loadArrayBuffer(this.base64ToArrayBuffer(res));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  base64ToArrayBuffer(base64: string) {
-    var binaryString = atob(base64);
-    var bytes = new Uint8Array(binaryString.length);
-    for (var i = 0; i < binaryString.length; i++) {
-      bytes[i] = binaryString.charCodeAt(i);
-    }
-    return bytes.buffer;
-  }
-
-  // getIsPaused() {
-  //   var options: GetOptions = {
-  //     url: "/pause"
-  //   }
-  //   this.axiosService.get(options)
-  //     .then((res: any) => {
-  //       this.isPaused = res
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
-
-  // getVolume() {
-  //   var options: GetOptions = {
-  //     url: "/volume"
-  //   }
-  //   this.axiosService.get(options)
-  //     .then((res: any) => {
-  //       this.volume = res
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
-
-  // getQueueMode() {
-  //   var options: GetOptions = {
-  //     url: "/mode"
-  //   }
-  //   this.axiosService.get(options)
-  //     .then((res: any) => {
-  //       this.queueMode = res
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
 
   testHttp() {
     var options: GetOptions = {

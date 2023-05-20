@@ -33,7 +33,7 @@ export class SocketService {
 	private _botChangeMode = new Subject<string>();
 	botChangeMode$ = this._botChangeMode.asObservable();
 	private _botChangePauseState = new Subject<boolean>();
-	botChangePauseState$ = this._botChangePauseState.asObservable();	
+	botChangePauseState$ = this._botChangePauseState.asObservable();
 
 	private _sounds = new Subject<string[]>();
 	sounds$ = this._sounds.asObservable();
@@ -42,6 +42,8 @@ export class SocketService {
 	private _soundRenamed = new Subject<any>();
 	soundRenamed$ = this._soundRenamed.asObservable();
 
+	private _newSound = new Subject<string>();
+	newSound$ = this._newSound.asObservable();
 
 	private _queueUpdate = new Subject<any>();
 	queueUpdate$ = this._queueUpdate.asObservable();
@@ -77,7 +79,6 @@ export class SocketService {
 			this._userDisconnectsChannel.next(res);
 		})
 		this.socket.on('channelsLoaded', (channels: Channel[]) => {
-			console.log(channels);			
 			this._channels.next(channels);
 		})
 		this.socket.on('currentChannel', (channel: Channel) => {
@@ -97,7 +98,7 @@ export class SocketService {
 		this.socket.on('botChangeMode', (value: string) => {
 			this._botChangeMode.next(value);
 		})
-		this.socket.on('botChangePauseState', (state: boolean) => {			
+		this.socket.on('botChangePauseState', (state: boolean) => {
 			this._botChangePauseState.next(state);
 		})
 
@@ -105,6 +106,9 @@ export class SocketService {
 		// sound crud
 		this.socket.on('soundsLoaded', (sounds: string[]) => {
 			this._sounds.next(sounds);
+		});
+		this.socket.on('soundUploaded', (sound: string) => {
+			this._newSound.next(sound);
 		});
 		this.socket.on('soundDeleted', (sound: string) => {
 			this._deleteSound.next(sound)
@@ -146,12 +150,21 @@ export class SocketService {
 	skipSound() {
 		this.socket.emit('skipSound');
 	}
+
+	clearQueue(){
+		this.socket.emit('clearQueue');
+	}
+
+	removeSoundFromQueue(elementId: string){
+		this.socket.emit('removeSoundFromQueue', elementId);
+	}
+
 	botChangePauseState(state: boolean) {
-		state = !state;	
-		let event = state ? 'pauseSound' : 'unpauseSound'			
+		state = !state;
+		let event = state ? 'pauseSound' : 'unpauseSound'
 		this.socket.emit(event, state);
 	}
-	
+
 	setVolume(value: number) {
 		this.socket.emit("setVolume", value);
 	}

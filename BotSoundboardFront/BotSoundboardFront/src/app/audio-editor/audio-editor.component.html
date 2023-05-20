@@ -1,1 +1,34 @@
-<div id="waveform"></div>
+<!-- <div [class.hidden]="!isLoaded"> -->
+
+<div class="saveButton">
+    <button [disabled]="!base64File || !base64File.name" type="button" mat-raised-button color="primary"
+        (click)="save()"> Save sound</button>
+</div>
+
+<div id="waveform"> </div>
+<!-- <button (click)="test()" mat-mini-fab matTooltip="Primary" color="primary">
+        <mat-icon>add</mat-icon>  
+      </button> -->
+
+<div class="play-pause-button">
+    <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
+    <ng-template #paused>
+        <button (click)="playPause()" mat-mini-fab matTooltip="Primary" color="primary">
+            <mat-icon>play_arrow</mat-icon>
+        </button>
+    </ng-template>
+
+    <ng-template #play>
+        <button (click)="playPause()" mat-mini-fab matTooltip="Primary" color="primary">
+            <mat-icon>pause</mat-icon>
+        </button>
+    </ng-template>
+    <mat-slider class="slider" min="1" max="100" step="1">
+        <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
+    </mat-slider>
+</div>
+
+
+
+
+<!-- </div> -->

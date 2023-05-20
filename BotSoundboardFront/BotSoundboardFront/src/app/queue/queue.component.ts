@@ -8,5 +8,9 @@ import { StoreService } from 'src/services/store/store.service';
   styleUrls: ['./queue.component.css']
 })
 export class QueueComponent {
-  constructor(public store: StoreService) { }
+  constructor(public store: StoreService, private socketService: SocketService) { }
+
+  removeSoundFromQueue(elementId: string){
+    this.socketService.removeSoundFromQueue(elementId);
+  }
 }
