@@ -7,11 +7,15 @@
                     <input matInput placeholder="youtube url" (keyup.enter)="getSoundFromUrl()"
                         [(ngModel)]="youtubeUrl">
                 </mat-form-field>
-                <button type="button" mat-raised-button color="primary" (click)="getSoundFromUrl()">Load sound</button>
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose sound name</mat-label>
+                    <input matInput placeholder="New name" (keyup)="updateName()" [(ngModel)]="name">
+                </mat-form-field>
+                <button [disabled]="youtubeUrl === '' || !youtubeUrl" type="button" mat-raised-button color="primary"
+                    (click)="getSoundFromUrl()">Load sound</button>
             </div>
 
-            <div [class.visible]="isLoaded === 0" style="display: none;" class="spinner">
-            </div>
+            <div [class.visible]="isLoaded === 0" style="display: none;" class="spinner"> </div>
 
             <div style="display:flex !important">
                 <div [class.visible-flex]="isLoaded === 1" style="display: none;" class="spinner">
@@ -20,11 +24,8 @@
             </div>
 
             <div [class.visible-inline-flex]="isLoaded === 2" style="visibility: hidden;" class="audio_card card">
-                <app-audio-editor></app-audio-editor>
-                <!-- <app-audio-editor [isLoaded]=" isLoaded"></app-audio-editor> -->
+                <app-audio-editor (closeDialog)="closeSelf()"></app-audio-editor>
             </div>
-
-
         </mat-tab>
     </div>
 

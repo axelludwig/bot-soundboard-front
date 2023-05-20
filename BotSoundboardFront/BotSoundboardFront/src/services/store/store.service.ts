@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Channel, queueItem } from 'src/app/declarations';
+import { Base64File, Channel, queueItem } from 'src/app/declarations';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { SocketService } from 'src/services/socket/socket.service';
 
@@ -18,8 +18,10 @@ export class StoreService implements OnInit {
   public sounds: string[] = [];
   public soundsCopy: string[] = [];
 
-  private _wavesurferBase64 = new Subject<any>();
-  wavesurferBase64$ = this._wavesurferBase64.asObservable();
+  private _updateBase64File = new Subject<Base64File>();
+  updateBase64File$ = this._updateBase64File.asObservable();
+  private _newSoundName = new Subject<string>();
+  newSoundName$ = this._newSoundName.asObservable();
 
   public newSound: string | null = null;
 
@@ -64,7 +66,11 @@ export class StoreService implements OnInit {
     } return null;
   }
 
-  updateWavesurferBase64(base64: string): void {
-    this._wavesurferBase64.next(base64);
+  updateBase64File(base64: Base64File): void {
+    this._updateBase64File.next(base64);
+  }
+
+  updateNewSoundName(name: string): void {
+    this._newSoundName.next(name);
   }
 }

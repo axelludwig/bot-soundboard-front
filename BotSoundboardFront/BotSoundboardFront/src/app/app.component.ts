@@ -61,13 +61,9 @@ export class AppComponent {
     this.socketService.setMode(event.value)
   }
 
-  
-
-
-
   openUploadDialog() {
     let dialog = this.dialog.open(SoundUploadModalComponent, {
-      height: '50%',
+      height: '60%',
       width: '40%',
     });
 

@@ -1,4 +1,4 @@
-:host{
+:host {
     width: 95%;
     overflow-y: hidden;
     padding-left: 1em;
@@ -6,13 +6,23 @@
 }
 
 .slider {
-    margin-left: 3em;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 .hidden {
     opacity: 0;
 }
 
-#waveform{
+#waveform {
     width: 100%;
+}
+
+.play-pause-button {}
+
+.saveButton {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
 }

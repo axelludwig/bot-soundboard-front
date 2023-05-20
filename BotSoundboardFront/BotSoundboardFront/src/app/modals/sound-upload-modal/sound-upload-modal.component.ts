@@ -1,6 +1,7 @@
 import { Component, HostListener, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AudioEditorComponent } from 'src/app/audio-editor/audio-editor.component';
+import { Base64File } from 'src/app/declarations';
 import { AxiosService, GetOptions, Params } from "src/services/axios/axios.service"
 import { StoreService } from 'src/services/store/store.service';
 
@@ -21,10 +22,11 @@ export class SoundUploadModalComponent {
 
   public filesToUpload: Iterable<File> = [];
   public hasFiles: boolean = false;
-  public youtubeUrl: string = 'https://youtu.be/OBPPneIlhDA';
+  public youtubeUrl: string = '';
   public isLoaded: Troolean = Troolean.notStarted;
+  public name: string = '';
 
-  @ViewChild(AudioEditorComponent) child: AudioEditorComponent | undefined ;
+  @ViewChild(AudioEditorComponent) child: AudioEditorComponent | undefined;
 
   constructor(public dialogRef: MatDialogRef<SoundUploadModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, private axiosService: AxiosService, private store: StoreService) {
     this.dialogRef.backdropClick().subscribe(() => {
@@ -80,13 +82,23 @@ export class SoundUploadModalComponent {
     }
     this.axiosService.get(options)
       .then((res: any) => {
-        if (res) this.store.updateWavesurferBase64(res);
-        else throw new Error("null response from server");
+        if (res) {
+          if (this.name) res.name = this.name;
+          this.store.updateBase64File(res)
+        } else throw new Error("null response from server");
         this.isLoaded = Troolean.loaded;
       })
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  updateName() {
+    this.store.updateNewSoundName(this.name);
+  }
+
+  closeSelf() {
+    this.dialogRef.close();
   }
 }
 
