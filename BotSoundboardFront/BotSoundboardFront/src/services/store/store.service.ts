@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Channel, queueItem } from 'src/app/declarations';
+import { Sound } from 'src/app/models/sound';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { SocketService } from 'src/services/socket/socket.service';
 
@@ -15,8 +16,8 @@ export class StoreService implements OnInit {
   public channelsLoaded: boolean = true;
   public queue: queueItem[] = [];
 
-  public sounds: string[] = [];
-  public soundsCopy: string[] = [];
+  public sounds: Sound[] = [];
+  public soundsCopy: Sound[] = [];
 
   private _wavesurferBase64 = new Subject<any>();
   wavesurferBase64$ = this._wavesurferBase64.asObservable();
@@ -37,7 +38,7 @@ export class StoreService implements OnInit {
       this.channelsLoaded = true;
     })
 
-    this.socketService.sounds$.subscribe((sounds: string[]) => {
+    this.socketService.sounds$.subscribe((sounds: Sound[]) => {
       this.sounds = sounds;
       this.soundsCopy = sounds;
       this.sortSounds();
@@ -49,9 +50,7 @@ export class StoreService implements OnInit {
 
   sortSounds(): void {
     this.sounds.sort((a, b): number => {
-      a = a.toLowerCase();
-      b = b.toLowerCase();
-      if (a < b) return -1;
+      if (a.Name.toLowerCase() < b.Name.toLowerCase()) return -1;
       else if (a > b) return 1;
       else return 0
     })

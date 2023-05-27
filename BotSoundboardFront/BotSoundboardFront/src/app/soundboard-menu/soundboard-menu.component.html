@@ -19,18 +19,18 @@
 
         <div *ngIf="store.sounds.length > 0" class="wrapper">
             <div [class.grayed]="!store.currentChannel" class="grid">
-                <span (click)="soundClicked($event, sound)" *ngFor="let sound of store.sounds ">
+                <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.sounds ">
                     <mat-card class="card">
                         <mat-card-header class="card-header">
                             <mat-card-title>
                             </mat-card-title>
                             <mat-card-content class="card-title">
-                                <div>{{sound}}</div>
+                                <div>{{sound.Name}}</div>
                             </mat-card-content>
                         </mat-card-header>
                         <mat-card-actions class="card-actions" [class.hidden]="!editMode">
-                            <button (click)="openDialog($event, sound)" mat-button>Rename</button>
-                            <button (click)="delete($event, sound)" mat-button>Delete</button>
+                            <button (click)="openDialog($event, sound.ID, sound.Name)" mat-button>Rename</button>
+                            <button (click)="delete($event, sound.ID)" mat-button>Delete</button>
                             <!-- <button (click)="hide($event, sound)" mat-button>Hide sound</button> -->
                         </mat-card-actions>
                     </mat-card>

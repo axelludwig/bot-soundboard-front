@@ -10,11 +10,11 @@ export interface Member {
 }
 
 export interface soundRenamedSocketResponse {
-oldName: string;
-newName: string;
+  id: number;
+  newName: string;
 }
 
 export interface queueItem {
   name: string;
   id: string;
-  }
+}
