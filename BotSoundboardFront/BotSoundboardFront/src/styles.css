@@ -39,3 +39,13 @@ body {
         display: inline;
     }
 }
+
+
+
+.mat-mdc-snack-bar-container {
+    &.sucess-snackbar {
+        --mdc-snackbar-container-color: #a7b3e2;
+        --mat-mdc-snack-bar-button-color: #fff;
+        --mdc-snackbar-supporting-text-color: #ffffff;
+    }
+}

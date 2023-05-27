@@ -24,10 +24,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { QueueComponent } from './queue/queue.component';
 import { AudioEditorComponent } from './audio-editor/audio-editor.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { RenameModalComponent } from './modals/rename-modal/rename-modal.component';
 import { SoundUploadModalComponent } from './modals/sound-upload-modal/sound-upload-modal.component';
 import { DeleteSoundModalComponent } from './modals/delete-sound-modal/delete-sound-modal.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoadingSnackbar } from './snackbars/loading-snackbar/loading-snackbar';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -40,9 +42,10 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     QueueComponent,
     AudioEditorComponent,
     SoundUploadModalComponent,
-    DeleteSoundModalComponent
+    DeleteSoundModalComponent,
+    LoadingSnackbar
   ],
-  imports: [MatRadioModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule
+  imports: [MatRadioModule, MatSnackBarModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule
   ],
   exports: [],
   providers: [AxiosService],
