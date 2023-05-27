@@ -23,6 +23,9 @@ export class StoreService implements OnInit {
   private _newSoundName = new Subject<string>();
   newSoundName$ = this._newSoundName.asObservable();
 
+  private _soundName = new Subject<string>();
+  soundName$ = this._soundName.asObservable();
+
   public newSound: string | null = null;
 
   constructor(private socketService: SocketService, private axiosService: AxiosService) {
@@ -72,5 +75,9 @@ export class StoreService implements OnInit {
 
   updateNewSoundName(name: string): void {
     this._newSoundName.next(name);
+  }
+
+  updateSoundName(name: string): void {
+    this._soundName.next(name);
   }
 }

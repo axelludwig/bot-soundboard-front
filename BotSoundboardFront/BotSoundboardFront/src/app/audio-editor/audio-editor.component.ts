@@ -2,6 +2,11 @@ import { AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnInit, O
 import { StoreService } from 'src/services/store/store.service';
 import { Base64File } from '../declarations';
 import { AxiosService, GetOptions, Params } from 'src/services/axios/axios.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingSnackbar } from '../snackbars/loading-snackbar/loading-snackbar';
+import { SuccessSnackbar } from '../snackbars/success-snackbar/success-snackbar';
+import { Subject } from 'rxjs';
+
 declare var WaveSurfer: any;
 
 @Component({
@@ -19,9 +24,14 @@ export class AudioEditorComponent implements OnInit {
   public region: any;
   public base64File: Base64File | undefined;
 
+  public loadingSnackbar: any;
+  public successSnackbar: any;
+
+
+
   @ViewChild('waveform') private waveform: any | undefined;
 
-  constructor(private store: StoreService, private axios: AxiosService) {
+  constructor(private store: StoreService, private axios: AxiosService, private _snackBar: MatSnackBar) {
     store.updateBase64File$.subscribe((base64: Base64File) => {
       this.base64File = base64;
       this.initWaveSurfer();
@@ -34,6 +44,28 @@ export class AudioEditorComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  openLoadingSnackbar() {
+    this.loadingSnackbar = this._snackBar.openFromComponent(LoadingSnackbar, {
+      duration: 0,
+      horizontalPosition: 'end',
+      verticalPosition: 'top'
+    });
+  }
+
+  openSucessSnackBar() {
+    this.successSnackbar = this._snackBar.openFromComponent(SuccessSnackbar, {
+      duration: 3000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      panelClass: ['sucess-snackbar']
+    });
+    this.store.updateSoundName(this.base64File!.name);
+  }
+
+  close() {
+    this.loadingSnackbar.dismiss();
+  }
 
   initWaveSurfer() {
     const myNode = document.getElementById("waveform");
@@ -53,7 +85,7 @@ export class AudioEditorComponent implements OnInit {
       minPxPerSec: 10,
       plugins: [
         WaveSurfer.regions.create({
-          regionsMinLength: 1,
+          regionsMinLength: 0,
           enableDragSelection: {
             slop: 5,
           },
@@ -158,13 +190,24 @@ export class AudioEditorComponent implements OnInit {
       "end": this.region.end,
       "name": this.base64File?.name
     }
+    this.openLoadingSnackbar();
+    this.closeDialog.next('');
+    this.wavesurfer.pause();
     options.params = params;
-    this.axios.post(options).then((res) => {
-      this.closeDialog.next('');
-
-    })
+    this.axios.post(options)
+      .then((res) => {
+        this.close();
+        this.openSucessSnackBar();
+      })
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  selectAll() {
+    this.region.update({
+      start: 0,
+      end: this.wavesurfer.getDuration()
+    }); this.wavesurfer.seekTo(0);
   }
 }
