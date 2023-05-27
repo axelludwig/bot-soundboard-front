@@ -1,9 +1,5 @@
-<!-- <div [class.hidden]="!isLoaded"> -->
-
+<!-- <button mat-stroked-button (click)="openSnackBar('uploading sound ...', '')">Show snack-bar</button> -->
 <div id="waveform"> </div>
-<!-- <button (click)="test()" mat-mini-fab matTooltip="Primary" color="primary">
-        <mat-icon>add</mat-icon>  
-      </button> -->
 
 <div class="play-pause-button">
     <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
@@ -18,12 +14,10 @@
             <mat-icon>pause</mat-icon>
         </button>
     </ng-template>
+    <mat-slider class="slider" min="1" max="100" step="1">
+        <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
+    </mat-slider>
+
+    <button class="saveButton" type="button" mat-raised-button color="primary" (click)="selectAll()">
+        Select all</button>
 </div>
-
-<mat-slider class="slider" min="1" max="100" step="1">
-    <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
-</mat-slider>
-
-<button type="button" mat-raised-button color="primary" (click)="downloadMp3()"></button>
-
-<!-- </div> -->

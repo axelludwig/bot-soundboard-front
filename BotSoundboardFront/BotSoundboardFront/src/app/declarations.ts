@@ -18,3 +18,9 @@ export interface queueItem {
   name: string;
   id: string;
 }
+
+export interface Base64File {
+  data: string;
+  id: string;
+  name: string;
+}

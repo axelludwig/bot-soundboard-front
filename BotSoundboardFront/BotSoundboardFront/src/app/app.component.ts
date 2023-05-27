@@ -67,7 +67,7 @@ export class AppComponent {
 
   openUploadDialog() {
     let dialog = this.dialog.open(SoundUploadModalComponent, {
-      height: '50%',
+      height: '60%',
       width: '40%',
     });
 

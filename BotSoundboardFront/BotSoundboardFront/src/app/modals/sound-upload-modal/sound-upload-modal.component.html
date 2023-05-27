@@ -2,16 +2,30 @@
     <div class="youtube">
         <mat-tab label="Upload from youtube">
             <div class="form">
-                <mat-form-field appearance="fill">
+                <mat-form-field class="example-form-field">
                     <mat-label>youtube url</mat-label>
-                    <input matInput placeholder="youtube url" (keyup.enter)="getSoundFromUrl()"
-                        [(ngModel)]="youtubeUrl">
+                    <input [(ngModel)]="youtubeUrl" (keyup)="onKeyup($event)" placeholder="youtube url" matInput
+                        type="text">
+                    <!-- <mat-hint *ngIf="(!youtubeUrl || youtubeUrl == '') && modified">empty url</mat-hint> -->
+                    <mat-hint *ngIf="!urlIsValid && youtubeUrl">invalid url</mat-hint>
+                    <button matSuffix mat-icon-button (click)="pasteClipboard()">
+                        <mat-icon>content_paste</mat-icon>
+                    </button>
                 </mat-form-field>
-                <button type="button" mat-raised-button color="primary" (click)="getSoundFromUrl()">Load sound</button>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>sound name</mat-label>
+                    <input matInput placeholder="New name" (keyup)="updateName()" [(ngModel)]="name">
+                </mat-form-field>
+                <!-- <button [disabled]="youtubeUrl === '' || !youtubeUrl " type="button" mat-raised-button color="primary" -->
+                <button [disabled]="!urlIsValid" type="button" mat-raised-button color="primary"
+                    (click)="getSoundFromUrl()">Load sound</button>
+                <button class="saveButton" [disabled]="!localBase64 || !localBase64.name" type="button" mat-raised-button color="primary"
+                    (click)="saveInChild()">
+                    Save sound</button>
             </div>
 
-            <div [class.visible]="isLoaded === 0" style="display: none;" class="spinner">
-            </div>
+            <div [class.visible]="isLoaded === 0" style="display: none;" class="spinner"> </div>
 
             <div style="display:flex !important">
                 <div [class.visible-flex]="isLoaded === 1" style="display: none;" class="spinner">
@@ -20,11 +34,8 @@
             </div>
 
             <div [class.visible-inline-flex]="isLoaded === 2" style="visibility: hidden;" class="audio_card card">
-                <app-audio-editor></app-audio-editor>
-                <!-- <app-audio-editor [isLoaded]=" isLoaded"></app-audio-editor> -->
+                <app-audio-editor (closeDialog)="closeSelf()"></app-audio-editor>
             </div>
-
-
         </mat-tab>
     </div>
 
