@@ -7,6 +7,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dial
 import { MatFormField } from '@angular/material/form-field';
 import { RenameModalComponent } from '../modals/rename-modal/rename-modal.component';
 import { soundRenamedSocketResponse } from '../declarations';
+import { Sound } from '../models/sound';
 
 @Component({
   selector: 'app-soundboard-menu',
@@ -23,36 +24,37 @@ export class SoundboardMenuComponent {
 
   constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
 
-    this.socket.newSound$.subscribe((sound: string) => {
+    this.socket.newSound$.subscribe((sound: Sound) => {
+      console.log(sound);
       this.store.sounds.push(sound);
       this.store.sortSounds();
     })
 
-    this.socket.deleteSound$.subscribe((sound: string) => {
+    this.socket.deleteSound$.subscribe((soundId: number) => {
       this.store.sounds = this.store.sounds.filter((s) => {
-        return s !== sound
+        return s.ID !== soundId
       })
     })
 
     this.socket.soundRenamed$.subscribe((res: soundRenamedSocketResponse) => {
       let sounds = this.store.sounds;
       let soundsCopy = this.store.soundsCopy;
-      let oldName = res.oldName;
+      let soundId = res.id;
       let newName = res.newName;
-      for (let i = 0; i < sounds.length; i++) if (sounds[i] == oldName) sounds[i] = newName;
-      for (let i = 0; i < soundsCopy.length; i++) if (soundsCopy[i] == oldName) soundsCopy[i] = newName;
+      for (let i = 0; i < sounds.length; i++) if (sounds[i].ID == soundId) sounds[i].Name = newName;
+      for (let i = 0; i < soundsCopy.length; i++) if (soundsCopy[i].ID == soundId) soundsCopy[i].Name = newName;
       this.store.sortSounds();
     });
   }
 
-  soundClicked(event: any, sound: string) {
-    this.socket.playSound(sound);
+  soundClicked(event: any, soundId: number) {
+    this.socket.playSound(soundId);
   }
 
   textChange() {
     this.store.sounds = this.store.soundsCopy;
     this.store.sounds = this.store.sounds.filter((sound) => {
-      var s = sound.toLocaleLowerCase();
+      var s = sound.Name.toLocaleLowerCase();
       var search = this.searchValue.toLocaleLowerCase()
       return s.includes(search);
     })
@@ -63,12 +65,12 @@ export class SoundboardMenuComponent {
     this.store.sounds = this.store.soundsCopy;
   }
 
-  delete(event: any, sound: string) {
+  delete(event: any, soundId: number) {
     event.stopPropagation()
-    this.socket.deleteSound(sound)
+    this.socket.deleteSound(soundId)
   }
 
-  openDialog(event: Event, oldName: string) {
+  openDialog(event: Event, soundId: number, oldName: string) {
     event.stopPropagation()
     let dialog = this.dialog.open(RenameModalComponent, {
       disableClose: true,
@@ -81,7 +83,7 @@ export class SoundboardMenuComponent {
 
       var options: GetOptions = { url: "/sound" }
       options.params = {
-        oldName: oldName,
+        id: soundId,
         newName: result
       };
 

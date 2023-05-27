@@ -60,9 +60,14 @@ export class SoundUploadModalComponent {
       filereader.readAsDataURL(file);
       filereader.onload = (evt) => {
         var base64 = evt.target?.result;
+
+        var soundInfos = {
+          "name": file.name
+        }
+
         var params: Params = {
           "data": base64,
-          "name": file.name,
+          "infos": soundInfos,
           "type": file.type
         }
         options.params = params;

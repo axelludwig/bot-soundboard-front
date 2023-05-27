@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable, Subject } from 'rxjs';
 import { Channel, queueItem, soundRenamedSocketResponse } from 'src/app/declarations';
+import { Sound } from 'src/app/models/sound';
 
 @Injectable({
 	providedIn: 'root'
@@ -35,14 +36,14 @@ export class SocketService {
 	private _botChangePauseState = new Subject<boolean>();
 	botChangePauseState$ = this._botChangePauseState.asObservable();
 
-	private _sounds = new Subject<string[]>();
+	private _sounds = new Subject<Sound[]>();
 	sounds$ = this._sounds.asObservable();
-	private _deleteSound = new Subject<string>();
+	private _deleteSound = new Subject<number>();
 	deleteSound$ = this._deleteSound.asObservable();
 	private _soundRenamed = new Subject<any>();
 	soundRenamed$ = this._soundRenamed.asObservable();
 
-	private _newSound = new Subject<string>();
+	private _newSound = new Subject<Sound>();
 	newSound$ = this._newSound.asObservable();
 
 	private _queueUpdate = new Subject<any>();
@@ -104,14 +105,14 @@ export class SocketService {
 
 
 		// sound crud
-		this.socket.on('soundsLoaded', (sounds: string[]) => {
+		this.socket.on('soundsLoaded', (sounds: Sound[]) => {
 			this._sounds.next(sounds);
 		});
-		this.socket.on('soundUploaded', (sound: string) => {
+		this.socket.on('soundUploaded', (sound: Sound) => {
 			this._newSound.next(sound);
 		});
-		this.socket.on('soundDeleted', (sound: string) => {
-			this._deleteSound.next(sound)
+		this.socket.on('soundDeleted', (soundId: number) => {
+			this._deleteSound.next(soundId)
 		});
 		this.socket.on('soundRenamed', (res: soundRenamedSocketResponse) => {
 			this._soundRenamed.next(res);
@@ -144,8 +145,8 @@ export class SocketService {
 	}
 
 	//sound management
-	playSound(sound: string) {
-		this.socket.emit("playSound", sound);
+	playSound(soundId: number) {
+		this.socket.emit("playSound", soundId);
 	}
 	skipSound() {
 		this.socket.emit('skipSound');
@@ -172,7 +173,7 @@ export class SocketService {
 		this.socket.emit("setMode", value);
 	}
 
-	deleteSound(sound: string) {
-		this.socket.emit('deleteSound', sound);
+	deleteSound(soundId: number) {
+		this.socket.emit('deleteSound', soundId);
 	}
 }

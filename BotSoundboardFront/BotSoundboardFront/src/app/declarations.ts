@@ -10,7 +10,7 @@ export interface Member {
 }
 
 export interface soundRenamedSocketResponse {
-  oldName: string;
+  id: number;
   newName: string;
 }
 
