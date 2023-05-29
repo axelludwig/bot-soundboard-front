@@ -1,4 +1,4 @@
-import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, Inject, ViewEncapsulation } from '@angular/core';
 import { SocketService } from 'src/services/socket/socket.service';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { StoreService } from 'src/services/store/store.service';
@@ -15,10 +15,14 @@ declare var WaveSurfer: any;
 })
 
 export class AppComponent {
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: any) {
+    if (event.code === 'MediaPlayPause') this.togglePause();
+    else if (event.code === 'MediaTrackNext') this.skipSound();
+  }
+
   public socketConnection: boolean = false;
-
   public volume: number = 0;
-
   public queueMode: string = '';
   queueModes: string[] = ['queue', 'overwrite'];
 
@@ -26,7 +30,6 @@ export class AppComponent {
   public soundPlaying: string | null = null;
 
   constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
-
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
     })
@@ -45,6 +48,7 @@ export class AppComponent {
     this.socketService.soundPlaying$.subscribe((sound: string) => {
       this.soundPlaying = sound;
     })
+
   }
 
   ngOnInit() { }
@@ -53,7 +57,7 @@ export class AppComponent {
     this.socketService.skipSound();
   }
 
-  clearQueue(){
+  clearQueue() {
     this.socketService.clearQueue();
   }
 
