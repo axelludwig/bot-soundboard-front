@@ -1,8 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Channel, queueItem, Base64File } from 'src/app/declarations';
-import { Sound } from 'src/app/models/sound';
+import { Channel, queueItem, Base64File, Sound, Tag } from 'src/app/declarations';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { SocketService } from 'src/services/socket/socket.service';
 
@@ -18,6 +16,7 @@ export class StoreService implements OnInit {
 
   public sounds: Sound[] = [];
   public soundsCopy: Sound[] = [];
+
 
   private _updateBase64File = new Subject<Base64File>();
   updateBase64File$ = this._updateBase64File.asObservable();

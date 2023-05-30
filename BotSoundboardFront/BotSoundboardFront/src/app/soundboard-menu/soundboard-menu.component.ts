@@ -6,8 +6,7 @@ import { StoreService } from 'src/services/store/store.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { RenameModalComponent } from '../modals/rename-modal/rename-modal.component';
-import { soundRenamedSocketResponse } from '../declarations';
-import { Sound } from '../models/sound';
+import { Sound, soundRenamedSocketResponse } from '../declarations';
 
 @Component({
   selector: 'app-soundboard-menu',

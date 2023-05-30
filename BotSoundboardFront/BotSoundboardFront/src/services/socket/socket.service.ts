@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable, Subject } from 'rxjs';
-import { Channel, queueItem, soundRenamedSocketResponse } from 'src/app/declarations';
-import { Sound } from 'src/app/models/sound';
+import { Channel, Sound, Tag, queueItem, soundRenamedSocketResponse } from 'src/app/declarations';
 
 @Injectable({
 	providedIn: 'root'
@@ -49,6 +48,11 @@ export class SocketService {
 	private _queueUpdate = new Subject<any>();
 	queueUpdate$ = this._queueUpdate.asObservable();
 
+	private _elapsedTime = new Subject<number>();
+	elapsedTime$ = this._elapsedTime.asObservable();
+
+	private _tags = new Subject<Tag[]>();	
+	tags$ = this._tags.asObservable();
 
 	private _log = new Subject<any>();
 	log$ = this._log.asObservable();
@@ -106,6 +110,7 @@ export class SocketService {
 
 		// sound crud
 		this.socket.on('soundsLoaded', (sounds: Sound[]) => {
+			console.log(sounds);
 			this._sounds.next(sounds);
 		});
 		this.socket.on('soundUploaded', (sound: Sound) => {
@@ -121,6 +126,16 @@ export class SocketService {
 		//queue management
 		this.socket.on('queueUpdated', (queue: queueItem[]) => {
 			this._queueUpdate.next(queue);
+		});
+
+		//time management
+		this.socket.on('elapsedTime', (time: number) => {
+			this._elapsedTime.next(time);
+		});
+
+		this.socket.on('tagsLoaded', (tags: Tag[]) => {
+			console.log(tags);
+			this._tags.next(tags);
 		});
 
 		this.socket.on('log', (message: string) => {
@@ -152,11 +167,11 @@ export class SocketService {
 		this.socket.emit('skipSound');
 	}
 
-	clearQueue(){
+	clearQueue() {
 		this.socket.emit('clearQueue');
 	}
 
-	removeSoundFromQueue(elementId: string){
+	removeSoundFromQueue(elementId: string) {
 		this.socket.emit('removeSoundFromQueue', elementId);
 	}
 

@@ -1,5 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-
 html,
 body {
     height: 100%;
@@ -11,6 +9,7 @@ body {
 
     ::-webkit-scrollbar {
         width: 10px;
+        height: 10px;
     }
 
     ::-webkit-scrollbar-track {
@@ -40,12 +39,28 @@ body {
     }
 }
 
-
-
 .mat-mdc-snack-bar-container {
     &.sucess-snackbar {
         --mdc-snackbar-container-color: #a7b3e2;
         --mat-mdc-snack-bar-button-color: #fff;
-        --mdc-snackbar-supporting-text-color: #ffffff;
+        --mdc-snackbar-supporting-text-color: #000000;
     }
 }
+
+.mdc-evolution-chip__text-label {
+    display: flex;
+    /* text-align: center !important;
+    justify-content: center !important; */
+
+    align-items: center;
+}
+
+.mat-icon {
+    /* margin-left: 10px; */
+}
+
+.mat-icon:hover {    
+    color: #ffaf19;
+}
+
+ 

@@ -10,7 +10,6 @@ body {
 }
 
 .upload {
-    /* float: right; */
     display: inline;
     margin-left: 1em;
 }
@@ -55,7 +54,7 @@ mat-slider {
 
 .play-pause-button {
     margin-left: 1em;
-    margin-top: 1em !important;   
+    margin-top: 1em !important;
 }
 
 .skip-button {
@@ -76,7 +75,7 @@ mat-slider {
 }
 
 .link {
-    color: white;
+    color: #a7b3e2;
     text-decoration: none;
     text-align: center;
     white-space: nowrap;

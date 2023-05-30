@@ -24,3 +24,17 @@ export interface Base64File {
   id: string;
   name: string;
 }
+
+export interface Sound {
+  ID: number;
+  Name: string;
+  Length: number;
+  User: string;
+}
+
+export interface Tag {
+  ID: number;
+  Name: string;
+  Selected?: boolean;
+  IsFavorite?: boolean;
+}
