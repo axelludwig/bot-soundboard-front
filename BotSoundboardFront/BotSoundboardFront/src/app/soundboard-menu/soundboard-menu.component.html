@@ -17,9 +17,9 @@
             <!-- <button class="hide-button" type="button" mat-raised-button color="primary" (click)="showHidden = !showHidden">Show hidden</button> -->
         </div>
 
-        <div *ngIf="store.sounds.length > 0" class="wrapper">
+        <div *ngIf="store.filteredSounds.length > 0" class="wrapper">
             <div [class.grayed]="!store.currentChannel" class="grid">
-                <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.sounds ">
+                <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.filteredSounds ">
                     <mat-card class="card">
                         <mat-card-header class="card-header">
                             <mat-card-title>

@@ -51,7 +51,7 @@ export class SocketService {
 	private _elapsedTime = new Subject<number>();
 	elapsedTime$ = this._elapsedTime.asObservable();
 
-	private _tags = new Subject<Tag[]>();	
+	private _tags = new Subject<Tag[]>();
 	tags$ = this._tags.asObservable();
 
 	private _log = new Subject<any>();
@@ -110,7 +110,6 @@ export class SocketService {
 
 		// sound crud
 		this.socket.on('soundsLoaded', (sounds: Sound[]) => {
-			console.log(sounds);
 			this._sounds.next(sounds);
 		});
 		this.socket.on('soundUploaded', (sound: Sound) => {
@@ -134,7 +133,6 @@ export class SocketService {
 		});
 
 		this.socket.on('tagsLoaded', (tags: Tag[]) => {
-			console.log(tags);
 			this._tags.next(tags);
 		});
 

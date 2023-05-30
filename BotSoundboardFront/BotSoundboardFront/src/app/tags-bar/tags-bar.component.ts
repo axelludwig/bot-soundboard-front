@@ -12,11 +12,10 @@ import { MatChipsModule } from '@angular/material/chips';
 export class TagsBarComponent {
 
   public tags: Tag[] = [];
-  public selectedTags: string[] = [];
   public favoriteTags: string[] = [];
 
-  constructor(private store: StoreService, private socketService: SocketService) {
-    this.selectedTags = JSON.parse(localStorage.getItem('selectedTags') || "[]");
+  constructor(public store: StoreService, private socketService: SocketService) {
+    this.store.selectedTags = JSON.parse(localStorage.getItem('selectedTags') || "[]");
     this.favoriteTags = JSON.parse(localStorage.getItem('favoriteTags') || "[]");
 
     this.socketService.tags$.subscribe((tags: Tag[]) => {
@@ -25,7 +24,7 @@ export class TagsBarComponent {
   }
 
   saveSelectedTags() {
-    let selectedTagsString = JSON.stringify(this.selectedTags);
+    let selectedTagsString = JSON.stringify(this.store.selectedTags);
     localStorage.setItem('selectedTags', selectedTagsString);
   }
 
@@ -40,7 +39,7 @@ export class TagsBarComponent {
     let unselectedTagsList: Tag[] = [];
 
     for (let tag of tags) {
-      if (this.selectedTags.includes(tag.Name)) selectedTagsList.push(tag);
+      if (this.store.selectedTags.includes(tag.Name)) selectedTagsList.push(tag);
       else if (this.favoriteTags.includes(tag.Name)) favoritesTagsList.push(tag);
       else unselectedTagsList.push(tag);
     }
@@ -57,10 +56,11 @@ export class TagsBarComponent {
 
   onTagClick(event: any, tag: Tag) {
     if (!event.isUserInput) return;
-    if (event.selected && !this.selectedTags.includes(tag.Name)) this.selectedTags.push(tag.Name);
-    else this.selectedTags = this.selectedTags.filter((t) => t !== tag.Name);
+    if (event.selected && !this.store.selectedTags.includes(tag.Name)) this.store.selectedTags.push(tag.Name);
+    else this.store.selectedTags = this.store.selectedTags.filter((t) => t !== tag.Name);
     this.saveSelectedTags();
     this.sortTags(this.tags);
+    this.store.updateFilteredSounds();
   }
 
   toggleFavorite(event: any, name: string, setFavorite: boolean) {

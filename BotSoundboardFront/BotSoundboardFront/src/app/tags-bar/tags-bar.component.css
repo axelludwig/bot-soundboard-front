@@ -1,6 +1,5 @@
 @import '../../styles.css';
 
-
 .tags-bar {
     display: flex;
     min-height: 6vh;
@@ -18,11 +17,6 @@
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
-
-.tag {}
-
-.chip {}
-
 
 .icon {
     margin-left: 0.25em;

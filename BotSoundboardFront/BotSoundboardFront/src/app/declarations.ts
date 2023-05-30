@@ -30,6 +30,7 @@ export interface Sound {
   Name: string;
   Length: number;
   User: string;
+  Tags: Tag[];
 }
 
 export interface Tag {

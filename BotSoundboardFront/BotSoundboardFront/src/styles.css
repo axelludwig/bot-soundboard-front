@@ -55,12 +55,6 @@ body {
     align-items: center;
 }
 
-.mat-icon {
-    /* margin-left: 10px; */
-}
-
-.mat-icon:hover {    
+.mat-icon:hover {
     color: #ffaf19;
 }
-
- 

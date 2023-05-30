@@ -16,7 +16,9 @@ export class StoreService implements OnInit {
 
   public sounds: Sound[] = [];
   public soundsCopy: Sound[] = [];
+  public filteredSounds: Sound[] = [];
 
+  public selectedTags: string[] = [];
 
   private _updateBase64File = new Subject<Base64File>();
   updateBase64File$ = this._updateBase64File.asObservable();
@@ -28,7 +30,7 @@ export class StoreService implements OnInit {
 
   public newSound: string | null = null;
 
-  constructor(private socketService: SocketService, private axiosService: AxiosService) {
+  constructor(private socketService: SocketService) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
       this.queue = queue;
     })
@@ -46,6 +48,22 @@ export class StoreService implements OnInit {
       this.sounds = sounds;
       this.soundsCopy = sounds;
       this.sortSounds();
+
+      this.filteredSounds = sounds;
+      this.updateFilteredSounds();
+    })
+  }
+
+  updateFilteredSounds(): void {
+    if (this.selectedTags.length == 0) {
+      this.filteredSounds = this.soundsCopy;
+      return;
+    }
+    this.filteredSounds = [];
+    this.sounds.forEach((sound: Sound) => {
+      sound.Tags.forEach((tag: Tag) => {
+        if (this.selectedTags.includes(tag.Name)) this.filteredSounds.push(sound);
+      })
     })
   }
 

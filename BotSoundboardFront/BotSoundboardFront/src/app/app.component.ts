@@ -52,7 +52,6 @@ export class AppComponent {
     })
     this.socketService.elapsedTime$.subscribe((time: number) => {
       console.log(this.soundPlaying?.Length, time);
-
       this.elapsedTime = time;
     })
   }

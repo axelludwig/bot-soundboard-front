@@ -24,7 +24,6 @@ export class SoundboardMenuComponent {
   constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
 
     this.socket.newSound$.subscribe((sound: Sound) => {
-      console.log(sound);
       this.store.sounds.push(sound);
       this.store.sortSounds();
     })
@@ -57,11 +56,13 @@ export class SoundboardMenuComponent {
       var search = this.searchValue.toLocaleLowerCase()
       return s.includes(search);
     })
+    this.store.updateFilteredSounds();
   }
 
   clearText() {
     this.searchValue = "";
     this.store.sounds = this.store.soundsCopy;
+    this.store.updateFilteredSounds();
   }
 
   delete(event: any, soundId: number) {

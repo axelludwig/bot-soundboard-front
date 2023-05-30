@@ -11,7 +11,6 @@ export class RenameModalComponent {
   }
 
   updateName() {
-    console.log(this.data);
     if (this.data && this.data !== '') this.dialog.close(this.data);
   }
 }

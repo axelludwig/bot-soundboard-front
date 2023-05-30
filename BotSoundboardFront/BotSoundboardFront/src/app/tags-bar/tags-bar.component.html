@@ -1,13 +1,12 @@
 <div class="tags-bar">
     <mat-chip-listbox multiple *ngFor="let tag of tags" class="tags">
-        <mat-chip-option class="chip" [selected]="this.selectedTags.includes(tag.Name)"
+        <mat-chip-option class="chip" [selected]="this.store.selectedTags.includes(tag.Name)"
             (selectionChange)="onTagClick($event, tag)">
             {{tag.Name}}
             <mat-icon *ngIf="!this.favoriteTags.includes(tag.Name)" class="icon"
                 (click)="toggleFavorite($event, tag.Name, true)">star_outlined</mat-icon>
             <mat-icon *ngIf="this.favoriteTags.includes(tag.Name)" class="icon-favorite"
                 (click)="toggleFavorite($event, tag.Name, false)">star</mat-icon>
-            <!-- <mat-icon fontSet="material-icons-outlined">edit</mat-icon> -->
         </mat-chip-option>
     </mat-chip-listbox>
 </div>
