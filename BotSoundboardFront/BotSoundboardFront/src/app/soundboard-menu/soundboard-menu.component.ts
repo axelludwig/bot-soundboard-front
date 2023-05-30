@@ -6,8 +6,7 @@ import { StoreService } from 'src/services/store/store.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { RenameModalComponent } from '../modals/rename-modal/rename-modal.component';
-import { soundRenamedSocketResponse } from '../declarations';
-import { Sound } from '../models/sound';
+import { Sound, soundRenamedSocketResponse } from '../declarations';
 
 @Component({
   selector: 'app-soundboard-menu',
@@ -25,7 +24,6 @@ export class SoundboardMenuComponent {
   constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
 
     this.socket.newSound$.subscribe((sound: Sound) => {
-      console.log(sound);
       this.store.sounds.push(sound);
       this.store.sortSounds();
     })
@@ -58,11 +56,13 @@ export class SoundboardMenuComponent {
       var search = this.searchValue.toLocaleLowerCase()
       return s.includes(search);
     })
+    this.store.updateFilteredSounds();
   }
 
   clearText() {
     this.searchValue = "";
     this.store.sounds = this.store.soundsCopy;
+    this.store.updateFilteredSounds();
   }
 
   delete(event: any, soundId: number) {

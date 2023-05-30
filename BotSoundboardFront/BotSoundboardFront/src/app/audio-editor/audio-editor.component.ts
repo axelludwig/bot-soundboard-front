@@ -116,7 +116,6 @@ export class AudioEditorComponent implements OnInit {
       if (Object.keys(this.wavesurfer.regions.list).length > 1)
         region.remove();
       else {
-        console.log("init", region);
         this.region = region;
       }
     })
@@ -163,12 +162,10 @@ export class AudioEditorComponent implements OnInit {
 
   initRegionEvents() {
     this.region.on('update', (region: any) => {
-      console.log("update", region);
       this.region = region;
     });
 
     this.region.on('update-end', (region: any) => {
-      console.log("update-end", region);
       this.region = region;
     });
   }

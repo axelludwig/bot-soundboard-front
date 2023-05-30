@@ -29,9 +29,10 @@
             </div>
 
             <div class="now-playing manage-element">
-                <a *ngIf="soundPlaying && soundPlaying.length > 25" class="link link_animated" href=""> {{soundPlaying}}
+                <a *ngIf="soundPlaying && soundPlaying.Name.length > 25" class="link link_animated" href="">
+                    {{soundPlaying.Name}}
                 </a>
-                <a *ngIf="soundPlaying && soundPlaying.length <= 24" class="link"> {{soundPlaying}} </a>
+                <a *ngIf="soundPlaying && soundPlaying.Name.length <= 24" class="link"> {{soundPlaying.Name}} </a>
                 <a *ngIf="!soundPlaying" class="link"> no sound playing </a>
             </div>
 
@@ -65,20 +66,9 @@
                     <img src="../assets/wifi.svg" class="filter-red" />
                 </ng-template>
             </div>
-
             <app-queue />
+            <app-tags-bar />
         </div>
-
-        <!-- <mat-slide-toggle [checked]="queueMode" (change)="onToggle($event)">Slide me!</mat-slide-toggle> -->
-
-        <!-- <button mat-mini-fab matTooltip="Primary" color="primary" (click)=unpauseSound()>
-            <mat-icon>play_arrow</mat-icon>
-        </button>
-        <button mat-mini-fab matTooltip="Primary" color="primary" (click)="pauseSound()">
-            <mat-icon>pause</mat-icon>
-        </button> -->
-
-
     </div>
 
     <div class="test">

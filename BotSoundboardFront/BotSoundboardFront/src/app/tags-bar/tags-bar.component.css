@@ -1,0 +1,28 @@
+@import '../../styles.css';
+
+.tags-bar {
+    display: flex;
+    min-height: 6vh;
+    max-height: 6vh;
+    border: solid 4px black;
+    border-radius: 0.5em;
+    margin: 1vh 2vw 1vh 2vw;
+    overflow-x: auto;
+    overflow-y: auto;
+    align-items: center;
+}
+
+.tags {
+    display: flex;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.icon {
+    margin-left: 0.25em;
+}
+
+.icon-favorite {
+    margin-left: 0.25em;
+    color: #ffaf19;
+}
