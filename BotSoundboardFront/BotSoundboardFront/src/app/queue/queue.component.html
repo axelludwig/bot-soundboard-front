@@ -1,8 +1,5 @@
 <div class="queue">
     <div *ngIf="store.queue.length > 0">
-        <!-- <h3 class="queue-title">
-            queue :
-        </h3> -->
         <div class="queue-list">
             <div *ngFor="let item of store.queue; index as i" class="item">
                 {{item.name}}

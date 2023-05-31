@@ -4,6 +4,7 @@ import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { StoreService } from 'src/services/store/store.service';
 import { SoundUploadModalComponent } from './modals/sound-upload-modal/sound-upload-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Sound } from './declarations';
 
 declare var WaveSurfer: any;
 
@@ -27,7 +28,8 @@ export class AppComponent {
   queueModes: string[] = ['queue', 'overwrite'];
 
   public isPaused = true;
-  public soundPlaying: string | null = null;
+  public soundPlaying: Sound | null = null;
+  public elapsedTime: number = 0;
 
   constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
     this.socketService.connect$.subscribe(() => {
@@ -45,11 +47,15 @@ export class AppComponent {
     this.socketService.botChangePauseState$.subscribe((state: boolean) => {
       this.isPaused = state;
     })
-    this.socketService.soundPlaying$.subscribe((sound: string) => {
+    this.socketService.soundPlaying$.subscribe((sound: Sound) => {
       this.soundPlaying = sound;
     })
-
+    this.socketService.elapsedTime$.subscribe((time: number) => {
+      console.log(this.soundPlaying?.Length, time);
+      this.elapsedTime = time;
+    })
   }
+
 
   ngOnInit() { }
 
