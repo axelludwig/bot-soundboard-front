@@ -16,9 +16,10 @@ export class StoreService implements OnInit {
 
   public sounds: Sound[] = [];
   public soundsCopy: Sound[] = [];
-  public filteredSounds: Sound[] = [];
-
+  // public filteredSounds: Sound[] = [];  
   public selectedTags: string[] = [];
+
+  public searchValue: string = "";
 
   private _updateBase64File = new Subject<Base64File>();
   updateBase64File$ = this._updateBase64File.asObservable();
@@ -48,23 +49,33 @@ export class StoreService implements OnInit {
       this.sounds = sounds;
       this.soundsCopy = sounds;
       this.sortSounds();
-
-      this.filteredSounds = sounds;
+      // this.filteredSounds = sounds;
       this.updateFilteredSounds();
+
     })
   }
 
+  applyTestFiler(): void {
+    this.sounds = this.sounds.filter((sound) => {
+      var s = sound.Name.toLocaleLowerCase();
+      var search = this.searchValue.toLocaleLowerCase()
+      return s.includes(search);
+    });
+  }
+
   updateFilteredSounds(): void {
+    this.sounds = this.soundsCopy;
+    this.applyTestFiler();
     if (this.selectedTags.length == 0) {
-      this.filteredSounds = this.soundsCopy;
       return;
     }
-    this.filteredSounds = [];
+    let temp: Sound[] = [];
     this.sounds.forEach((sound: Sound) => {
       sound.Tags.forEach((tag: Tag) => {
-        if (this.selectedTags.includes(tag.Name)) this.filteredSounds.push(sound);
+        if (this.selectedTags.includes(tag.Name)) temp.push(sound);
       })
     })
+    this.sounds = temp;
   }
 
   ngOnInit() {
