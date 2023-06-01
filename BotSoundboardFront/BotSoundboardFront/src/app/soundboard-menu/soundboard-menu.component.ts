@@ -15,7 +15,6 @@ import { Sound, soundRenamedSocketResponse } from '../declarations';
 })
 export class SoundboardMenuComponent {
 
-  searchValue: string = "";
   editMode = false;
   showHidden = false;
 
@@ -51,16 +50,11 @@ export class SoundboardMenuComponent {
 
   textChange() {
     this.store.sounds = this.store.soundsCopy;
-    this.store.sounds = this.store.sounds.filter((sound) => {
-      var s = sound.Name.toLocaleLowerCase();
-      var search = this.searchValue.toLocaleLowerCase()
-      return s.includes(search);
-    })
     this.store.updateFilteredSounds();
   }
 
   clearText() {
-    this.searchValue = "";
+    this.store.searchValue = "";
     this.store.sounds = this.store.soundsCopy;
     this.store.updateFilteredSounds();
   }

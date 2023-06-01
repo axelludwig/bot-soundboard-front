@@ -5,8 +5,8 @@
         <div class="top-buttons-fixed">
             <mat-form-field>
                 <mat-label>Search</mat-label>
-                <input (keyup)="textChange()" matInput type="text" [(ngModel)]="searchValue">
-                <button *ngIf="searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
+                <input (keyup)="textChange()" matInput type="text" [(ngModel)]="store.searchValue">
+                <button *ngIf="store.searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>
@@ -17,9 +17,9 @@
             <!-- <button class="hide-button" type="button" mat-raised-button color="primary" (click)="showHidden = !showHidden">Show hidden</button> -->
         </div>
 
-        <div *ngIf="store.filteredSounds.length > 0" class="wrapper">
+        <div *ngIf="store.sounds.length > 0" class="wrapper">
             <div [class.grayed]="!store.currentChannel" class="grid">
-                <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.filteredSounds ">
+                <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.sounds ">
                     <mat-card class="card">
                         <mat-card-header class="card-header">
                             <mat-card-title>
@@ -31,7 +31,6 @@
                         <mat-card-actions class="card-actions" [class.hidden]="!editMode">
                             <button (click)="openDialog($event, sound.ID, sound.Name)" mat-button>Rename</button>
                             <button (click)="delete($event, sound.ID)" mat-button>Delete</button>
-                            <!-- <button (click)="hide($event, sound)" mat-button>Hide sound</button> -->
                         </mat-card-actions>
                     </mat-card>
                 </span>
