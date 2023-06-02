@@ -58,7 +58,6 @@ export class SocketService {
 	log$ = this._log.asObservable();
 
 
-
 	constructor(private socket: Socket) {
 		this.socket.on('connect', () => {
 			this.onConnect();

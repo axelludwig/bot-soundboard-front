@@ -1,15 +1,18 @@
 @import '../../styles.css';
 
 .tags-bar {
+    border-radius: 8px;
     display: flex;
     min-height: 6vh;
     max-height: 6vh;
-    border: solid 4px black;
-    border-radius: 0.5em;
     margin: 1vh 2vw 1vh 2vw;
     overflow-x: auto;
     overflow-y: auto;
     align-items: center;
+    background-color: #121212;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-family: 'Helvetica 65 Medium', sans-serif;
 }
 
 .tags {
@@ -24,5 +27,9 @@
 
 .icon-favorite {
     margin-left: 0.25em;
+    color: #ffaf19;
+}
+
+.mat-icon:hover {
     color: #ffaf19;
 }

@@ -3,10 +3,13 @@
     background-color: black;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
 }
 
 .controls{
     margin-right: 50px;
+
 }
 
 .control-button {

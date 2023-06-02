@@ -1,10 +1,8 @@
 import { Component, Input, SimpleChanges, OnChanges, Inject } from '@angular/core';
-import { AxiosService, GetOptions } from "src/services/axios/axios.service"
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { AxiosService, GetOptions } from "src/services/axios/axios.service";
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatFormField } from '@angular/material/form-field';
 import { RenameModalComponent } from '../modals/rename-modal/rename-modal.component';
 import { Sound, soundRenamedSocketResponse } from '../declarations';
 
@@ -17,7 +15,6 @@ export class SoundboardMenuComponent {
 
   editMode = false;
   showHidden = false;
-
   hiddenSounds: string[] = []
 
   constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {

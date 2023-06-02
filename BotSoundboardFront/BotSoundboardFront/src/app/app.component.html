@@ -23,13 +23,13 @@
 
             <label id="example-radio-group-label"> mode </label>
             <mat-radio-group color="primary" class="example-radio-group" [(ngModel)]="queueMode">
-                <mat-radio-button (change)="onRadioClick($event)" class="" *ngFor="let mode of queueModes"
+                <mat-radio-button (change)="onRadioClick($event)" class="mode-label" *ngFor="let mode of queueModes"
                     [value]="mode">
                     {{mode}}
                 </mat-radio-button>
             </mat-radio-group>
 
-            <div style="margin-left: 1em;" class="vertical-divider"> </div>
+            <div class="vertical-divider"> </div>
 
             <div class="upload">
                 <button type="button" mat-raised-button color="primary" (click)="openUploadDialog()">Add sounds</button>
@@ -56,4 +56,6 @@
     </div>
 </div>
 
-<app-player></app-player>
+<div class="footer">
+    <app-player></app-player>
+</div>
