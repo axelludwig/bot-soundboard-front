@@ -28,7 +28,7 @@ export interface Base64File {
 export interface Sound {
   ID: number;
   Name: string;
-  Length: number;
+  SoundLength: number;
   User: string;
   Tags: Tag[];
 }

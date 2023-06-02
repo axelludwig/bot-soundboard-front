@@ -58,3 +58,7 @@ body {
 .mat-icon:hover {
     color: #ffaf19;
 }
+
+#slider .mat-mdc-slider-visual-thumb{
+    display: none;
+}

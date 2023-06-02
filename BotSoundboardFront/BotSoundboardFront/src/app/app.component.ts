@@ -16,12 +16,7 @@ declare var WaveSurfer: any;
 })
 
 export class AppComponent {
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event: any) {
-    if (event.code === 'MediaPlayPause') this.togglePause();
-    else if (event.code === 'MediaTrackNext') this.skipSound();
-  }
-
+  
   public socketConnection: boolean = false;
   public volume: number = 0;
   public queueMode: string = '';
@@ -29,7 +24,6 @@ export class AppComponent {
 
   public isPaused = true;
   public soundPlaying: Sound | null = null;
-  public elapsedTime: number = 0;
 
   constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
     this.socketService.connect$.subscribe(() => {
@@ -44,24 +38,13 @@ export class AppComponent {
     this.socketService.botChangeMode$.subscribe((value: string) => {
       this.queueMode = value;
     })
-    this.socketService.botChangePauseState$.subscribe((state: boolean) => {
-      this.isPaused = state;
-    })
     this.socketService.soundPlaying$.subscribe((sound: Sound) => {
       this.soundPlaying = sound;
-    })
-    this.socketService.elapsedTime$.subscribe((time: number) => {
-      console.log(this.soundPlaying?.Length, time);
-      this.elapsedTime = time;
     })
   }
 
 
   ngOnInit() { }
-
-  skipSound() {
-    this.socketService.skipSound();
-  }
 
   clearQueue() {
     this.socketService.clearQueue();
@@ -96,9 +79,5 @@ export class AppComponent {
       .catch((err) => {
         console.log(err);
       })
-  }
-
-  togglePause() {
-    this.socketService.botChangePauseState(this.isPaused);
   }
 }

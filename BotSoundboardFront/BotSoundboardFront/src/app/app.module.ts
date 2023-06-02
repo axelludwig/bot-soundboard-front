@@ -33,6 +33,7 @@ import { LoadingSnackbar } from './snackbars/loading-snackbar/loading-snackbar';
 import { PlayerComponent } from './player/player.component';
 import { TagsBarComponent } from './tags-bar/tags-bar.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { SoundTimerComponent } from './player/sound-timer/sound-timer.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -48,7 +49,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     DeleteSoundModalComponent,
     LoadingSnackbar,
     PlayerComponent,
-    TagsBarComponent
+    TagsBarComponent,
+    SoundTimerComponent
   ],
   imports: [MatRadioModule,MatChipsModule, MatSnackBarModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule
   ],

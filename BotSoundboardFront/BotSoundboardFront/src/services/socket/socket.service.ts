@@ -26,7 +26,7 @@ export class SocketService {
 	private _currentChannel = new Subject<Channel>();
 	currentChannel$ = this._currentChannel.asObservable();
 
-	private _soundPlaying = new Subject<any>();
+	private _soundPlaying = new Subject<Sound>();
 	soundPlaying$ = this._soundPlaying.asObservable();
 	private _botChangeVolume = new Subject<number>();
 	botChangeVolume$ = this._botChangeVolume.asObservable();
@@ -94,7 +94,7 @@ export class SocketService {
 		// })		
 
 		//sound management
-		this.socket.on('soundPlaying', (sound: string) => {
+		this.socket.on('soundPlaying', (sound: Sound) => {
 			this._soundPlaying.next(sound);
 		});
 		this.socket.on('botChangeVolume', (data: number) => {
@@ -188,5 +188,9 @@ export class SocketService {
 
 	deleteSound(soundId: number) {
 		this.socket.emit('deleteSound', soundId);
+	}
+
+	setAudioTime(time: number) {
+		this.socket.emit('setAudioTime', time);
 	}
 }
