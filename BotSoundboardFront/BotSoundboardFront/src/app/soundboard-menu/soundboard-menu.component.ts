@@ -21,6 +21,7 @@ export class SoundboardMenuComponent {
 
     this.socket.newSound$.subscribe((sound: Sound) => {
       this.store.sounds.push(sound);
+      this.store.soundsCopy.push(sound);
       this.store.sortSounds();
     })
 
