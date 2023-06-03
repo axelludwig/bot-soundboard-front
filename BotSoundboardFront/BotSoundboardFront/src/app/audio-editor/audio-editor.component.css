@@ -3,7 +3,7 @@
     overflow-y: hidden;
     padding-left: 1em;
     padding-right: 1em;
-    margin-top: 1em;
+    margin-top: 1vh;
 }
 
 .slider {
@@ -26,8 +26,8 @@
 }
 
 .saveButton {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     display: flex;
     justify-content: center;
 }

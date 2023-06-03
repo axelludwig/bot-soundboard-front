@@ -1,40 +1,33 @@
-<div class="scrollbar scrollbar-primary">
-    <div class="force-overflow">
+<div class="top-buttons-fixed">
+    <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input (keyup)="textChange()" matInput type="text" [(ngModel)]="store.searchValue">
+        <button *ngIf="store.searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <!-- <button class="edit-button" type="button" mat-raised-button color="primary" (click)="editMode = !editMode">Edit
+        mode
+    </button> -->
+    <!-- <button class="hide-button" type="button" mat-raised-button color="primary" (click)="showHidden = !showHidden">Show hidden</button> -->
+</div>
 
-
-        <div class="top-buttons-fixed">
-            <mat-form-field>
-                <mat-label>Search</mat-label>
-                <input (keyup)="textChange()" matInput type="text" [(ngModel)]="store.searchValue">
-                <button *ngIf="store.searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
-            <button class="edit-button" type="button" mat-raised-button color="primary"
-                (click)="editMode = !editMode">Edit
-                mode
-            </button>
-            <!-- <button class="hide-button" type="button" mat-raised-button color="primary" (click)="showHidden = !showHidden">Show hidden</button> -->
-        </div>
-
-        <div *ngIf="store.sounds.length > 0" class="wrapper">
-            <div [class.grayed]="!store.currentChannel" class="grid">
-                <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.sounds ">
-                    <mat-card class="card">
-                        <mat-card-header class="card-header">
-                            <mat-card-title>
-                            </mat-card-title>
-                            <mat-card-content class="card-title">
-                                <div>{{sound.Name}}</div>
-                            </mat-card-content>
-                        </mat-card-header>
-                        <mat-card-actions class="card-actions" [class.hidden]="!editMode">
-                            <button (click)="openDialog($event, sound.ID, sound.Name)" mat-button>Rename</button>
-                            <button (click)="delete($event, sound.ID)" mat-button>Delete</button>
-                        </mat-card-actions>
-                    </mat-card>
-                </span>
-            </div>
-        </div>
+<div *ngIf="store.sounds.length > 0" class="wrapper">
+    <div [class.grayed]="!store.currentChannel" class="grid">
+        <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.sounds ">
+            <mat-card class="card">
+                <mat-card-header class="card-header">
+                    <mat-card-title>
+                    </mat-card-title>
+                    <mat-card-content class="card-title">
+                        <div>{{sound.Name}}</div>
+                    </mat-card-content>
+                </mat-card-header>
+                <mat-card-actions class="card-actions" [class.hidden]="!editMode">
+                    <button (click)="openDialog($event, sound.ID, sound.Name)" mat-button>Rename</button>
+                    <button (click)="delete($event, sound.ID)" mat-button>Delete</button>
+                </mat-card-actions>
+            </mat-card>
+        </span>
     </div>
 </div>

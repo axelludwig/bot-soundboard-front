@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
 import { Tag } from '../declarations';
-import { MatChipsModule } from '@angular/material/chips';
+import { AxiosService, GetOptions } from 'src/services/axios/axios.service';
 
 @Component({
   selector: 'app-tags-bar',
@@ -14,7 +14,11 @@ export class TagsBarComponent {
   public tags: Tag[] = [];
   public favoriteTags: string[] = [];
 
-  constructor(public store: StoreService, private socketService: SocketService) {
+  public rightClickedTag: Tag | null = null;
+
+  @ViewChild('menu') menu: ElementRef | undefined;
+
+  constructor(public store: StoreService, private socketService: SocketService, private axios: AxiosService) {
     this.store.selectedTags = JSON.parse(localStorage.getItem('selectedTags') || "[]");
     this.favoriteTags = JSON.parse(localStorage.getItem('favoriteTags') || "[]");
 
@@ -69,5 +73,26 @@ export class TagsBarComponent {
     else this.favoriteTags = this.favoriteTags.filter((tag) => tag !== name);
     this.saveFavoriteTags();
     this.sortTags(this.tags);
+  }
+
+  renameTag(tag: Tag) {
+    console.log(tag);
+    // var options: GetOptions = { url: "/sound" + tag.ID }
+    // options.params = {
+    //   newName: tag.Name
+    // };
+    // this.axios.put(options).then((res) => {
+    // })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  }
+
+  deleteTag(tag: Tag) {
+    console.log(tag);
+  }
+
+  setRightClickedTag(tag: Tag) {
+    this.rightClickedTag = tag;
   }
 }

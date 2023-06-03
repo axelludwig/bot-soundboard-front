@@ -1,0 +1,19 @@
+.content{
+    height: 100px;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.controls{
+    margin-right: 50px;
+
+}
+
+.control-button {
+    margin-left: 1em;
+    margin-top: 1em !important;
+    display: inline-block;
+}

@@ -1,27 +1,6 @@
 <div id="main">
     <div class="menu">
         <div class="controls">
-            <div class="play-pause-button manage-element">
-                <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
-                <ng-template #paused>
-                    <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary">
-                        <mat-icon>play_arrow</mat-icon>
-                    </button>
-                </ng-template>
-
-                <ng-template #play>
-                    <button (click)="togglePause()" mat-mini-fab matTooltip="Primary" color="primary">
-                        <mat-icon>pause</mat-icon>
-                    </button>
-                </ng-template>
-            </div>
-
-            <div class="skip-button manage-element">
-                <button (click)="skipSound()" mat-mini-fab matTooltip="Primary" color="primary">
-                    <mat-icon>skip_next</mat-icon>
-                </button>
-            </div>
-
             <div class="clear-button manage-element">
                 <button (click)="clearQueue()" mat-mini-fab matTooltip="Primary" color="primary">
                     <mat-icon>clear</mat-icon>
@@ -44,13 +23,13 @@
 
             <label id="example-radio-group-label"> mode </label>
             <mat-radio-group color="primary" class="example-radio-group" [(ngModel)]="queueMode">
-                <mat-radio-button (change)="onRadioClick($event)" class="" *ngFor="let mode of queueModes"
+                <mat-radio-button (change)="onRadioClick($event)" class="mode-label" *ngFor="let mode of queueModes"
                     [value]="mode">
                     {{mode}}
                 </mat-radio-button>
             </mat-radio-group>
 
-            <div style="margin-left: 1em;" class="vertical-divider"> </div>
+            <div class="vertical-divider"> </div>
 
             <div class="upload">
                 <button type="button" mat-raised-button color="primary" (click)="openUploadDialog()">Add sounds</button>
@@ -75,4 +54,8 @@
         <app-guilds-list />
         <app-soundboard-menu />
     </div>
+</div>
+
+<div class="footer">
+    <app-player></app-player>
 </div>

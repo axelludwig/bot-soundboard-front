@@ -1,20 +1,18 @@
 :host {
+    /* border-radius: 8px; */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
     width: 30%;
     float: left;
-    border-top: 4px solid black;
-    border-left: 4px solid black;
-    border-bottom: 4px solid black;
-    border-radius: 0.5em 0 0 0.5em;
     margin-left: 2vw;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     height: 80%;
     padding: 0 1vw 0 1vw;
     overflow-y: scroll;
-
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
+    background-color: #121212;
 }
 
 .channel {
@@ -25,23 +23,14 @@
 
 .channel:hover {
     cursor: pointer;
-    color: #a7b3e2;
+    color: #a7b8f9;
 }
 
 .selected-channel {
-    color: #a7b3e2;
-
+    color: #a7b8f9;
 }
 
 .members {
     padding-left: 2vw;
     user-select: none;
-}
-
-.divider {
-    width: 100%;
-    border: 0;
-    border-top: 3px solid black;
-    align-self: center;
-    border-radius: 2em;
 }

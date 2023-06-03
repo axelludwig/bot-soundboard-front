@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-9');
+
 html,
 body {
     height: 100%;
@@ -5,7 +7,9 @@ body {
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: white !important;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 100;
 
     ::-webkit-scrollbar {
         width: 10px;
@@ -29,11 +33,19 @@ body {
         background: #cfcfcf;
     }
 
+    .divider {
+        width: 100%;
+        align-self: center;
+        border: 0;
+        border-top: 3px solid rgba(199, 199, 199, 0.089);
+        border-radius: 2em;
+    }
+
     .vertical-divider {
-        border-left: 3px solid black;
+        border-left: 3px solid rgba(199, 199, 199, 0.089);
         height: 75%;
         width: 1px;
-        margin-right: 1em;
+        margin-right: 1vw;
         border-radius: 2em;
         display: inline;
     }
@@ -55,6 +67,11 @@ body {
     align-items: center;
 }
 
+.mdc-form-field {}
 .mat-icon:hover {
     color: #ffaf19;
+}
+
+#slider .mat-mdc-slider-visual-thumb{
+    display: none;
 }

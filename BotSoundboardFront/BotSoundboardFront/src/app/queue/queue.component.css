@@ -1,5 +1,7 @@
 @import '../../styles.css';
 
+:host {}
+
 .queue-list {
     display: flex;
     padding-left: 1em;
@@ -23,12 +25,12 @@ h3 {
 }
 
 .queue {
+    border-radius: 8px;
     min-height: 8vh;
     max-height: 8vh;
-    border: solid 4px black;
-    border-radius: 0.5em;
     margin: 1vh 2vw 1vh 2vw;
     overflow: auto;
+    background-color: #121212;
 }
 
 .empty {
@@ -36,5 +38,5 @@ h3 {
     justify-content: center;
     align-items: center;
     height: 100%;
-    padding-top: 3vh;    
+    padding-top: 3vh;
 }
