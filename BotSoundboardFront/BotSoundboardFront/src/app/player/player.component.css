@@ -7,6 +7,15 @@
     align-items: baseline;
 }
 
+.now-playing{
+    left: 20px;
+    position: absolute;
+    margin-top: 20px;
+    width: 30%;
+    text-align: center;
+    overflow: hidden;
+}
+
 .controls{
     margin-right: 50px;
 
@@ -16,4 +25,10 @@
     margin-left: 1em;
     margin-top: 1em !important;
     display: inline-block;
+}
+
+.volume{
+    right: 50px;
+    position: absolute;
+    margin-top: 20px;
 }

@@ -18,28 +18,23 @@ declare var WaveSurfer: any;
 export class AppComponent {
   
   public socketConnection: boolean = false;
-  public volume: number = 0;
+  
   public queueMode: string = '';
   queueModes: string[] = ['queue', 'overwrite'];
 
   public isPaused = true;
-  public soundPlaying: Sound | null = null;
 
   constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
     })
+
     this.socketService.disconnect$.subscribe(() => {
       this.socketConnection = false;
     })
-    this.socketService.botChangeVolume$.subscribe((value: number) => {
-      this.volume = value;
-    })
+    
     this.socketService.botChangeMode$.subscribe((value: string) => {
       this.queueMode = value;
-    })
-    this.socketService.soundPlaying$.subscribe((sound: Sound) => {
-      this.soundPlaying = sound;
     })
   }
 
@@ -47,10 +42,6 @@ export class AppComponent {
 
   clearQueue() {
     this.socketService.clearQueue();
-  }
-
-  onSliderChange(event: any) {
-    this.socketService.setVolume(event.value)
   }
 
   onRadioClick(event: any) {

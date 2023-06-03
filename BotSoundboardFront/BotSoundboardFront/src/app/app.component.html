@@ -7,20 +7,6 @@
                 </button>
             </div>
 
-            <div class="now-playing manage-element">
-                <a *ngIf="soundPlaying && soundPlaying.Name.length > 25" class="link link_animated" href="">
-                    {{soundPlaying.Name}}
-                </a>
-                <a *ngIf="soundPlaying && soundPlaying.Name.length <= 24" class="link"> {{soundPlaying.Name}} </a>
-                <a *ngIf="!soundPlaying" class="link"> no sound playing </a>
-            </div>
-
-            <span class="slider">
-                <mat-slider min="0" max="1" step="0.01">
-                    <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
-                </mat-slider>
-            </span>
-
             <label id="example-radio-group-label"> mode </label>
             <mat-radio-group color="primary" class="example-radio-group" [(ngModel)]="queueMode">
                 <mat-radio-button (change)="onRadioClick($event)" class="mode-label" *ngFor="let mode of queueModes"

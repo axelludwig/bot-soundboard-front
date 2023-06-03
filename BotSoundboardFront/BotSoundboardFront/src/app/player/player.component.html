@@ -1,4 +1,12 @@
 <div class="content">
+    <div class="now-playing manage-element">
+        <a *ngIf="soundPlaying && soundPlaying.Name.length > 25" class="link link_animated" href="">
+            {{soundPlaying.Name}}
+        </a>
+        <a *ngIf="soundPlaying && soundPlaying.Name.length <= 24" class="link"> {{soundPlaying.Name}} </a>
+        <a *ngIf="!soundPlaying" class="link"> no sound playing </a>
+    </div>
+
     <div class="controls">
         <div class="control-button">
             <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
@@ -21,5 +29,14 @@
             </button>
         </div>
     </div>
+    
     <app-sound-timer></app-sound-timer>
+
+    <div class="volume">
+        <span>
+            <mat-slider min="0" max="1" step="0.01">
+                <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
+            </mat-slider>
+        </span>
+    </div>
 </div>
