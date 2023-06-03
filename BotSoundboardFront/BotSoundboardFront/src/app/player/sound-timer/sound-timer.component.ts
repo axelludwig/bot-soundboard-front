@@ -27,18 +27,15 @@ export class SoundTimerComponent {
     });
 
     this.socket.soundPlaying$.subscribe((sound: Sound) => {
-      if (!sound){
-        this.isPlayingSound = false;
-      }
-      else{
-        this.isPlayingSound = true;
-      }
-    });
-
-    this.socket.soundPlaying$.subscribe((sound: Sound) => {
       if (sound){
+        this.isPlayingSound = true;
         this.soundTime = sound.SoundLength;
         this.setProgress();
+      }
+      else{
+        this.isPlayingSound = false;
+        this.soundTime = 0;
+        this.elapsedTime = 0;
       }
     });
   }
