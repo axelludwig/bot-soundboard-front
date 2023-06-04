@@ -30,13 +30,13 @@ export class SoundTimerComponent {
       if (sound){
         this.isPlayingSound = true;
         this.soundTime = sound.SoundLength;
-        this.setProgress();
       }
       else{
         this.isPlayingSound = false;
         this.soundTime = 0;
         this.elapsedTime = 0;
       }
+      this.setProgress();
     });
   }
 
