@@ -20,28 +20,33 @@
     justify-content: center;
 }
 
+.header{
+    border-bottom: 1px solid rgba(199, 199, 199, 0.089);
+}
+
 .card {
-    background-color: black;
     display: flex;
     flex-direction: row;
-    height: 40px;;
+    height: 40px;
 }
 
-.sound-infos{
+
+.sound-infos {
     color: white;
-    margin-top: 10px;;
+    margin-top: 10px;
 }
 
-.sound-title{
-    flex:3;
+.sound-title {
+    flex: 3;
+    margin-left: 30px;
 }
 
-.sound-length{
-    flex:0.3;
+.sound-length {
+    flex: 0.3;
 }
 
-.sound-tags{
-    flex:1;
+.sound-tags {
+    flex: 1;
 }
 
 .sound {
