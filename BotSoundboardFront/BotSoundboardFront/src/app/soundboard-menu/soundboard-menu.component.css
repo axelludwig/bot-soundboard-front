@@ -15,9 +15,33 @@
 
 .grid {
     display: grid;
-    grid-template-columns: 30% 30% 30%;
+    grid-template-columns: 100%;
     align-items: stretch;
     justify-content: center;
+}
+
+.card {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    height: 40px;;
+}
+
+.sound-infos{
+    color: white;
+    margin-top: 10px;;
+}
+
+.sound-title{
+    flex:3;
+}
+
+.sound-length{
+    flex:0.3;
+}
+
+.sound-tags{
+    flex:1;
 }
 
 .sound {
@@ -45,10 +69,6 @@
 .sound:hover+.delete-button,
 .delete-button:hover {
     display: inline;
-}
-
-.card {
-    margin: 0 2em 2em 0;
 }
 
 .card:hover {
