@@ -25,9 +25,6 @@ export class AudioEditorComponent implements OnInit {
   public base64File: Base64File | undefined;
 
   public loadingSnackbar: any;
-  public successSnackbar: any;
-
-
 
   @ViewChild('waveform') private waveform: any | undefined;
 
@@ -53,15 +50,14 @@ export class AudioEditorComponent implements OnInit {
     });
   }
 
-  openSucessSnackBar() {
-    this.successSnackbar = this._snackBar.openFromComponent(SuccessSnackbar, {
-      duration: 3000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-      panelClass: ['sucess-snackbar']
-    });
-    this.store.updateSoundName(this.base64File!.name);
-  }
+  // openSucessSnackBar() {
+  //   this.successSnackbar = this._snackBar.openFromComponent(SuccessSnackbar, {
+  //     duration: 3000,
+  //     horizontalPosition: 'end',
+  //     verticalPosition: 'top',
+  //     panelClass: ['sucess-snackbar']
+  //   });
+  // }
 
   close() {
     this.loadingSnackbar.dismiss();
@@ -105,8 +101,7 @@ export class AudioEditorComponent implements OnInit {
         color: 'hsla(222, 93%, 74%, 0.5)',
         loop: false,
         multiple: false,
-        id: "region",
-        // drag: false
+        id: "region"
       });
 
       this.wavesurfer.skip(duration * margin);
@@ -194,7 +189,8 @@ export class AudioEditorComponent implements OnInit {
     this.axios.post(options)
       .then((res) => {
         this.close();
-        this.openSucessSnackBar();
+        this.store.openSucessSnackBar();
+        this.store.updateSoundName(this.base64File!.name);
       })
       .catch((err) => {
         console.log(err);

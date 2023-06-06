@@ -19,9 +19,10 @@ body {
     margin: 1em 2em 0 0;
 }
 
-.test {
+.sub-menu {
+    height: 82vh;
     display: flex;
-    height: 92%;
+    align-items: flex-start;
 }
 
 .filter-green {
@@ -39,7 +40,7 @@ mat-slider {
 }
 
 #main {
-    height: 90%;
+    height: 90vh;
     overflow-y: hidden;
 }
 

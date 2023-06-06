@@ -35,8 +35,8 @@ import { TagsBarComponent } from './tags-bar/tags-bar.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { ContextMenuComponent } from './context-menu-component/context-menu-component';
 import { MatMenuModule } from '@angular/material/menu';
-
 import { SoundTimerComponent } from './player/sound-timer/sound-timer.component';
+import { RenameTagModalComponent } from './modals/rename-tag-modal/rename-tag-modal.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -55,7 +55,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     TagsBarComponent,
     SoundTimerComponent,
     TagsBarComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    RenameTagModalComponent
   ],
   imports: [MatMenuModule, MatRadioModule,MatChipsModule, MatSnackBarModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule
   ],

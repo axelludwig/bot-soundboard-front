@@ -1,18 +1,19 @@
 <ng-container *ngIf="store.channelsLoaded; then loaded; else notLoaded"> </ng-container>
 
 <ng-template #loaded>
-    <div *ngFor="let channel of store.channels; index as i" class="channels">
-        <div [class.selected-channel]="store.currentChannel !== null && channel.id === store.currentChannel.id"
-            (click)="channelClick(channel.id)" class="channel">
-            <h4> {{channel.name}} </h4>
-            <div class="members" *ngFor="let member of channel.members">
-                <h5> {{member.name}} </h5>
+    <div class="guilds">
+        <button class="leave-button" type="button" mat-flat-button color="primary" (click)="leaveChannel()">Leave</button>
+        <div *ngFor="let channel of store.channels; index as i" class="channels">
+            <div [class.selected-channel]="store.currentChannel !== null && channel.id === store.currentChannel.id"
+                (click)="channelClick(channel.id)" class="channel">
+                <h4> {{channel.name}} </h4>
+                <div class="members" *ngFor="let member of channel.members">
+                    <h5> {{member.name}} </h5>
+                </div>
             </div>
+            <div *ngIf="i !== store.channels.length - 1" class="divider"> </div>
         </div>
-        <!-- <mat-divider class="divider"></mat-divider> -->
-        <div *ngIf="i !== store.channels.length - 1" class="divider"> </div>
     </div>
-    <button (click)="leaveChannel()"> quitter </button>
 </ng-template>
 
 <ng-template #notLoaded>

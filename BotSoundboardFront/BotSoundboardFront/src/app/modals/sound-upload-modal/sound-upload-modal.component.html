@@ -17,10 +17,10 @@
                     <mat-label>sound name</mat-label>
                     <input matInput placeholder="New name" (keyup)="updateName()" [(ngModel)]="name">
                 </mat-form-field>
-                <!-- <button [disabled]="youtubeUrl === '' || !youtubeUrl " type="button" mat-raised-button color="primary" -->
-                <button [disabled]="!urlIsValid" type="button" mat-raised-button color="primary"
+                <!-- <button [disabled]="youtubeUrl === '' || !youtubeUrl " type="button" mat-flat-button color="primary" -->
+                <button [disabled]="!urlIsValid" type="button" mat-flat-button color="primary"
                     (click)="getSoundFromUrl()">Load sound</button>
-                <button class="saveButton" [disabled]="!localBase64 || !localBase64.name" type="button" mat-raised-button color="primary"
+                <button class="saveButton" [disabled]="!localBase64 || !localBase64.name" type="button" mat-flat-button color="primary"
                     (click)="saveInChild()">
                     Save sound</button>
             </div>
@@ -40,9 +40,9 @@
     </div>
 
     <mat-tab label="Upload from mp3 file">
-        <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
+        <button type="button" mat-flat-button color="primary" (click)="fileInput.click()">Choose File</button>
         <input accept="sound/mp3, sound/ogg" multiple hidden (change)="onFileChange()" #fileInput type="file" id="file">
-        <button disabled="{{!this.hasFiles}}" mat-raised-button color="primary" (click)="uploadFile()">Upload
+        <button disabled="{{!this.hasFiles}}" mat-flat-button color="primary" (click)="uploadFile()">Upload
             sound</button>
     </mat-tab>
 </mat-tab-group>

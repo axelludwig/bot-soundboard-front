@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable, Subject } from 'rxjs';
 import { Channel, Sound, Tag, queueItem, soundRenamedSocketResponse } from 'src/app/declarations';
+import { StoreService } from '../store/store.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -53,10 +54,11 @@ export class SocketService {
 
 	private _tags = new Subject<Tag[]>();
 	tags$ = this._tags.asObservable();
+	private _newTag = new Subject<Tag>();
+	newTag$ = this._newTag.asObservable();
 
 	private _log = new Subject<any>();
 	log$ = this._log.asObservable();
-
 
 	constructor(private socket: Socket) {
 		this.socket.on('connect', () => {
@@ -131,8 +133,12 @@ export class SocketService {
 			this._elapsedTime.next(time);
 		});
 
+		//tags management
 		this.socket.on('tagsLoaded', (tags: Tag[]) => {
 			this._tags.next(tags);
+		});
+		this.socket.on('tagUpdated', (tag: Tag) => {
+			this._newTag.next(tag);			
 		});
 
 		this.socket.on('log', (message: string) => {

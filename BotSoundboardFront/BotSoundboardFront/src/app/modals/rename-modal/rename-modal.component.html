@@ -3,5 +3,5 @@
         <mat-label>Rename sound</mat-label>
         <input matInput placeholder="New name" (keyup.enter)="updateName()" [(ngModel)]="data">
     </mat-form-field>
-    <button type="button" mat-raised-button color="primary" [mat-dialog-close]="data" (click)="updateName()">Save</button>
+    <button type="button" mat-flat-button color="primary" [mat-dialog-close]="data" (click)="updateName()">Save</button>
 </div>
