@@ -3,6 +3,9 @@ import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
 import { Tag } from '../declarations';
 import { AxiosService, GetOptions } from 'src/services/axios/axios.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RenameTagModalComponent } from '../modals/rename-tag-modal/rename-tag-modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tags-bar',
@@ -10,20 +13,17 @@ import { AxiosService, GetOptions } from 'src/services/axios/axios.service';
   styleUrls: ['./tags-bar.component.css']
 })
 export class TagsBarComponent {
-
-  public tags: Tag[] = [];
-  public favoriteTags: string[] = [];
-
   public rightClickedTag: Tag | null = null;
-
   @ViewChild('menu') menu: ElementRef | undefined;
 
-  constructor(public store: StoreService, private socketService: SocketService, private axios: AxiosService) {
+  constructor(public store: StoreService, private socketService: SocketService, private axios: AxiosService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
     this.store.selectedTags = JSON.parse(localStorage.getItem('selectedTags') || "[]");
-    this.favoriteTags = JSON.parse(localStorage.getItem('favoriteTags') || "[]");
+    this.store.selectedTagsIds = this.store.selectedTags.map((tag) => tag.ID);
+    this.store.favoriteTags = JSON.parse(localStorage.getItem('favoriteTags') || "[]");
+    this.store.favoriteTagsIds = this.store.favoriteTags.map((tag) => tag.ID);
 
     this.socketService.tags$.subscribe((tags: Tag[]) => {
-      this.sortTags(tags);
+      this.store.sortTags(tags);
     });
   }
 
@@ -33,46 +33,66 @@ export class TagsBarComponent {
   }
 
   saveFavoriteTags() {
-    let favoriteTagsString = JSON.stringify(this.favoriteTags);
+    let favoriteTagsString = JSON.stringify(this.store.favoriteTags);
     localStorage.setItem('favoriteTags', favoriteTagsString);
-  }
-
-  sortTags(tags: Tag[]) {
-    let selectedTagsList: Tag[] = [];
-    let favoritesTagsList: Tag[] = [];
-    let unselectedTagsList: Tag[] = [];
-
-    for (let tag of tags) {
-      if (this.store.selectedTags.includes(tag.Name)) selectedTagsList.push(tag);
-      else if (this.favoriteTags.includes(tag.Name)) favoritesTagsList.push(tag);
-      else unselectedTagsList.push(tag);
-    }
-    this.tags = this.sortArray(selectedTagsList).concat(this.sortArray(favoritesTagsList)).concat(this.sortArray(unselectedTagsList));
-  }
-
-  sortArray(array: Tag[]) {
-    return array.sort((a, b) => {
-      if (a.Name.toLowerCase() < b.Name.toLowerCase()) return -1;
-      else if (a.Name.toLowerCase() > b.Name.toLowerCase()) return 1;
-      else return 0;
-    });
   }
 
   onTagClick(event: any, tag: Tag) {
     if (!event.isUserInput) return;
-    if (event.selected && !this.store.selectedTags.includes(tag.Name)) this.store.selectedTags.push(tag.Name);
-    else this.store.selectedTags = this.store.selectedTags.filter((t) => t !== tag.Name);
+    if (event.selected && !this.store.selectedTags.includes(tag)) {
+      this.store.selectedTags.push(tag);
+      this.store.selectedTagsIds.push(tag.ID);
+    } else {
+      this.store.selectedTags = this.store.selectedTags.filter((t) => t.ID !== tag.ID);
+      this.store.selectedTagsIds = this.store.selectedTagsIds.filter((id) => id !== tag.ID);
+    }
     this.saveSelectedTags();
-    this.sortTags(this.tags);
+    this.store.sortTags(this.store.tags);
     this.store.updateFilteredSounds();
   }
 
-  toggleFavorite(event: any, name: string, setFavorite: boolean) {
+  toggleFavorite(event: any, tag: Tag, setFavorite: boolean) {
     event.stopPropagation();
-    if (setFavorite) this.favoriteTags.push(name);
-    else this.favoriteTags = this.favoriteTags.filter((tag) => tag !== name);
+    if (setFavorite)  {
+      this.store.favoriteTags.push(tag);
+      this.store.favoriteTagsIds.push(tag.ID);
+    }
+    else {
+      this.store.favoriteTags = this.store.favoriteTags.filter((listTag) => listTag.ID !== tag.ID);
+      this.store.favoriteTagsIds = this.store.favoriteTagsIds.filter((id) => id !== tag.ID);
+    }
     this.saveFavoriteTags();
-    this.sortTags(this.tags);
+    this.store.sortTags(this.store.tags);
+  }
+
+
+  openDialog(tag: Tag) {
+    let dialog = this.dialog.open(RenameTagModalComponent, {
+      disableClose: false,
+      data: tag.Name,
+      width: '40%',
+    });
+
+    dialog.afterClosed().subscribe(result => {
+      if (result === undefined || result === null || result === '') return;
+
+      var options: GetOptions = { url: "/tags/" + tag.ID }
+      options.params = {
+        newName: result
+      };
+      this.axios.put(options)
+        .then((res) => {
+          // this.store.renameLocalStorageTags(tag, result);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    });
+  }
+
+  public showElement(tag: Tag): boolean {
+    console.log(tag);
+    return this.store.favoriteTags.some(item => item.ID === tag.ID);
   }
 
   renameTag(tag: Tag) {

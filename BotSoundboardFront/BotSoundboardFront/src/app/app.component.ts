@@ -16,13 +16,15 @@ declare var WaveSurfer: any;
 })
 
 export class AppComponent {
-  
+
   public socketConnection: boolean = false;
   
   public queueMode: string = '';
   queueModes: string[] = ['queue', 'overwrite'];
 
   public isPaused = true;
+
+  public variable: string = "";
 
   constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
     this.socketService.connect$.subscribe(() => {
@@ -69,5 +71,10 @@ export class AppComponent {
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  apply() {
+    let element = <HTMLElement>document.querySelector(':root');
+    element.style.setProperty('--primary', this.variable);
   }
 }
