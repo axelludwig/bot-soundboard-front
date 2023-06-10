@@ -4,7 +4,6 @@ import { Base64File } from '../declarations';
 import { AxiosService, GetOptions, Params } from 'src/services/axios/axios.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingSnackbar } from '../snackbars/loading-snackbar/loading-snackbar';
-import { SuccessSnackbar } from '../snackbars/success-snackbar/success-snackbar';
 import { Subject } from 'rxjs';
 
 declare var WaveSurfer: any;
@@ -49,15 +48,6 @@ export class AudioEditorComponent implements OnInit {
       verticalPosition: 'top'
     });
   }
-
-  // openSucessSnackBar() {
-  //   this.successSnackbar = this._snackBar.openFromComponent(SuccessSnackbar, {
-  //     duration: 3000,
-  //     horizontalPosition: 'end',
-  //     verticalPosition: 'top',
-  //     panelClass: ['sucess-snackbar']
-  //   });
-  // }
 
   close() {
     this.loadingSnackbar.dismiss();

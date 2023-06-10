@@ -42,7 +42,9 @@ export class SocketService {
 	deleteSound$ = this._deleteSound.asObservable();
 	private _soundRenamed = new Subject<any>();
 	soundRenamed$ = this._soundRenamed.asObservable();
-
+	private _soundUpdated = new Subject<Sound>();
+	soundUpdated$ = this._soundUpdated.asObservable();
+	
 	private _newSound = new Subject<Sound>();
 	newSound$ = this._newSound.asObservable();
 
@@ -121,6 +123,9 @@ export class SocketService {
 		});
 		this.socket.on('soundRenamed', (res: soundRenamedSocketResponse) => {
 			this._soundRenamed.next(res);
+		});
+		this.socket.on('soundUpdated', (sound: Sound) => {
+			this._soundUpdated.next(sound);
 		});
 
 		//queue management

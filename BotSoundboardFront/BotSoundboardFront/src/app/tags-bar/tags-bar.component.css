@@ -9,12 +9,12 @@
     overflow-x: auto;
     overflow-y: auto;
     align-items: center;
-    background-color: #121212;
+    background-color: var(--first-background);
     padding-left: 1vw;
     padding-right: 1vw;
     padding-top: 0.5vh;
     padding-bottom: 0.5vh;
-    font-family: 'Helvetica 65 Medium', sans-serif;
+    /* font-family: 'Helvetica 65 Medium', sans-serif; */
 }
 
 .tags {

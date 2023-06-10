@@ -1,3 +1,5 @@
+@import '../../styles.css';
+
 :host {
     width: 70%;
     float: left;
@@ -5,7 +7,7 @@
     margin-top: 1vh;
     overflow-y: scroll;
     height: 79%;
-    background-color: #121212;
+    background-color: var(--first-background);
     margin-left: 1vw;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -24,45 +26,56 @@
     justify-content: center;
 }
 
-.header{
-    border-bottom: 1px solid rgba(199, 199, 199, 0.089);
-}
 
-.card {
+.header {
     display: flex;
     flex-direction: row;
-    height: 40px;
+    cursor: pointer;
+    /* height: 40px; */
+}
+
+.tag {
+    cursor: not-allowed;
 }
 
 
 .sound-infos {
+    display: flex;
     color: white;
-    margin-top: 10px;
+    /* margin-top: 10px; */
+    overflow-x: scroll;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    padding: 0 1vw 0 1vw;
+    /* margin-right: 1vw; */
+    align-items: center;
+}
+
+.sound-name {
+    justify-self: center;
+    align-self: center;
 }
 
 .sound-title {
-    flex: 3;
-    margin-left: 30px;
+    flex: 2;
+    /* margin-left: 30px; */
 }
 
 .sound-length {
-    flex: 0.3;
+    flex: 0.4;
 }
 
 .sound-tags {
-    flex: 1;
+    flex: 1.5;
 }
 
-.sound {
-    align-items: stretch;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    text-align: center;
-    word-break: break-all;
-    user-select: none;
-    position: relative;
-    font-family: 'Helvetica 65 Medium', sans-serif;
 
+.tags-header {
+    padding-left: 2vw;
+}
+
+.length-header {
+    padding-left: 1vw;
 }
 
 .delete-button {
@@ -79,42 +92,16 @@
     display: inline;
 }
 
-.card:hover {
-    cursor: pointer;
-}
-
-.card-title {
-    overflow: hidden;
-    color: black;
-    line-height: 1.5em;
-    height: 3em;
-    padding: 0 !important;
-    margin-top: 1vh;
-    word-break: break-all;
-
-}
-
-.card-actions {
-    justify-content: center;
-    padding: 0;
-}
-
-.card-header {
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-}
-
 .wrapper {
-    padding-top: 5em;
+    padding-top: 8vh;
 }
 
 .top-buttons-fixed {
     overflow: hidden;
     position: fixed;
-    width: 61%;
+    width: 64%;
     z-index: 100;
-    background-color: #121212;
+    background-color: var(--first-background);
 }
 
 .edit-button {
@@ -128,4 +115,28 @@
 .grayed {
     pointer-events: none;
     opacity: 10%;
+}
+
+.playing {
+    color: var(--primary);
+}
+
+.tags-selector-dialog .mdc-evolution-chip-set__chips {
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+.mdc-evolution-chip-set__chips {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.mdc-evolution-chip-set__chips {
+    display: flex !important;
+    flex-wrap: nowrap !important;
 }

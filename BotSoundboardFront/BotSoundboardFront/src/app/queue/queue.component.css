@@ -30,7 +30,7 @@ h3 {
     max-height: 8vh;
     margin: 1vh 2vw 1vh 2vw;
     overflow: auto;
-    background-color: #121212;
+    background-color: var(--first-background);
 }
 
 .empty {

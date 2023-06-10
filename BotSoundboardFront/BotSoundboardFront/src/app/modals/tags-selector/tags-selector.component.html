@@ -1,0 +1,23 @@
+<div class="tags-selector">
+    <div class="left-panel">
+        <div class="title"> available tags</div>
+        <div class="divider"></div>
+        <mat-chip-listbox class="tags mat-mdc-chip-set-stacked">
+            <mat-chip-option class="tag" (click)="setToSelected(tag)" *ngFor="let tag of availableTags">
+                {{tag.Name}}
+            </mat-chip-option>
+        </mat-chip-listbox>
+    </div>
+    <div class="local-vertical-divider"></div>
+
+    <div class="right-panel">
+        <div class="title"> selected tags</div>
+        <div class="divider"></div>
+        <mat-chip-listbox class="tags mat-mdc-chip-set-stacked">
+            <mat-chip-option class="tag" (click)="removeFromSelected(tag)" *ngFor="let tag of selectedTags">
+                {{tag.Name}}
+            </mat-chip-option>
+        </mat-chip-listbox>
+    </div>
+    <button class="save-button" type="button" mat-flat-button color="primary" (click)="save()">Save</button>
+</div>

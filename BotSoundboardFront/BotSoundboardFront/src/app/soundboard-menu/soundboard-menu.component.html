@@ -15,30 +15,43 @@
 <div *ngIf="store.sounds.length > 0" class="wrapper">
     <div [class.grayed]="!store.currentChannel" class="grid">
         <span>
-            <div class="card header">
+            <div class="header">
                 <div class="sound-infos sound-title">
-                    <div>Titre</div>
+                    Titre
                 </div>
-                <div class="sound-infos sound-tags">
-                    <div>Tags</div>
+                <div class="sound-infos sound-tags tags-header">
+                    Tags
                 </div>
                 <div class="sound-infos sound-length">
-                    <div>Durée</div>
+                    Durée
                 </div>
             </div>
         </span>
-        <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.sounds ">
-            <div class="card">
+        <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.sounds"
+            (contextmenu)="menu.open($event, { name: sound} )">
+            <div class="header">
                 <div class="sound-infos sound-title">
-                    <div>{{sound.Name}}</div>
+                    <div [class.playing]="store.soundPlaying?.ID == sound.ID" class="sound-name ">{{sound.Name}}</div>
                 </div>
-                <div class="sound-infos sound-tags">
-                    <div>Mon tag haha</div>
-                </div>
-                <div class="sound-infos sound-length">
-                    <div>{{sound.SoundLength| date: 'mm:ss'}}</div>
+                <mat-chip-listbox class="sound-infos sound-tags ">
+                    <mat-chip-option disabled class="tag" *ngFor="let tag of sound.Tags">
+                        {{tag.Name}}
+                    </mat-chip-option>
+                </mat-chip-listbox>
+                <div class="sound-infos sound-length length-header">
+                    <div>{{sound.SoundLength | date: 'mm:ss'}}</div>
                 </div>
             </div>
         </span>
     </div>
 </div>
+
+<app-context-menu [matMenuTriggerFor]="main" #menu>
+    <mat-menu #main="matMenu">
+        <ng-template matMenuContent let-name="name">
+            <button mat-menu-item (click)="openRenameContextMenu(name)">Rename</button>
+            <button mat-menu-item (click)="openTagsSelectorDialog(name)">Modify tags</button>
+            <button mat-menu-item (click)="delete(name)">Delete</button>
+        </ng-template>
+    </mat-menu>
+</app-context-menu>

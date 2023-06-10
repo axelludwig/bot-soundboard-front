@@ -5,6 +5,8 @@ import { StoreService } from 'src/services/store/store.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RenameModalComponent } from '../modals/rename-modal/rename-modal.component';
 import { Sound, soundRenamedSocketResponse } from '../declarations';
+import { TagsSelectorComponent } from '../modals/tags-selector/tags-selector.component';
+
 
 @Component({
   selector: 'app-soundboard-menu',
@@ -57,16 +59,15 @@ export class SoundboardMenuComponent {
     this.store.updateFilteredSounds();
   }
 
-  delete(event: any, soundId: number) {
-    event.stopPropagation()
-    this.socket.deleteSound(soundId)
+  delete(sound: Sound) {
+    this.socket.deleteSound(sound.ID)
   }
 
-  openDialog(event: Event, soundId: number, oldName: string) {
-    event.stopPropagation()
+  openDialog(event: Event, sound: Sound) {
+    // event.stopPropagation()
     let dialog = this.dialog.open(RenameModalComponent, {
       disableClose: true,
-      data: oldName,
+      data: sound.Name,
       width: '40%',
     });
 
@@ -75,7 +76,47 @@ export class SoundboardMenuComponent {
 
       var options: GetOptions = { url: "/sound" }
       options.params = {
-        id: soundId,
+        id: sound.ID,
+        newName: result
+      };
+
+      this.axios.put(options).then((res) => {
+      })
+        .catch((err) => {
+          console.log(err);
+        })
+    });
+  }
+
+  test(event: any) {
+    console.log(event);
+  }
+
+  openTagsSelectorDialog(sound: Sound) {
+    let dialog = this.dialog.open(TagsSelectorComponent, {
+      disableClose: false,
+      data: sound,
+      panelClass: 'tags-selector-dialog',
+    });
+
+    dialog.afterClosed().subscribe(result => {
+
+    })
+  }
+
+  openRenameContextMenu(sound: Sound) {
+    let dialog = this.dialog.open(RenameModalComponent, {
+      disableClose: false,
+      data: sound.Name,
+      width: '40%',
+    });
+
+    dialog.afterClosed().subscribe(result => {
+      if (result === undefined || result === null || result === '') return;
+
+      var options: GetOptions = { url: "/sound" }
+      options.params = {
+        id: sound.ID,
         newName: result
       };
 

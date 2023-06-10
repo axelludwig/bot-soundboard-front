@@ -16,7 +16,6 @@ export class ContextMenuComponent extends MatMenuTrigger {
 
   // Intercepts the global context menu event
   public open({ x, y }: MouseEvent, data?: any) {
-
     // Pass along the context data to support lazily-rendered content
     if (!!data) { this.menuData = data; }
 
@@ -25,9 +24,13 @@ export class ContextMenuComponent extends MatMenuTrigger {
     this.y = y + 'px';
 
     // Opens the menu
-    this.openMenu();
+    // this.openMenu();
+    this.closeMenu();
+    setTimeout(() => {
+      this.openMenu();
+    }, 1);
 
-    // prevents default
+    // prevents default    
     return false;
   }
 }
