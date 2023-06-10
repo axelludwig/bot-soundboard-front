@@ -37,6 +37,9 @@ import { ContextMenuComponent } from './context-menu-component/context-menu-comp
 import { MatMenuModule } from '@angular/material/menu';
 import { SoundTimerComponent } from './player/sound-timer/sound-timer.component';
 import { RenameTagModalComponent } from './modals/rename-tag-modal/rename-tag-modal.component';
+import { TagsSelectorComponent } from './modals/tags-selector/tags-selector.component';
+import { MatTooltipModule} from '@angular/material/tooltip';
+
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -56,9 +59,10 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     SoundTimerComponent,
     TagsBarComponent,
     ContextMenuComponent,
-    RenameTagModalComponent
+    RenameTagModalComponent,
+    TagsSelectorComponent
   ],
-  imports: [MatMenuModule, MatRadioModule,MatChipsModule, MatSnackBarModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule
+  imports: [MatMenuModule, MatTooltipModule, MatRadioModule,MatChipsModule, MatSnackBarModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule
   ],
   exports: [],
   providers: [AxiosService],

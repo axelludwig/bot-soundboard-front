@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Inject } from "@angular/core";
+import { MAT_SNACK_BAR_DATA } from "@angular/material/snack-bar";
 import { StoreService } from "src/services/store/store.service";
 
 @Component({
@@ -8,11 +9,14 @@ import { StoreService } from "src/services/store/store.service";
 })
 
 export class SuccessSnackbar {
-  public name: string | undefined;
+  public message: string = "";
 
-  constructor(store: StoreService) {
+  constructor(store: StoreService, @Inject(MAT_SNACK_BAR_DATA) public data: any) {
+    if (data.message) {
+      this.message = data.message;
+    }
     store.soundName$.subscribe((name: string) => {
-      this.name = name;
+      this.message = name + " successfully uploaded";
     })
   }
 }

@@ -1,0 +1,52 @@
+.tags-selector {
+    display: flex;
+    min-height: 65vh;
+    max-height: 65VH;
+    /* min-width: 600px; */
+    margin: 1em;
+}
+
+
+.left-panel {
+    width: 50%;
+    padding: 1vw;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.right-panel {
+    width: 50%;
+    padding: 1vw;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.title {
+    margin-left: 1vw;
+    margin-bottom: 1vh;
+}
+
+.tags {
+    margin-top: 1vh;
+}
+
+.tag {
+    cursor: pointer;
+}
+
+.save-button {
+    position: absolute;
+    bottom: 1vh;
+    right: 1vw;
+    z-index: 100;
+}
+
+/* .local-vertical-divider {
+    height: 58vh;
+    background: rgba(199, 199, 199, 0.089);
+    border-left: 3px solid rgba(199, 199, 199, 0.089);
+    border-radius: 2em;
+    bottom: 2vh;
+    position: absolute;
+    left: 50%;
+} */

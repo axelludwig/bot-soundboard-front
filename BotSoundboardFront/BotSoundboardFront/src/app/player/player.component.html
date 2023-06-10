@@ -1,10 +1,10 @@
 <div class="content">
     <div class="now-playing manage-element">
-        <a *ngIf="soundPlaying && soundPlaying.Name.length > 25" class="link link_animated" href="">
-            {{soundPlaying.Name}}
+        <a *ngIf="store.soundPlaying && store.soundPlaying.Name.length > 25" class="link link_animated" href="">
+            {{store.soundPlaying.Name}}
         </a>
-        <a *ngIf="soundPlaying && soundPlaying.Name.length <= 24" class="link"> {{soundPlaying.Name}} </a>
-        <a *ngIf="!soundPlaying" class="link"> no sound playing </a>
+        <a *ngIf="store.soundPlaying && store.soundPlaying.Name.length <= 24" class="link"> {{store.soundPlaying.Name}} </a>
+        <a *ngIf="!store.soundPlaying" class="link"> no sound playing </a>
     </div>
 
     <div class="controls">

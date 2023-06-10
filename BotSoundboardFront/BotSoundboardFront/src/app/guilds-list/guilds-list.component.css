@@ -12,7 +12,7 @@
     height: 79%;
     padding: 0 1vw 0 1vw;
     overflow-y: scroll;
-    background-color: #121212;
+    background-color: var(--first-background);
 }
 
 .channel {

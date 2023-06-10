@@ -40,6 +40,8 @@ export class StoreService implements OnInit {
 
   public tags: Tag[] = [];
 
+  public soundPlaying: Sound | null = null;
+
   constructor(private socketService: SocketService, private _snackBar: MatSnackBar) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
       this.queue = queue;
@@ -72,6 +74,27 @@ export class StoreService implements OnInit {
       this.sortTags(this.tags);
       this.renameLocalStorageTags(tag, tag.Name);
     })
+
+    this.socketService.soundUpdated$.subscribe((sound: Sound) => {
+      this.sounds.forEach((s) => {
+        if (s.ID == sound.ID) {
+          s.Name = sound.Name;
+          s.Tags = sound.Tags;
+        }
+      });
+      this.soundsCopy.forEach((s) => {
+        if (s.ID == sound.ID) {
+          s.Name = sound.Name;
+          s.Tags = sound.Tags;
+        }
+      });
+      this.sortSounds();
+      this.updateFilteredSounds();
+    });
+
+    this.socketService.soundPlaying$.subscribe((sound: Sound) => {
+      this.soundPlaying = sound;
+    });
   }
 
   sortArray(array: Tag[]) {
@@ -112,10 +135,11 @@ export class StoreService implements OnInit {
     let temp: Sound[] = [];
     this.sounds.forEach((sound: Sound) => {
       sound.Tags.forEach((tag: Tag) => {
-        if (this.selectedTags.includes(tag)) temp.push(sound);
+        if (this.selectedTags.some((t) => t.ID === tag.ID)) {
+          temp.push(sound);
+        }
       })
-    })
-    this.sounds = temp;
+    }); this.sounds = temp;
   }
 
   ngOnInit() {
@@ -153,7 +177,8 @@ export class StoreService implements OnInit {
       duration: 3000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['sucess-snackbar']
+      panelClass: ['sucess-snackbar'],
+      data: { message: "Sound added to queue" }
     });
   }
 

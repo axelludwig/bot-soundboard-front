@@ -19,6 +19,7 @@ export class TagsBarComponent {
   constructor(public store: StoreService, private socketService: SocketService, private axios: AxiosService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
     this.store.selectedTags = JSON.parse(localStorage.getItem('selectedTags') || "[]");
     this.store.selectedTagsIds = this.store.selectedTags.map((tag) => tag.ID);
+
     this.store.favoriteTags = JSON.parse(localStorage.getItem('favoriteTags') || "[]");
     this.store.favoriteTagsIds = this.store.favoriteTags.map((tag) => tag.ID);
 
@@ -53,7 +54,7 @@ export class TagsBarComponent {
 
   toggleFavorite(event: any, tag: Tag, setFavorite: boolean) {
     event.stopPropagation();
-    if (setFavorite)  {
+    if (setFavorite) {
       this.store.favoriteTags.push(tag);
       this.store.favoriteTagsIds.push(tag.ID);
     }

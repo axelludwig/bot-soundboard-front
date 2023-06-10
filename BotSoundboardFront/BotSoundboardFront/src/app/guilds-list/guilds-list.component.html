@@ -2,7 +2,8 @@
 
 <ng-template #loaded>
     <div class="guilds">
-        <button class="leave-button" type="button" mat-flat-button color="primary" (click)="leaveChannel()">Leave</button>
+        <button class="leave-button" type="button" mat-flat-button color="primary"
+            (click)="leaveChannel()">Leave</button>
         <div *ngFor="let channel of store.channels; index as i" class="channels">
             <div [class.selected-channel]="store.currentChannel !== null && channel.id === store.currentChannel.id"
                 (click)="channelClick(channel.id)" class="channel">

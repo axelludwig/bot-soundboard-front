@@ -1,5 +1,8 @@
 :root {
     --primary: #898dff;
+    --first-background: #121212;
+    --background: #000000;
+    --text-color: #ffffff;
 }
 
 html,
@@ -8,13 +11,15 @@ body {
 }
 
 body {
+    color: var(--primary);
+    background-color: var(--background);
     margin: 0;
     font-family: 'Helvetica Neue', sans-serif;
     font-weight: 100;
 
     ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
+        width: 7px;
+        height: 7px;
     }
 
     ::-webkit-scrollbar-track {
@@ -56,13 +61,14 @@ body {
     --mdc-filled-button-container-color: var(--primary);
 }
 
+
 .mat-mdc-fab.mat-primary,
 .mat-mdc-mini-fab.mat-primary {
     --mdc-fab-container-color: var(--primary);
 }
 
 .mat-mdc-radio-button .mdc-form-field {
-    --mdc-radio-color: #ffffff;
+    --mdc-radio-color: var(--text-color);
 }
 
 .mat-mdc-slider.mat-primary {
@@ -71,16 +77,15 @@ body {
     --mdc-slider-hover-handle-color: var(--primary);
     --mdc-slider-active-track-color: var(--primary);
     --mdc-slider-inactive-track-color: var(--primary);
-    --mdc-slider-with-tick-marks-active-container-color: #fff;
+    --mdc-slider-with-tick-marks-active-container-color: var(--text-color);
     --mdc-slider-with-tick-marks-inactive-container-color: var(--primary);
     --mat-mdc-slider-ripple-color: var(--primary);
 }
 
 .mat-mdc-snack-bar-container {
     &.sucess-snackbar {
-        --mdc-snackbar-container-color: #a7b3e2;
-        --mat-mdc-snack-bar-button-color: #fff;
-        --mdc-snackbar-supporting-text-color: #000000;
+        --mdc-snackbar-container-color: var(--primary);
+        --mat-mdc-snack-bar-button-color: var(--text-color) --mdc-snackbar-supporting-text-color: var(--text-color);
     }
 }
 
@@ -93,7 +98,29 @@ body {
     align-items: center;
 }
 
-.mdc-form-field {}
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    background-color: var(--first-background) !important;
+}
+
+.mat-mdc-standard-chip.mat-primary.mat-mdc-chip-selected {
+    --mdc-chip-elevated-container-color: var(--primary);
+}
+
+/* sound-infos */
+
+.sound-infos .mdc-evolution-chip-set__chips {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
+
+.sound-infos .mdc-evolution-chip-set .mdc-evolution-chip {
+    margin: 0!important;
+    padding: 0 !important;
+}
+
+.sound-infos .mat-mdc-standard-chip.mdc-evolution-chip--disabled {
+    opacity: 1;
+}
 
 #slider .mat-mdc-slider-visual-thumb {
     display: none;
