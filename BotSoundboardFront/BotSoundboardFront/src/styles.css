@@ -1,8 +1,34 @@
 :root {
-    --primary: #898dff;
+    --link-color-h: 238;
+    --link-color-s: 100%;
+    --link-color-l: 77%;
+    --link-color-hsl: var(--link-color-h), var(--link-color-s), var(--link-color-l);    
+    
+    --primary: hsl(var(--link-color-hsl));
+    --primary-light: hsl(var(--link-color-h), var(--link-color-s), calc(var(--link-color-l) / .90));
+    --primary-dark: hsl(var(--link-color-h), var(--link-color-s), calc(var(--link-color-l) * .9));
+
+    
+     /* --primary: #ff0000; */
+    /* --primary-lighter: mix(var(--primary), white, 20%); */ 
+    /* --primary: #0008ff; */
+    /* --primary-lighter: mix(var(--primary), white, 1%); */
+
+    /* --primary-hue: 232; 
+    --primary-saturation: 60%;
+    --primary-lightness: 50%;  */
+
+    /* --lighter-variant: hsl(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness) + 20%)); */
+
+
+    /* --primary-lighter: hsl(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness) + 20%)); */
+    /* Adjust the lightness value as per your preference */
+
     --first-background: #121212;
     --background: #000000;
     --text-color: #ffffff;
+
+    
 }
 
 html,
@@ -114,7 +140,7 @@ body {
 }
 
 .sound-infos .mdc-evolution-chip-set .mdc-evolution-chip {
-    margin: 0!important;
+    margin: 0 !important;
     padding: 0 !important;
 }
 
@@ -124,4 +150,11 @@ body {
 
 #slider .mat-mdc-slider-visual-thumb {
     display: none;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
