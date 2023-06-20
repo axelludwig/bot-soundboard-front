@@ -29,9 +29,16 @@
 
 .icon-favorite {
     margin-left: 0.25em;
-    color: #ffaf19;
+    color: var(--primary-light) !important;
+    /* filter: brightness(300%) !important; */
 }
 
 .mat-icon:hover {
-    color: #ffaf19;
+    /* color: #ffaf19; */
+    color: var(--primary-light) !important;
+    /* color: red; */
+    /* color: var(--primary) !important;
+    filter: brightness(50%) !important; */
+    /* Adjust the brightness value as per your preference */
+
 }
