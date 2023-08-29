@@ -17,29 +17,39 @@
 
             <div class="vertical-divider"> </div>
 
-            <div class="upload">
-                <button type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add sounds</button>
-            </div>
-
+            
 
             <div class="status">
                 <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
                 <ng-template #online>
+                    <!-- <svg src="../assets/wifi.svg" class="filter-green" />
                     <img src="../assets/wifi.svg" class="filter-green" />
+                    <object type="image/svg+xml" data="../assets/wifi.svg" id="svg-object"></object> -->
+                    <div class="wifi">
+                        <div class="icon"></div>
+                    </div>
+
                 </ng-template>
                 <ng-template #offline>
                     <img src="../assets/wifi.svg" class="filter-red" />
                 </ng-template>
             </div>
-            <app-queue />
             <app-tags-bar />
         </div>
     </div>
 
-    <div class="sub-menu">
-        <app-guilds-list />
-        <app-soundboard-menu />
-    </div>
+    <as-split (dragEnd)="dragEnd($event)" class="sub-menu" unit="pixel" direction="horizontal">
+        <as-split-area>
+            <app-guilds-list />
+        </as-split-area>
+        <as-split-area [minSize]="800" [size]="menuSize">
+            <app-soundboard-menu />
+        </as-split-area>
+        <as-split-area [minSize]="500" [size]="queueSize">
+            <app-queue />
+        </as-split-area>
+    </as-split>
+
 </div>
 
 <div class="footer">

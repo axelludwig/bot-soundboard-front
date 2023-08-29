@@ -5,7 +5,7 @@
     display: flex;
     min-height: 6vh;
     max-height: 6vh;
-    margin: 1vh 2vw 1vh 2vw;
+    margin: 0 24px 24px 24px;
     overflow-x: auto;
     overflow-y: auto;
     align-items: center;
@@ -29,16 +29,14 @@
 
 .icon-favorite {
     margin-left: 0.25em;
-    color: var(--primary-light) !important;
-    /* filter: brightness(300%) !important; */
+    color: var(--primary) !important;
 }
 
 .mat-icon:hover {
-    /* color: #ffaf19; */
-    color: var(--primary-light) !important;
-    /* color: red; */
-    /* color: var(--primary) !important;
-    filter: brightness(50%) !important; */
-    /* Adjust the brightness value as per your preference */
-
+    color: var(--primary-variant) !important;
 }
+
+.selected {
+    border: solid 2px var(--primary) !important;
+}
+

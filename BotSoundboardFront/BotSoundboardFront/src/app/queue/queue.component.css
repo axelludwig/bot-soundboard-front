@@ -4,8 +4,6 @@
 
 .queue-list {
     display: flex;
-    padding-left: 1em;
-    padding-right: 1em;
     flex-wrap: wrap;
 }
 
@@ -21,14 +19,14 @@
 
 h3 {
     margin: 0 !important;
-    padding-left: 1em;
+    padding-left: 12px;
 }
 
 .queue {
     border-radius: 8px;
     min-height: 8vh;
     max-height: 8vh;
-    margin: 1vh 2vw 1vh 2vw;
+    margin: 0 0 0 0;
     overflow: auto;
     background-color: var(--first-background);
 }

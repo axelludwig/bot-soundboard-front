@@ -1,11 +1,37 @@
 <div class="top-buttons-fixed">
-    <mat-form-field>
-        <mat-label>Search</mat-label>
-        <input (keyup)="textChange()" matInput type="text" [(ngModel)]="store.searchValue">
-        <button *ngIf="store.searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
-            <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
+    <div class="first-row">
+
+
+        <div class="title title-sounds">
+            Sounds
+        </div>
+
+        <mat-form-field class="search">
+            <mat-label>Search</mat-label>
+            <input (keyup)="textChange()" matInput type="text" [(ngModel)]="store.searchValue">
+            <button *ngIf="store.searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
+                <mat-icon>close</mat-icon>
+            </button>
+
+        </mat-form-field>
+
+        <div class="upload">
+            <button type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add sounds</button>
+        </div>
+    </div>
+
+    <div class="second-row">
+        <div class="sound-infos sound-title text-header">
+            <p>Titles</p>
+        </div>
+        <div class="sound-infos sound-tags tags-header text-header">
+            Tags
+        </div>
+        <div class="sound-infos sound-length text-header">
+            Duration
+        </div>
+    </div>
+
     <!-- <button class="edit-button" type="button" mat-flat-button color="primary" (click)="editMode = !editMode">Edit
         mode
     </button> -->
@@ -14,19 +40,6 @@
 
 <div *ngIf="store.sounds.length > 0" class="wrapper">
     <div [class.grayed]="!store.currentChannel" class="grid">
-        <span>
-            <div class="header">
-                <div class="sound-infos sound-title">
-                    Titre
-                </div>
-                <div class="sound-infos sound-tags tags-header">
-                    Tags
-                </div>
-                <div class="sound-infos sound-length">
-                    Durée
-                </div>
-            </div>
-        </span>
         <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.sounds"
             (contextmenu)="menu.open($event, { name: sound} )">
             <div class="header">

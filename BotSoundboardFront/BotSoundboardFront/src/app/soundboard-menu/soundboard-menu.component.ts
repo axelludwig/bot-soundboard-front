@@ -6,6 +6,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dial
 import { RenameModalComponent } from '../modals/rename-modal/rename-modal.component';
 import { Sound, soundRenamedSocketResponse } from '../declarations';
 import { TagsSelectorComponent } from '../modals/tags-selector/tags-selector.component';
+import { SoundUploadModalComponent } from '../modals/sound-upload-modal/sound-upload-modal.component';
 
 
 @Component({
@@ -135,5 +136,16 @@ export class SoundboardMenuComponent {
   arrayToString(array: string[]): string {
     if (!array) return '';
     return array.join('|')
+  }
+
+  openUploadDialog() {
+    let dialog = this.dialog.open(SoundUploadModalComponent, {
+      height: '60%',
+      width: '40%',
+    });
+
+    dialog.afterClosed().subscribe(result => {
+      if (result === undefined || result === null || result === '') return;
+    });
   }
 }

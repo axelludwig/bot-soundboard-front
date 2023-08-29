@@ -2,6 +2,8 @@
 
 <ng-template #loaded>
     <div class="guilds">
+        <p class="title">Channels</p>
+        <button class="hide-button" type="button" mat-flat-button color="primary" (click)="hide()">Hide</button>
         <button class="leave-button" type="button" mat-flat-button color="primary"
             (click)="leaveChannel()">Leave</button>
         <div *ngFor="let channel of store.channels; index as i" class="channels">
