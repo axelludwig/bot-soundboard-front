@@ -1,6 +1,8 @@
 @import '../styles.css';
 
-:host {}
+.menu{
+    height: 160px;
+}
 
 .status {
     float: right;
@@ -22,13 +24,21 @@ mat-slider {
 }
 
 #main {
-    height: 90vh;
+    height: 100vh;
     overflow-y: hidden;
 }
 
+as-split {
+    height: calc(100% - 300px)!important;
+}
+
+
+app-soundboard-menu{
+    height: 100%;
+}
+
 .footer {
-    min-height: 9%;
-    max-height: 9%;
+    height: 120px;
     position: fixed;
     display: flex;
     align-items: center;

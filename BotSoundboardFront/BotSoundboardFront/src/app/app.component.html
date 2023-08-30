@@ -42,10 +42,10 @@
         <as-split-area>
             <app-guilds-list />
         </as-split-area>
-        <as-split-area [minSize]="800" [size]="menuSize">
+        <as-split-area [minSize]="800" [size]="menuSize" style="overflow: hidden;">
             <app-soundboard-menu />
         </as-split-area>
-        <as-split-area [minSize]="500" [size]="queueSize">
+        <as-split-area [minSize]="300" [size]="queueSize">
             <app-queue />
         </as-split-area>
     </as-split>

@@ -1,9 +1,7 @@
-<div class="top-buttons-fixed">
+<div>
     <div class="first-row">
-
-
         <div class="title title-sounds">
-            Sounds
+            Sounds ({{store.sounds.length}})
         </div>
 
         <mat-form-field class="search">
@@ -11,53 +9,54 @@
             <input (keyup)="textChange()" matInput type="text" [(ngModel)]="store.searchValue">
             <button *ngIf="store.searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
                 <mat-icon>close</mat-icon>
-            </button>
-
+            </button> 
         </mat-form-field>
 
         <div class="upload">
             <button type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add sounds</button>
         </div>
     </div>
-
-    <div class="second-row">
-        <div class="sound-infos sound-title text-header">
-            <p>Titles</p>
-        </div>
-        <div class="sound-infos sound-tags tags-header text-header">
-            Tags
-        </div>
-        <div class="sound-infos sound-length text-header">
-            Duration
-        </div>
-    </div>
-
-    <!-- <button class="edit-button" type="button" mat-flat-button color="primary" (click)="editMode = !editMode">Edit
-        mode
-    </button> -->
-    <!-- <button class="hide-button" type="button" mat-flat-button color="primary" (click)="showHidden = !showHidden">Show hidden</button> -->
 </div>
 
-<div *ngIf="store.sounds.length > 0" class="wrapper">
-    <div [class.grayed]="!store.currentChannel" class="grid">
-        <span (click)="soundClicked($event, sound.ID)" *ngFor="let sound of store.sounds"
-            (contextmenu)="menu.open($event, { name: sound} )">
-            <div class="header">
-                <div class="sound-infos sound-title">
-                    <div [class.playing]="store.soundPlaying?.ID == sound.ID" class="sound-name ">{{sound.Name}}</div>
-                </div>
-                <mat-chip-listbox class="sound-infos sound-tags ">
-                    <mat-chip-option disabled class="tag" *ngFor="let tag of sound.Tags">
-                        {{tag.Name}}
-                    </mat-chip-option>
-                </mat-chip-listbox>
-                <div class="sound-infos sound-length length-header">
-                    <div>{{sound.SoundLength | date: 'mm:ss'}}</div>
-                </div>
-            </div>
-        </span>
-    </div>
-</div>
+<mat-table [dataSource]="store.sounds" matSort>
+    <!-- En-têtes de colonnes -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>
+        <p>Title</p>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let sound">{{ sound.Name }}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="tags">
+      <mat-header-cell *matHeaderCellDef>
+        Tags
+      </mat-header-cell>
+      <mat-cell *matCellDef="let sound">
+        <mat-chip-listbox class="sound-infos sound-tags">
+          <mat-chip-option disabled class="tag" *ngFor="let tag of sound.Tags">
+            {{ tag.Name }}
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="duration">
+      <mat-header-cell *matHeaderCellDef>
+        Duration
+      </mat-header-cell>
+      <mat-cell *matCellDef="let sound">{{ sound.SoundLength | date: 'mm:ss' }}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="addedDate">
+      <mat-header-cell *matHeaderCellDef>
+        Added date
+      </mat-header-cell>
+      <mat-cell *matCellDef="let sound">{{ sound.PublicationDate | date: 'dd/MM/yyyy' }}</mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="['title', 'tags', 'duration', 'addedDate']; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['title', 'tags', 'duration', 'addedDate']" [class.playing]="store.soundPlaying?.ID == row.ID"  (click)="soundClicked($event, row.ID)"></mat-row>
+  </mat-table>
 
 <app-context-menu [matMenuTriggerFor]="main" #menu>
     <mat-menu #main="matMenu">
