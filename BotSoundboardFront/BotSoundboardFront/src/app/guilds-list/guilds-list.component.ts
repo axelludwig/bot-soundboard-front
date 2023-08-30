@@ -49,4 +49,9 @@ export class GuildsListComponent {
     this.socketService.leaveChannel();
     this.store.currentChannel = null;
   }
+
+  hide() {
+    console.log('hide');
+    
+  }
 }

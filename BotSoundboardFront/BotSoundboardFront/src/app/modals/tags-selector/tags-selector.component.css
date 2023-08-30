@@ -9,14 +9,14 @@
 
 .left-panel {
     width: 50%;
-    padding: 1vw;
+    padding: 12px;
     min-width: 200px;
     max-width: 200px;
 }
 
 .right-panel {
     width: 50%;
-    padding: 1vw;
+    padding: 12px;
     min-width: 200px;
     max-width: 200px;
 }

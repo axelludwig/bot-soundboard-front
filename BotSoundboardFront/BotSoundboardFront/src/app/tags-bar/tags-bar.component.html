@@ -1,6 +1,7 @@
 <div class="tags-bar">
     <mat-chip-listbox multiple *ngFor="let tag of store.tags" class="tags">
-        <mat-chip-option (contextmenu)="menu.open($event, { name: tag} )" class="chip"
+        <mat-chip-option (contextmenu)="menu.open($event, { name: tag} )"
+            [ngClass]="this.store.selectedTagsIds.includes(tag.ID) ? 'chip selected' : 'chip' "
             [selected]="this.store.selectedTagsIds.includes(tag.ID)" (selectionChange)="onTagClick($event, tag)">
             {{tag.Name}}
             <mat-icon *ngIf="!this.store.favoriteTagsIds.includes(tag.ID)" class="icon"
