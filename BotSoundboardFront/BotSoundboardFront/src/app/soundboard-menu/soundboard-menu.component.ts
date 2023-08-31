@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, OnChanges, Inject } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service";
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
@@ -7,6 +7,8 @@ import { RenameModalComponent } from '../modals/rename-modal/rename-modal.compon
 import { Sound, soundRenamedSocketResponse } from '../declarations';
 import { TagsSelectorComponent } from '../modals/tags-selector/tags-selector.component';
 import { SoundUploadModalComponent } from '../modals/sound-upload-modal/sound-upload-modal.component';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -14,11 +16,13 @@ import { SoundUploadModalComponent } from '../modals/sound-upload-modal/sound-up
   templateUrl: './soundboard-menu.component.html',
   styleUrls: ['./soundboard-menu.component.css']
 })
-export class SoundboardMenuComponent {
+export class SoundboardMenuComponent implements AfterViewInit {
+  @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   editMode = false;
   showHidden = false;
   hiddenSounds: string[] = []
+  dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
 
   constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
 
@@ -43,6 +47,24 @@ export class SoundboardMenuComponent {
       for (let i = 0; i < soundsCopy.length; i++) if (soundsCopy[i].ID == soundId) soundsCopy[i].Name = newName;
       this.store.sortSounds();
     });
+
+    this.socket.sounds$.subscribe((sounds: Sound[]) => {
+      this.dataSource = new MatTableDataSource(sounds);
+      this.dataSource.sort = this.sort;
+      this.dataSource.sortingDataAccessor = (sound: any, property) => {
+        switch (property) {
+          case 'title': return sound.Name;
+          case 'tags': return sound.Tags;
+          case 'duration': return sound.SoundLength;
+          case 'addedDate': return sound.PublicationDate;
+          default: return sound[property];
+        }
+      };
+    });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   soundClicked(event: any, soundId: number) {
