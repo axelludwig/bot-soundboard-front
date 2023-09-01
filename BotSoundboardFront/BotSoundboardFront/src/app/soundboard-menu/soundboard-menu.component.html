@@ -55,7 +55,7 @@
     </ng-container>
   
     <mat-header-row *matHeaderRowDef="['title', 'tags', 'duration', 'addedDate']; sticky: true"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['title', 'tags', 'duration', 'addedDate']" [class.playing]="store.soundPlaying?.ID == row.ID"  (click)="soundClicked($event, row.ID)"></mat-row>
+    <mat-row *matRowDef="let row; columns: ['title', 'tags', 'duration', 'addedDate']" [class.playing]="store.soundPlaying?.ID == row.ID"  (click)="soundClicked($event, row.ID)" (contextmenu)="menu.open($event, { name: row} )"></mat-row>
   </mat-table>
 
 <app-context-menu [matMenuTriggerFor]="main" #menu>

@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Channel, queueItem, Base64File, Sound, Tag } from 'src/app/declarations';
 import { SuccessSnackbar } from 'src/app/snackbars/success-snackbar/success-snackbar';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
@@ -18,6 +18,8 @@ export class StoreService implements OnInit {
 
   public sounds: Sound[] = [];
   public soundsCopy: Sound[] = [];
+
+  public soundsObservable: BehaviorSubject<Sound[]> = new BehaviorSubject<Sound[]>([]);
   // public filteredSounds: Sound[] = [];  
   public selectedTags: Tag[] = [];
   public selectedTagsIds: number[] = [];
@@ -59,6 +61,7 @@ export class StoreService implements OnInit {
     this.socketService.sounds$.subscribe((sounds: Sound[]) => {
       this.sounds = sounds;
       this.soundsCopy = sounds;
+      this.soundsObservable.next(this.sounds);
       this.sortSounds();
       // this.filteredSounds = sounds;
       this.updateFilteredSounds();
@@ -90,6 +93,7 @@ export class StoreService implements OnInit {
       });
       this.sortSounds();
       this.updateFilteredSounds();
+      this.soundsObservable.next(this.sounds);
     });
 
     this.socketService.soundPlaying$.subscribe((sound: Sound) => {
@@ -121,15 +125,18 @@ export class StoreService implements OnInit {
   applyTestFiler(): void {
     this.sounds = this.sounds.filter((sound) => {
       var s = sound.Name.toLocaleLowerCase();
-      var search = this.searchValue.toLocaleLowerCase()
+      var search = this.searchValue.toLocaleLowerCase();
+     
       return s.includes(search);
     });
   }
 
   updateFilteredSounds(): void {
+    //Idée d'opti : séparer le filtre par tags et le filtre par nom pour gagner en perf
     this.sounds = this.soundsCopy;
     this.applyTestFiler();
     if (this.selectedTags.length == 0) {
+      this.soundsObservable.next(this.sounds);
       return;
     }
     let temp: Sound[] = [];
@@ -139,7 +146,9 @@ export class StoreService implements OnInit {
           temp.push(sound);
         }
       })
-    }); this.sounds = temp;
+    }); 
+    this.sounds = temp;
+    this.soundsObservable.next(this.sounds);
   }
 
   ngOnInit() {
