@@ -18,17 +18,17 @@
     </div>
 </div>
 
-<mat-table [dataSource]="store.sounds" matSort>
+<mat-table [dataSource]="dataSource" matSort [class.grayed]="!store.currentChannel" class="grid">
     <!-- En-têtes de colonnes -->
     <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef>
-        <p>Title</p>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Title
       </mat-header-cell>
       <mat-cell *matCellDef="let sound">{{ sound.Name }}</mat-cell>
     </ng-container>
   
     <ng-container matColumnDef="tags">
-      <mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
         Tags
       </mat-header-cell>
       <mat-cell *matCellDef="let sound">
@@ -41,21 +41,21 @@
     </ng-container>
   
     <ng-container matColumnDef="duration">
-      <mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
         Duration
       </mat-header-cell>
       <mat-cell *matCellDef="let sound">{{ sound.SoundLength | date: 'mm:ss' }}</mat-cell>
     </ng-container>
   
     <ng-container matColumnDef="addedDate">
-      <mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
         Added date
       </mat-header-cell>
       <mat-cell *matCellDef="let sound">{{ sound.PublicationDate | date: 'dd/MM/yyyy' }}</mat-cell>
     </ng-container>
   
     <mat-header-row *matHeaderRowDef="['title', 'tags', 'duration', 'addedDate']; sticky: true"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['title', 'tags', 'duration', 'addedDate']" [class.playing]="store.soundPlaying?.ID == row.ID"  (click)="soundClicked($event, row.ID)"></mat-row>
+    <mat-row *matRowDef="let row; columns: ['title', 'tags', 'duration', 'addedDate']" [class.playing]="store.soundPlaying?.ID == row.ID"  (click)="soundClicked($event, row.ID)" (contextmenu)="menu.open($event, { name: row} )"></mat-row>
   </mat-table>
 
 <app-context-menu [matMenuTriggerFor]="main" #menu>

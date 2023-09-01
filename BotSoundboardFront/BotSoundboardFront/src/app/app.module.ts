@@ -66,7 +66,7 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     TagsSelectorComponent,
   ],
   imports: [AngularSplitModule, MatMenuModule, MatTooltipModule, MatRadioModule, MatChipsModule, MatSnackBarModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule, MatTableModule,
-    MatSortModule,
+    MatSortModule
   ],
   exports: [],
   providers: [AxiosService],
