@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, OnChanges, Inject, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, Inject, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service";
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
@@ -25,6 +25,9 @@ export class SoundboardMenuComponent implements AfterViewInit {
   dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
 
   constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
+    this.store.soundsObservable.subscribe((sounds: Sound[]) => {
+      this.dataSource.data = sounds;
+    });
 
     this.socket.newSound$.subscribe((sound: Sound) => {
       this.store.sounds.push(sound);
@@ -49,7 +52,7 @@ export class SoundboardMenuComponent implements AfterViewInit {
     });
 
     this.socket.sounds$.subscribe((sounds: Sound[]) => {
-      this.dataSource = new MatTableDataSource(sounds);
+      this.store.soundsObservable.next(sounds);
       this.dataSource.sort = this.sort;
       this.dataSource.sortingDataAccessor = (sound: any, property) => {
         switch (property) {
@@ -72,13 +75,11 @@ export class SoundboardMenuComponent implements AfterViewInit {
   }
 
   textChange() {
-    this.store.sounds = this.store.soundsCopy;
     this.store.updateFilteredSounds();
   }
 
   clearText() {
     this.store.searchValue = "";
-    this.store.sounds = this.store.soundsCopy;
     this.store.updateFilteredSounds();
   }
 
