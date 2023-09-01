@@ -33,12 +33,15 @@ export class SoundboardMenuComponent implements AfterViewInit {
       this.store.sounds.push(sound);
       this.store.soundsCopy.push(sound);
       this.store.sortSounds();
+      this.store.soundsObservable.next(this.store.sounds);
     })
 
     this.socket.deleteSound$.subscribe((soundId: number) => {
       this.store.sounds = this.store.sounds.filter((s) => {
         return s.ID !== soundId
       })
+
+      this.store.soundsObservable.next(this.store.sounds);
     })
 
     this.socket.soundRenamed$.subscribe((res: soundRenamedSocketResponse) => {
