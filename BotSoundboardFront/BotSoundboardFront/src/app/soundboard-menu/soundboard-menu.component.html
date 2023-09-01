@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<mat-table [dataSource]="dataSource" matSort>
+<mat-table [dataSource]="dataSource" matSort [class.grayed]="!store.currentChannel" class="grid">
     <!-- En-têtes de colonnes -->
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
