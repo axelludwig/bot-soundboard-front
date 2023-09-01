@@ -1,23 +1,6 @@
 <div id="main">
     <div class="menu">
         <div class="controls">
-            <div class="clear-button manage-element">
-                <button (click)="clearQueue()" mat-mini-fab matTooltip="Primary" color="primary">
-                    <mat-icon>clear</mat-icon>
-                </button>
-            </div>
-
-            <label id="example-radio-group-label"> mode </label>
-            <mat-radio-group color="primary" class="example-radio-group" [(ngModel)]="queueMode">
-                <mat-radio-button (change)="onRadioClick($event)" class="mode-label" *ngFor="let mode of queueModes"
-                    [value]="mode">
-                    {{mode}}
-                </mat-radio-button>
-            </mat-radio-group>
-
-            <div class="vertical-divider"> </div>
-
-            
 
             <div class="status">
                 <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
@@ -38,17 +21,17 @@
         </div>
     </div>
 
-    <as-split (dragEnd)="dragEnd($event)" class="sub-menu" unit="pixel" direction="horizontal">
-        <as-split-area>
-            <app-guilds-list />
-        </as-split-area>
-        <as-split-area [minSize]="800" [size]="menuSize" style="overflow: hidden;">
-            <app-soundboard-menu />
-        </as-split-area>
-        <as-split-area [minSize]="300" [size]="queueSize">
-            <app-queue />
-        </as-split-area>
-    </as-split>
+        <as-split class="content" (dragEnd)="dragEnd($event)" class="sub-menu" unit="pixel" direction="horizontal">
+            <as-split-area>
+                <app-guilds-list />
+            </as-split-area>
+            <as-split-area [minSize]="800" [size]="menuSize" style="overflow: hidden;">
+                <app-soundboard-menu />
+            </as-split-area>
+            <as-split-area class="queue-menu" [minSize]="300" [size]="queueSize">
+                <app-queue />
+            </as-split-area>
+        </as-split>
 
 </div>
 

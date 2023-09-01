@@ -5,6 +5,7 @@ import { StoreService } from 'src/services/store/store.service';
 import { SoundUploadModalComponent } from './modals/sound-upload-modal/sound-upload-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Sound } from './declarations';
+import { StickyDirection } from '@angular/cdk/table';
 
 declare var WaveSurfer: any;
 
@@ -19,8 +20,6 @@ export class AppComponent {
 
   public socketConnection: boolean = false;
 
-  public queueMode: string = '';
-  queueModes: string[] = ['queue', 'overwrite'];
 
   public isPaused = true;
 
@@ -42,9 +41,6 @@ export class AppComponent {
       this.socketConnection = false;
     })
 
-    this.socketService.botChangeMode$.subscribe((value: string) => {
-      this.queueMode = value;
-    })
 
     let sizes = localStorage.getItem('sizes');
     if (sizes) {
@@ -64,13 +60,7 @@ export class AppComponent {
     return (yiq >= 128) ? 'black' : 'white';
   }
 
-  clearQueue() {
-    this.socketService.clearQueue();
-  }
-
-  onRadioClick(event: any) {
-    this.socketService.setMode(event.value)
-  }  
+  
 
   testHttp() {
     var options: GetOptions = {
@@ -136,6 +126,7 @@ export class AppComponent {
     this.root.style.setProperty('--primary-variant', this.shadeColor(color, -40));
     this.root.style.setProperty('--text-color', this.getContrastYIQ(color));
     this.root.style.setProperty('--primary-complemantary', this.invertColor(color));
+    this.root.style.setProperty('--primary-opacity', this.hexToRGB(color, '0.20'));
   }
 
   invertColor(hex: string) {
@@ -161,5 +152,17 @@ export class AppComponent {
     len = len || 2;
     var zeros = new Array(len).join('0');
     return (zeros + str).slice(-len);
+  }
+
+  hexToRGB(hex: string, alpha: string) {
+    var r = parseInt(hex.slice(1, 3), 16),
+      g = parseInt(hex.slice(3, 5), 16),
+      b = parseInt(hex.slice(5, 7), 16);
+
+    if (alpha) {
+      return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+    } else {
+      return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
   }
 }

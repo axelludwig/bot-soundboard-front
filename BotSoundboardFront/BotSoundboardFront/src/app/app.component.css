@@ -1,7 +1,7 @@
 @import '../styles.css';
 
 .menu{
-    height: 160px;
+    /* height: 140px; */
 }
 
 .status {
@@ -127,4 +127,12 @@ app-soundboard-menu{
 
 .mode-label {
     color: white !important;
+}
+
+.content {
+    padding-right: 24px !important;
+}
+
+.queue-menu {
+    margin-right: 24px;
 }
