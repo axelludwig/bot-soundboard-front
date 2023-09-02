@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from "../../services/store/store.service"
@@ -11,6 +11,12 @@ import { Channel, Member } from '../declarations';
 })
 
 export class GuildsListComponent {
+  
+  @Output() hideParent = new EventEmitter<any>();
+
+  callParent(): void {
+    this.hideParent.next('');
+  }
 
   constructor(public socketService: SocketService, public axiosService: AxiosService, public store: StoreService) {
     this.socketService.userChangeChannel$.subscribe((res: any) => {
@@ -51,7 +57,6 @@ export class GuildsListComponent {
   }
 
   hide() {
-    console.log('hide');
-    
+    this.callParent();    
   }
 }

@@ -1,18 +1,20 @@
 @import '../../styles.css';
 
 :host {
-    margin: 0 24px 0 0;
-    width: 100%;
+    display: flex;
     height: 100%;
-    float: left;
-    
-
+    overflow: hidden;
+    margin-right: 24px;
+    padding: 0 24px 0 24px;
     border-radius: 8px;
-    /* min-height: 8vh;
-    max-height: 8vh; */
-    /* margin: 0 0 0 0; */
-    /* overflow: hidden; */
     background-color: var(--first-background);
+}
+
+.header {
+    display: flex;
+    /* flex-direction: row;
+    cursor: pointer;
+    height: 38px; */
 }
 
 .queue-list {
@@ -27,7 +29,7 @@
 
 .mat-mdc-icon-button.mat-mdc-button-base {
     width: 40px;
-    height: 45px;
+    height: 45px
 }
 
 h3 {

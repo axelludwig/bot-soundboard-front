@@ -1,37 +1,21 @@
 <div id="main">
     <div class="menu">
-        <div class="controls">
-
-            <div class="status">
-                <ng-container *ngIf="socketConnection; then online; else offline"> </ng-container>
-                <ng-template #online>
-                    <!-- <svg src="../assets/wifi.svg" class="filter-green" />
-                    <img src="../assets/wifi.svg" class="filter-green" />
-                    <object type="image/svg+xml" data="../assets/wifi.svg" id="svg-object"></object> -->
-                    <div class="wifi">
-                        <div class="icon"></div>
-                    </div>
-
-                </ng-template>
-                <ng-template #offline>
-                    <img src="../assets/wifi.svg" class="filter-red" />
-                </ng-template>
-            </div>
+        <div class="controls">            
             <app-tags-bar />
         </div>
     </div>
 
-        <as-split class="content" (dragEnd)="dragEnd($event)" class="sub-menu" unit="pixel" direction="horizontal">
-            <as-split-area>
-                <app-guilds-list />
-            </as-split-area>
-            <as-split-area [minSize]="800" [size]="menuSize" style="overflow: hidden;">
-                <app-soundboard-menu />
-            </as-split-area>
-            <as-split-area class="queue-menu" [minSize]="300" [size]="queueSize">
-                <app-queue />
-            </as-split-area>
-        </as-split>
+    <as-split id="split" class="content" (dragEnd)="dragEnd($event)" class="sub-menu" unit="pixel" direction="horizontal">
+        <as-split-area >
+            <app-guilds-list (hideParent)="onClose1()"/>
+        </as-split-area>
+        <as-split-area [minSize]="800" [size]="menuSize" >
+            <app-soundboard-menu />
+        </as-split-area>
+        <as-split-area [minSize]="300" [size]="queueSize">
+            <app-queue />
+        </as-split-area>
+    </as-split>
 
 </div>
 

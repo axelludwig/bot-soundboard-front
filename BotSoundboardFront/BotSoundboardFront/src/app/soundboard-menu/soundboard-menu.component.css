@@ -36,7 +36,7 @@
     overflow-x: scroll;
     overflow-y: hidden;
     flex-wrap: nowrap;
-    padding: 0 24px 0 24px;
+    /* padding: 0 24px 0 24px; */
     /* margin-right: 24px; */
     align-items: center;
 }
@@ -170,7 +170,7 @@ mat-header-cell {
 }
 
 mat-row:not(.playing) mat-cell {
-    color: var(--text-color);
+    color: var(--text-color-white);
 }
 
 

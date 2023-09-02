@@ -1,19 +1,23 @@
-<div class="queue">
-    <div class="clear-button manage-element">
-        <button (click)="clearQueue()" mat-flat-button matTooltip="Primary" color="primary">
-            <mat-icon>clear</mat-icon>
-        </button>
+<div>
+    <div class="header">
+        <div class="title ">
+            Queue
+        </div>
+
+        <div class="clear-button manage-element">
+            <button (click)="clearQueue()" mat-flat-button matTooltip="Primary" color="primary">
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+
+        <label id="example-radio-group-label"> mode </label>
+        <mat-radio-group color="primary" class="example-radio-group" [(ngModel)]="queueMode">
+            <mat-radio-button (change)="onRadioClick($event)" class="mode-label" *ngFor="let mode of queueModes"
+                [value]="mode">
+                {{mode}}
+            </mat-radio-button>
+        </mat-radio-group>
     </div>
-
-    <label id="example-radio-group-label"> mode </label>
-    <mat-radio-group color="primary" class="example-radio-group" [(ngModel)]="queueMode">
-        <mat-radio-button (change)="onRadioClick($event)" class="mode-label" *ngFor="let mode of queueModes"
-            [value]="mode">
-            {{mode}}
-        </mat-radio-button>
-    </mat-radio-group>
-
-    <div class="vertical-divider"> </div>
 
     <div *ngIf="store.queue.length > 0">
         <div class="queue-list">

@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, Inject, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { SocketService } from 'src/services/socket/socket.service';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { StoreService } from 'src/services/store/store.service';
@@ -6,6 +6,7 @@ import { SoundUploadModalComponent } from './modals/sound-upload-modal/sound-upl
 import { MatDialog } from '@angular/material/dialog';
 import { Sound } from './declarations';
 import { StickyDirection } from '@angular/cdk/table';
+import { SplitAreaDirective, SplitComponent } from 'angular-split';
 
 declare var WaveSurfer: any;
 
@@ -17,22 +18,20 @@ declare var WaveSurfer: any;
 })
 
 export class AppComponent {
+  @ViewChild(SplitComponent) splitEl: SplitComponent | null = null;
+  @ViewChildren(SplitAreaDirective) areasEl: QueryList<SplitAreaDirective> | null = null;
 
   public socketConnection: boolean = false;
-
-
   public isPaused = true;
-
   public variable: string = "";
 
-  public guildsSize: number = 340;
   public menuSize: number = 1000;
   public queueSize: number = 500;
 
   public root: any = document.querySelector(':root');
 
   constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
-    this.changeThemeColor('#ff0000')
+    this.changeThemeColor('#6c61fa')
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
     })
@@ -60,8 +59,6 @@ export class AppComponent {
     return (yiq >= 128) ? 'black' : 'white';
   }
 
-  
-
   testHttp() {
     var options: GetOptions = {
       url: "/"
@@ -80,6 +77,14 @@ export class AppComponent {
   }
 
   dragEnd(event: any) {
+    console.log(event.sizes);
+
+    this.menuSize = event.sizes[1];
+    this.queueSize = event.sizes[2];
+
+    console.log(event.sizes[1] + event.sizes[2]);
+
+
     this.saveSizes(event.sizes)
 
   }
@@ -164,5 +169,35 @@ export class AppComponent {
     } else {
       return "rgb(" + r + ", " + g + ", " + b + ")";
     }
+  }
+
+  onClose1() {
+    console.log(this.menuSize);
+
+    // this.areasEl.area[1].size = this.menuSize;
+    console.log();
+
+    this.areasEl?.forEach(element => {
+      console.log(element);
+      
+    });
+
+
+    // onExpand1() {
+    //   this.areasEl.first.expand()
+    // }
+
+    // onExpand3() {
+    //   this.areasEl.last.expand()
+    // }
+
+    var width = document.getElementById('split')?.offsetWidth;
+    console.log(width);
+
+
+    setTimeout(() => {
+      console.log(this.menuSize);
+    }, 2000);
+    // this.guildsSize = 0;
   }
 }

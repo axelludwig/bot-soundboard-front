@@ -7,6 +7,7 @@
     --first-background: #121212;
     --second-background: #232323;
     --text-color: #ffffff;
+    --text-color-white: #ffffff;
     --text-color-contrast: #000000;
 }
 
@@ -163,7 +164,7 @@ body {
 }
 
 .mat-mdc-chip-option {
-    margin: 0 6px 0 0 !important;
+    margin: 0px 0px 0 0px !important;
 }
 
 
@@ -196,15 +197,15 @@ body {
 }
 
 .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
-    border-color: red !important;
+    border-color: var(--primary) !important;
 }
 
 .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
-    border-color: red !important;
+    border-color: var(--primary) !important;
 }
 
 .mat-mdc-radio-button.mat-mdc-radio-checked .mat-ripple-element {
-    background-color: red !important;
+    background-color: var(--primary) !important;
 }
 
 /* .mdc-slider__thumb--focused {
