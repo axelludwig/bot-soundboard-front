@@ -47,7 +47,7 @@ jobs:
     - name: Restarting nginx
       uses: garygrossgarten/github-action-ssh@release
       with:
-        command: sudo /etc/init.d/nginx restart;npm install;ng build --configuration=production;cd /var/www/bot-soundboard-back/;pm2 start bot-soundboard-pm2.json;pm2 restart bot-soundboard-back
+        command: cd /var/www/bot-soundboard-front;npm install;ng build --configuration=production #;pm2 start bot-soundboard-pm2.json;pm2 restart bot-soundboard-back
         host: ${{ secrets.SSH_HOST }}
         port: ${{ secrets.SSH_PORT }}
         username: ${{ secrets.SSH_USERNAME }}
