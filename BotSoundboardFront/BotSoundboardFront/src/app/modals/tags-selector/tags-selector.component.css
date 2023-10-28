@@ -26,12 +26,25 @@
     margin-bottom: 1vh;
 }
 
+.title-selector {
+    margin: 0;
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
 .tags {
     margin-top: 1vh;
 }
 
 .tag {
     cursor: pointer;
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+    border: 2px #212121 solid;
+}
+
+.tag:hover {
+    border: solid 2px;
 }
 
 .save-button {

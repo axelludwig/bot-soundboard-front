@@ -3,17 +3,17 @@
 .tags-bar {
     border-radius: 8px;
     display: flex;
-    min-height: 6vh;
-    max-height: 6vh;
-    margin: 0 24px 24px 24px;
+    min-height: 32px;
+    /* max-height: 6vh; */ 
+    margin: 24px 24px 24px 24px;
     overflow-x: auto;
     overflow-y: auto;
     align-items: center;
     background-color: var(--first-background);
-    padding-left: 1vw;
-    padding-right: 1vw;
-    padding-top: 0.5vh;
-    padding-bottom: 0.5vh;
+    /* padding-left: 1vw; */
+    padding: 12px 12px 12px 12px ;
+    /* padding-right: 1vw; */
+    /* padding-bottom: 0.5vh;  */
     /* font-family: 'Helvetica 65 Medium', sans-serif; */
 }
 
@@ -39,4 +39,3 @@
 .selected {
     border: solid 2px var(--primary) !important;
 }
-

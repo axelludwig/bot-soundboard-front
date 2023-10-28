@@ -1,10 +1,13 @@
-import { Component, HostListener, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, Inject, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { SocketService } from 'src/services/socket/socket.service';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { StoreService } from 'src/services/store/store.service';
 import { SoundUploadModalComponent } from './modals/sound-upload-modal/sound-upload-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Sound } from './declarations';
+import { StickyDirection } from '@angular/cdk/table';
+import { SplitAreaDirective, SplitComponent } from 'angular-split';
+import { elementAt } from 'rxjs';
 
 declare var WaveSurfer: any;
 
@@ -16,24 +19,20 @@ declare var WaveSurfer: any;
 })
 
 export class AppComponent {
+  @ViewChild(SplitComponent) splitEl: SplitComponent | null = null;
+  @ViewChildren(SplitAreaDirective) areasEl: QueryList<SplitAreaDirective> | null = null;
 
   public socketConnection: boolean = false;
-
-  public queueMode: string = '';
-  queueModes: string[] = ['queue', 'overwrite'];
-
   public isPaused = true;
-
   public variable: string = "";
 
-  public guildsSize: number = 340;
   public menuSize: number = 1000;
   public queueSize: number = 500;
 
   public root: any = document.querySelector(':root');
 
   constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
-    this.changeThemeColor('#ff0000')
+    this.changeThemeColor('#6c61fa')
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
     })
@@ -42,9 +41,6 @@ export class AppComponent {
       this.socketConnection = false;
     })
 
-    this.socketService.botChangeMode$.subscribe((value: string) => {
-      this.queueMode = value;
-    })
 
     let sizes = localStorage.getItem('sizes');
     if (sizes) {
@@ -64,14 +60,6 @@ export class AppComponent {
     return (yiq >= 128) ? 'black' : 'white';
   }
 
-  clearQueue() {
-    this.socketService.clearQueue();
-  }
-
-  onRadioClick(event: any) {
-    this.socketService.setMode(event.value)
-  }  
-
   testHttp() {
     var options: GetOptions = {
       url: "/"
@@ -90,6 +78,14 @@ export class AppComponent {
   }
 
   dragEnd(event: any) {
+    console.log(event.sizes);
+
+    this.menuSize = event.sizes[1];
+    this.queueSize = event.sizes[2];
+
+    console.log(event.sizes[1] + event.sizes[2]);
+
+
     this.saveSizes(event.sizes)
 
   }
@@ -136,6 +132,7 @@ export class AppComponent {
     this.root.style.setProperty('--primary-variant', this.shadeColor(color, -40));
     this.root.style.setProperty('--text-color', this.getContrastYIQ(color));
     this.root.style.setProperty('--primary-complemantary', this.invertColor(color));
+    this.root.style.setProperty('--primary-opacity', this.hexToRGB(color, '0.20'));
   }
 
   invertColor(hex: string) {
@@ -161,5 +158,30 @@ export class AppComponent {
     len = len || 2;
     var zeros = new Array(len).join('0');
     return (zeros + str).slice(-len);
+  }
+
+  hexToRGB(hex: string, alpha: string) {
+    var r = parseInt(hex.slice(1, 3), 16),
+      g = parseInt(hex.slice(3, 5), 16),
+      b = parseInt(hex.slice(5, 7), 16);
+
+    if (alpha) {
+      return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+    } else {
+      return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
+  }
+
+  onClose1() {
+    let middle: any;
+    let count = 0;
+    this.areasEl?.forEach(element => {
+      if (count == 1) {
+        middle = element;
+      }; count++;
+    });
+
+    var width = document.getElementById('split')?.offsetWidth;
+    middle.size = width! - this.queueSize - 48;
   }
 }

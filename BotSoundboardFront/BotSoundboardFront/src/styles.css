@@ -1,11 +1,13 @@
 :root {
     --primary: '';
+    --primary-opacity: '';
     --primary-variant: '';
     --primary-complemantary: '';
     --background: #000000;
     --first-background: #121212;
     --second-background: #232323;
     --text-color: #ffffff;
+    --text-color-white: #ffffff;
     --text-color-contrast: #000000;
 }
 
@@ -122,6 +124,13 @@ body {
 .sound-infos .mdc-evolution-chip-set__chips {
     display: flex !important;
     flex-wrap: nowrap !important;
+    /* margin-left: 10px !important; */
+    /* min-width: none !important; */
+    gap: 4px;
+}
+
+.mat-mdc-chip-set .mdc-evolution-chip-set__chips {
+    min-width: none !important;
 }
 
 .sound-infos .mdc-evolution-chip-set .mdc-evolution-chip {
@@ -162,7 +171,7 @@ body {
 }
 
 .mat-mdc-chip-option {
-    margin: 0 6px 0 0 !important;
+    margin: 0px 0px 0 0px !important;
 }
 
 
@@ -174,7 +183,7 @@ body {
     /* color: var(--primary) !important; */
 }
 
-.mdc-text-field--filled:not(.mdc-text-field--disabled)  {
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: var(--first-background) !important;
 }
 
@@ -184,4 +193,33 @@ body {
 
 .mdc-text-field .mdc-text-field__input {
     color: var(--text-color-contrast) !important;
+}
+
+.mdc-text-field--filled .mdc-line-ripple {
+    color: var(--primary) !important;
+}
+
+.mat-form-field-underline {
+    background-color: green;
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+    border-color: var(--primary) !important;
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+    border-color: var(--primary) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mat-ripple-element {
+    background-color: var(--primary) !important;
+}
+
+/* .mdc-slider__thumb--focused {
+    background-color: rgba(81, 255, 0, 0.4);
+  } */
+
+.mat-mdc-slider .mat-ripple .mat-mdc-slider-focus-ripple,
+.mat-mdc-slider .mat-ripple .mat-mdc-slider-active-ripple {
+    background-color: var(--primary-opacity) !important;
 }

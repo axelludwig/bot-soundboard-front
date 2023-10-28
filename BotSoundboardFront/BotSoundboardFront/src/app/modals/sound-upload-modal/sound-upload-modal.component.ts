@@ -147,6 +147,10 @@ export class SoundUploadModalComponent {
   saveInChild() {
     this.child?.save();
   }
+
+  saveWithoutCropping(): void {
+    this.child?.save(this.name, this.youtubeUrl);
+  }
 }
 
 
