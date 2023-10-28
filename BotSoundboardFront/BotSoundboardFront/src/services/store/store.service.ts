@@ -17,7 +17,7 @@ export class StoreService implements OnInit {
   public queue: queueItem[] = [];
 
   public sounds: Sound[] = [];
-  public soundsCopy: Sound[] = [];
+  public filteredSounds: Sound[] = [];
 
   public soundsObservable: BehaviorSubject<Sound[]> = new BehaviorSubject<Sound[]>([]);
   // public filteredSounds: Sound[] = [];  
@@ -62,11 +62,11 @@ export class StoreService implements OnInit {
 
     this.socketService.sounds$.subscribe((sounds: Sound[]) => {
       this.sounds = sounds;
-      this.soundsCopy = sounds;
-      this.soundsObservable.next(this.sounds);
+      this.updateFilteredSounds();
+      this.soundsObservable.next(this.filteredSounds);
       this.sortSounds();
       // this.filteredSounds = sounds;
-      this.updateFilteredSounds();
+      
     })
 
     this.socketService.newTag$.subscribe((tag: Tag) => {
@@ -87,15 +87,9 @@ export class StoreService implements OnInit {
           s.Tags = sound.Tags;
         }
       });
-      this.soundsCopy.forEach((s) => {
-        if (s.ID == sound.ID) {
-          s.Name = sound.Name;
-          s.Tags = sound.Tags;
-        }
-      });
       this.sortSounds();
       this.updateFilteredSounds();
-      this.soundsObservable.next(this.sounds);
+      this.soundsObservable.next(this.filteredSounds);
     });
 
     this.socketService.soundPlaying$.subscribe((sound: Sound) => {
@@ -125,7 +119,7 @@ export class StoreService implements OnInit {
   }
 
   applyTestFiler(): void {
-    this.sounds = this.sounds.filter((sound) => {
+    this.filteredSounds = this.sounds.filter((sound) => {
       var s = sound.Name.toLocaleLowerCase();
       var search = this.searchValue.toLocaleLowerCase();
 
@@ -135,7 +129,6 @@ export class StoreService implements OnInit {
 
   updateFilteredSounds(): void {
     //Idée d'opti : séparer le filtre par tags et le filtre par nom pour gagner en perf
-    this.sounds = this.soundsCopy;
     this.applyTestFiler();
     if (this.selectedTags.length == 0) {
       this.soundsObservable.next(this.sounds);
@@ -148,16 +141,17 @@ export class StoreService implements OnInit {
           temp.push(sound);
         }
       })
-    });
-    this.sounds = temp;
-    this.soundsObservable.next(this.sounds);
+    }); 
+    
+    this.filteredSounds = temp;
+    this.soundsObservable.next(this.filteredSounds);
   }
 
   ngOnInit() {
   }
 
   sortSounds(): void {
-    this.sounds.sort((a, b): number => {
+    this.filteredSounds.sort((a, b): number => {
       if (a.Name.toLowerCase() < b.Name.toLowerCase()) return -1;
       else if (a > b) return 1;
       else return 0

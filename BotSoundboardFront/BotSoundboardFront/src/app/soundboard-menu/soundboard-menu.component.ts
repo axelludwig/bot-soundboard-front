@@ -31,7 +31,6 @@ export class SoundboardMenuComponent implements AfterViewInit {
 
     this.socket.newSound$.subscribe((sound: Sound) => {
       this.store.sounds.push(sound);
-      this.store.soundsCopy.push(sound);
       this.store.sortSounds();
       this.store.soundsObservable.next(this.store.sounds);
     })
@@ -46,16 +45,13 @@ export class SoundboardMenuComponent implements AfterViewInit {
 
     this.socket.soundRenamed$.subscribe((res: soundRenamedSocketResponse) => {
       let sounds = this.store.sounds;
-      let soundsCopy = this.store.soundsCopy;
       let soundId = res.id;
       let newName = res.newName;
       for (let i = 0; i < sounds.length; i++) if (sounds[i].ID == soundId) sounds[i].Name = newName;
-      for (let i = 0; i < soundsCopy.length; i++) if (soundsCopy[i].ID == soundId) soundsCopy[i].Name = newName;
       this.store.sortSounds();
     });
 
     this.socket.sounds$.subscribe((sounds: Sound[]) => {
-      this.store.soundsObservable.next(sounds);
       this.dataSource.sort = this.sort;
       this.dataSource.sortingDataAccessor = (sound: any, property) => {
         switch (property) {
