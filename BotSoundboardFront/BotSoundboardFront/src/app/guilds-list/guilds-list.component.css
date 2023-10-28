@@ -9,13 +9,15 @@
 
     display: block;
     border-radius: 8px;
-    height: 70vh;
+    height: 78vh;
     margin: 0 0 0 24px;
     padding: 0 24px 0 24px;
-    overflow-y: scroll;
     background-color: var(--first-background);
-
-    overflow-x: hidden;
+    
+    /* overflow-x: hidden; */
+    /* overflow-x: scroll;
+    overflow-y: scroll; */
+    height: 100%
 }
 
 .channel {
