@@ -8,9 +8,26 @@ import { StoreService } from 'src/services/store/store.service';
   styleUrls: ['./queue.component.css']
 })
 export class QueueComponent {
-  constructor(public store: StoreService, private socketService: SocketService) { }
 
-  removeSoundFromQueue(elementId: string){
+  public queueMode: string = '';
+  queueModes: string[] = ['queue', 'overwrite'];
+
+  constructor(public store: StoreService, private socketService: SocketService) {
+
+    this.socketService.botChangeMode$.subscribe((value: string) => {
+      this.queueMode = value;
+    })
+  }
+
+  removeSoundFromQueue(elementId: string) {
     this.socketService.removeSoundFromQueue(elementId);
+  }
+
+  clearQueue() {
+    this.socketService.clearQueue();
+  }
+
+  onRadioClick(event: any) {
+    this.socketService.setMode(event.value)
   }
 }

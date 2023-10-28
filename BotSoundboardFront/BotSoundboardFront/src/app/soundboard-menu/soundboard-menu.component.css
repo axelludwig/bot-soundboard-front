@@ -36,7 +36,7 @@
     overflow-x: scroll;
     overflow-y: hidden;
     flex-wrap: nowrap;
-    padding: 0 24px 0 24px;
+    /* padding: 0 24px 0 24px; */
     /* margin-right: 24px; */
     align-items: center;
 }
@@ -57,6 +57,7 @@
 
 .sound-tags {
     flex: 1.5;
+    padding: 12px !important;
 }
 
 
@@ -120,11 +121,6 @@ mat-cell:hover {
     height: 5px;
 }
 
-.mdc-evolution-chip-set__chips {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-}
-
 .text-header {
     color: var(--text-primary);
 }
@@ -170,7 +166,7 @@ mat-header-cell {
 }
 
 mat-row:not(.playing) mat-cell {
-    color: var(--text-color);
+    color: var(--text-color-white);
 }
 
 

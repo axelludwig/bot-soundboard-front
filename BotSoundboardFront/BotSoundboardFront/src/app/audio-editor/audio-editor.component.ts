@@ -84,6 +84,7 @@ export class AudioEditorComponent implements OnInit {
 
     const margin = 0.1;
     this.wavesurfer.on('ready', () => {
+      this.store.loaded = true;
       let duration = this.wavesurfer.getDuration();
       this.wavesurfer.addRegion({
         start: duration * margin, // time in seconds
@@ -115,6 +116,7 @@ export class AudioEditorComponent implements OnInit {
 
     this.wavesurfer.on('finish', () => {
       this.isPaused = true;
+      this.store.loaded = false;
     });
   }
 
@@ -164,23 +166,39 @@ export class AudioEditorComponent implements OnInit {
     if (this.wavesurfer) this.wavesurfer.unAll();
   }
 
-  save() {
-    var options: GetOptions = { url: "/processYoutubeCreation" }
-    var params: Params = {
-      "id": this.base64File?.id,
-      "start": this.region.start,
-      "end": this.region.end,
-      "name": this.base64File?.name
+  save(name?: string, link?: string) {
+    let updateSoundName: any;
+    if (name != null) {
+      var options: GetOptions = { url: "/addFullYoutubeSound" }
+      var params: Params = {
+        "name": name,
+        "link": link
+      }
+      this.openLoadingSnackbar();
+      this.closeDialog.next('');
+      updateSoundName = name;
     }
-    this.openLoadingSnackbar();
-    this.closeDialog.next('');
-    this.wavesurfer.pause();
+
+    else {
+      var options: GetOptions = { url: "/processYoutubeCreation" }
+      var params: Params = {
+        "id": this.base64File?.id,
+        "start": this.region.start,
+        "end": this.region.end,
+        "name": this.base64File?.name
+      }
+      this.openLoadingSnackbar();
+      this.closeDialog.next('');
+      this.wavesurfer.pause();
+      updateSoundName = this.base64File?.name;
+    }
+
     options.params = params;
     this.axios.post(options)
       .then((res) => {
         this.close();
         this.store.openSucessSnackBar();
-        this.store.updateSoundName(this.base64File!.name);
+        this.store.updateSoundName(updateSoundName);
       })
       .catch((err) => {
         console.log(err);

@@ -45,9 +45,20 @@
 }
 
 mat-hint {
-    color: red !important;
+    color: var(--primary) !important;
+}
+
+.cropbutton {
+    margin-top: 1vh;
 }
 
 .saveButton {
     margin-top: 1vh;
+}
+
+.saveCropButton {
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    display: flex;
+    justify-content: center;
 }
