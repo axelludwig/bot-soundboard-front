@@ -44,6 +44,8 @@ export class StoreService implements OnInit {
 
   public soundPlaying: Sound | null = null;
 
+  public loaded: boolean = false;
+
   constructor(private socketService: SocketService, private _snackBar: MatSnackBar) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
       this.queue = queue;
@@ -99,7 +101,7 @@ export class StoreService implements OnInit {
     this.socketService.soundPlaying$.subscribe((sound: Sound) => {
       this.soundPlaying = sound;
     });
-  }
+  }  
 
   sortArray(array: Tag[]) {
     return array.sort((a, b) => {
@@ -126,7 +128,7 @@ export class StoreService implements OnInit {
     this.sounds = this.sounds.filter((sound) => {
       var s = sound.Name.toLocaleLowerCase();
       var search = this.searchValue.toLocaleLowerCase();
-     
+
       return s.includes(search);
     });
   }
@@ -146,7 +148,7 @@ export class StoreService implements OnInit {
           temp.push(sound);
         }
       })
-    }); 
+    });
     this.sounds = temp;
     this.soundsObservable.next(this.sounds);
   }

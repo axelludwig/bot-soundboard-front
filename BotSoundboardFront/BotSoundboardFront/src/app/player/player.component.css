@@ -1,5 +1,5 @@
 .content{
-    height: 100px;
+    height: 0px;
     background-color: black;
     display: flex;
     flex-direction: row;
@@ -10,7 +10,7 @@
 .now-playing{
     left: 20px;
     position: absolute;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     width: 30%;
     text-align: center;
     overflow: hidden;
@@ -29,5 +29,5 @@
 .volume{
     right: 50px;
     position: absolute;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }

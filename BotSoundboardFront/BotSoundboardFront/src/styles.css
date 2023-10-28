@@ -124,6 +124,13 @@ body {
 .sound-infos .mdc-evolution-chip-set__chips {
     display: flex !important;
     flex-wrap: nowrap !important;
+    /* margin-left: 10px !important; */
+    /* min-width: none !important; */
+    gap: 4px;
+}
+
+.mat-mdc-chip-set .mdc-evolution-chip-set__chips {
+    min-width: none !important;
 }
 
 .sound-infos .mdc-evolution-chip-set .mdc-evolution-chip {

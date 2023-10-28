@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Sound } from './declarations';
 import { StickyDirection } from '@angular/cdk/table';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
+import { elementAt } from 'rxjs';
 
 declare var WaveSurfer: any;
 
@@ -172,32 +173,15 @@ export class AppComponent {
   }
 
   onClose1() {
-    console.log(this.menuSize);
-
-    // this.areasEl.area[1].size = this.menuSize;
-    console.log();
-
+    let middle: any;
+    let count = 0;
     this.areasEl?.forEach(element => {
-      console.log(element);
-      
+      if (count == 1) {
+        middle = element;
+      }; count++;
     });
 
-
-    // onExpand1() {
-    //   this.areasEl.first.expand()
-    // }
-
-    // onExpand3() {
-    //   this.areasEl.last.expand()
-    // }
-
     var width = document.getElementById('split')?.offsetWidth;
-    console.log(width);
-
-
-    setTimeout(() => {
-      console.log(this.menuSize);
-    }, 2000);
-    // this.guildsSize = 0;
+    middle.size = width! - this.queueSize - 48;
   }
 }

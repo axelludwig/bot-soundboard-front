@@ -44,7 +44,7 @@ app-soundboard-menu {
 }
 
 .footer {
-    height: 120px;
+    height: 100px;
     position: fixed;
     display: flex;
     align-items: center;

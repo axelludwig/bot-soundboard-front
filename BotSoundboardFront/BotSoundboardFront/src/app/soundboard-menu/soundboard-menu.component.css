@@ -57,6 +57,7 @@
 
 .sound-tags {
     flex: 1.5;
+    padding: 12px !important;
 }
 
 
@@ -118,11 +119,6 @@ mat-cell:hover {
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
-}
-
-.mdc-evolution-chip-set__chips {
-    display: flex !important;
-    flex-wrap: nowrap !important;
 }
 
 .text-header {

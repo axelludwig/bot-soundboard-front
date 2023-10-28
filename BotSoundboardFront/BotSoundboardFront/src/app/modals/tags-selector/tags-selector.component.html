@@ -1,6 +1,6 @@
 <div class="tags-selector">
     <div class="left-panel">
-        <div class="title"> available tags</div>
+        <div class="title-selector"> available tags</div>
         <div class="divider"></div>
         <mat-chip-listbox class="tags mat-mdc-chip-set-stacked">
             <mat-chip-option class="tag" (click)="setToSelected(tag)" *ngFor="let tag of availableTags">
@@ -11,7 +11,7 @@
     <div class="local-vertical-divider"></div>
 
     <div class="right-panel">
-        <div class="title"> selected tags</div>
+        <div class="title-selector"> selected tags</div>
         <div class="divider"></div>
         <mat-chip-listbox class="tags mat-mdc-chip-set-stacked">
             <mat-chip-option class="tag" (click)="removeFromSelected(tag)" *ngFor="let tag of selectedTags">
