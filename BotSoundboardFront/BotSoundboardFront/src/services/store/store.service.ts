@@ -131,7 +131,7 @@ export class StoreService implements OnInit {
     //Idée d'opti : séparer le filtre par tags et le filtre par nom pour gagner en perf
     this.applyTestFiler();
     if (this.selectedTags.length == 0) {
-      this.soundsObservable.next(this.sounds);
+      this.soundsObservable.next(this.filteredSounds);
       return;
     }
     let temp: Sound[] = [];

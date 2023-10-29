@@ -16,7 +16,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './soundboard-menu.component.html',
   styleUrls: ['./soundboard-menu.component.css']
 })
-export class SoundboardMenuComponent implements AfterViewInit {
+export class SoundboardMenuComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   editMode = false;
@@ -24,7 +24,7 @@ export class SoundboardMenuComponent implements AfterViewInit {
   hiddenSounds: string[] = []
   dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
 
-  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
+  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog ) {
     this.store.soundsObservable.subscribe((sounds: Sound[]) => {
       this.dataSource.data = sounds;
     });
@@ -52,20 +52,29 @@ export class SoundboardMenuComponent implements AfterViewInit {
     });
 
     this.socket.sounds$.subscribe((sounds: Sound[]) => {
-      this.dataSource.sort = this.sort;
-      this.dataSource.sortingDataAccessor = (sound: any, property) => {
-        switch (property) {
-          case 'title': return sound.Name;
-          case 'tags': return sound.Tags;
-          case 'duration': return sound.SoundLength;
-          case 'addedDate': return sound.PublicationDate;
-          default: return sound[property];
-        }
-      };
+      this.manageSorting();
     });
   }
 
-  ngAfterViewInit() {
+  manageSorting() {
+    this.dataSource.sortingDataAccessor = (sound: any, property) => {
+      switch (property) {
+        case 'title': return sound.Name;
+        case 'tags': return sound.Tags;
+        case 'duration': return sound.SoundLength;
+        case 'addedDate': return sound.PublicationDate;
+        default: return sound[property];
+      }
+    };
+    let storageValue = localStorage.getItem('soundTableSort');
+
+    const savedSort = storageValue ? JSON.parse(storageValue) : null;
+
+    if (savedSort) {
+      this.sort.active = savedSort.active;
+      this.sort.direction = savedSort.direction;
+    }
+
     this.dataSource.sort = this.sort;
   }
 
@@ -169,5 +178,12 @@ export class SoundboardMenuComponent implements AfterViewInit {
     dialog.afterClosed().subscribe(result => {
       if (result === undefined || result === null || result === '') return;
     });
+  }
+
+  onSortData(event: any){
+    localStorage.setItem('soundTableSort', JSON.stringify({
+      active: event.active,
+      direction: event.direction
+    }));
   }
 }
