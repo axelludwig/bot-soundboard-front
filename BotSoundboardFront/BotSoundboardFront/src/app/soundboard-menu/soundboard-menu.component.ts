@@ -16,7 +16,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './soundboard-menu.component.html',
   styleUrls: ['./soundboard-menu.component.css']
 })
-export class SoundboardMenuComponent implements AfterViewInit {
+export class SoundboardMenuComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   editMode = false;
@@ -24,14 +24,13 @@ export class SoundboardMenuComponent implements AfterViewInit {
   hiddenSounds: string[] = []
   dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
 
-  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
+  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog ) {
     this.store.soundsObservable.subscribe((sounds: Sound[]) => {
       this.dataSource.data = sounds;
     });
 
     this.socket.newSound$.subscribe((sound: Sound) => {
       this.store.sounds.push(sound);
-      this.store.soundsCopy.push(sound);
       this.store.sortSounds();
       this.store.soundsObservable.next(this.store.sounds);
     })
@@ -46,30 +45,36 @@ export class SoundboardMenuComponent implements AfterViewInit {
 
     this.socket.soundRenamed$.subscribe((res: soundRenamedSocketResponse) => {
       let sounds = this.store.sounds;
-      let soundsCopy = this.store.soundsCopy;
       let soundId = res.id;
       let newName = res.newName;
       for (let i = 0; i < sounds.length; i++) if (sounds[i].ID == soundId) sounds[i].Name = newName;
-      for (let i = 0; i < soundsCopy.length; i++) if (soundsCopy[i].ID == soundId) soundsCopy[i].Name = newName;
       this.store.sortSounds();
     });
 
     this.socket.sounds$.subscribe((sounds: Sound[]) => {
-      this.store.soundsObservable.next(sounds);
-      this.dataSource.sort = this.sort;
-      this.dataSource.sortingDataAccessor = (sound: any, property) => {
-        switch (property) {
-          case 'title': return sound.Name;
-          case 'tags': return sound.Tags;
-          case 'duration': return sound.SoundLength;
-          case 'addedDate': return sound.PublicationDate;
-          default: return sound[property];
-        }
-      };
+      this.manageSorting();
     });
   }
 
-  ngAfterViewInit() {
+  manageSorting() {
+    this.dataSource.sortingDataAccessor = (sound: any, property) => {
+      switch (property) {
+        case 'title': return sound.Name;
+        case 'tags': return sound.Tags;
+        case 'duration': return sound.SoundLength;
+        case 'addedDate': return sound.PublicationDate;
+        default: return sound[property];
+      }
+    };
+    let storageValue = localStorage.getItem('soundTableSort');
+
+    const savedSort = storageValue ? JSON.parse(storageValue) : null;
+
+    if (savedSort) {
+      this.sort.active = savedSort.active;
+      this.sort.direction = savedSort.direction;
+    }
+
     this.dataSource.sort = this.sort;
   }
 
@@ -173,5 +178,12 @@ export class SoundboardMenuComponent implements AfterViewInit {
     dialog.afterClosed().subscribe(result => {
       if (result === undefined || result === null || result === '') return;
     });
+  }
+
+  onSortData(event: any){
+    localStorage.setItem('soundTableSort', JSON.stringify({
+      active: event.active,
+      direction: event.direction
+    }));
   }
 }

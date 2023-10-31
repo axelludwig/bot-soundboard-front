@@ -29,7 +29,6 @@ export class SoundUploadModalComponent {
   public localBase64: any;
 
   private youtubeRegex: RegExp = new RegExp(/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/);
-  private youtubeTestUrl = 'https://noembed.com/embed?url=';
 
   @ViewChild(AudioEditorComponent) child: AudioEditorComponent | undefined;
 
@@ -132,7 +131,7 @@ export class SoundUploadModalComponent {
     if (this.urlIsValid) {
       var options: GetOptions = {
         url: '/youtubeVideoName',
-        params: { "link": this.youtubeTestUrl + this.youtubeUrl }
+        params: { "link": this.youtubeUrl }
       }
       this.axiosService.get(options)
         .then((res: any) => {
