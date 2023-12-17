@@ -125,9 +125,20 @@ mat-cell:hover {
     color: var(--text-primary);
 }
 
+.search {
+    position: relative;
+}
+
 .upload {
-    display: flex;
-    right: 0;
+    /* display: flex; */
+    position: absolute;
+    /* right: 0; */
+
+    /* top: 24px;  */
+    /* top: 0;  */
+    /* height: 48px; */
+    /* left: 0; */
+    /* transform: translateY(-50%); */
     /* margin-right: 1vw; */
 }
 
@@ -174,14 +185,24 @@ mat-row:not(.playing) mat-cell {
     color: var(--primary);
 }
 
-.mat-column-tags{
-    flex : 0 0 30%;
+.mat-column-tags {
+    flex: 0 0 30%;
 }
 
-.mat-column-duration{
-    flex : 0 0 10%;
+.mat-column-duration {
+    flex: 0 0 10%;
 }
 
-.mat-column-addedDate{
-    flex : 0 0 10%;
+.mat-column-addedDate {
+    flex: 0 0 10%;
+}
+
+.matcell-sound {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+    /* justify-self: normal; */
+    align-items: center;
+    line-height: 44px;
 }

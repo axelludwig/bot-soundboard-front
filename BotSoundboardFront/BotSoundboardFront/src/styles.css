@@ -223,3 +223,18 @@ body {
 .mat-mdc-slider .mat-ripple .mat-mdc-slider-active-ripple {
     background-color: var(--primary-opacity) !important;
 }
+
+.mat-mdc-table mat-header-row.mat-mdc-header-row,
+.mat-mdc-table mat-row.mat-mdc-row,
+.mat-mdc-table mat-footer-row.mat-mdc-footer-cell {
+    height: 44px;
+}
+
+.mat-mdc-slide-toggle .mdc-form-field {
+    color: var(--primary) !important;
+}
+
+.mdc-form-field>label {
+    margin-left: 8px !important;
+
+}

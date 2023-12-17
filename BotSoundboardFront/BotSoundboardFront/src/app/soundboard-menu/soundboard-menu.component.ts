@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, OnChanges, Inject, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, Inject, ViewChild, AfterViewInit, ChangeDetectorRef, ElementRef  } from '@angular/core';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service";
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
@@ -18,13 +18,16 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class SoundboardMenuComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
+  // @ViewChild('elementId') element: ElementRef;
 
   editMode = false;
   showHidden = false;
   hiddenSounds: string[] = []
   dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
 
-  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog ) {
+
+  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
+    element: HTMLElement;
     this.store.soundsObservable.subscribe((sounds: Sound[]) => {
       this.dataSource.data = sounds;
     });
@@ -180,10 +183,23 @@ export class SoundboardMenuComponent {
     });
   }
 
-  onSortData(event: any){
+  onSortData(event: any) {
     localStorage.setItem('soundTableSort', JSON.stringify({
       active: event.active,
       direction: event.direction
     }));
+  }
+
+  isDisabled(e: any) {
+    // angular.element(document).ready(function() {
+    //   console.log(document.getElementById($scope.fileUploadList[0] + "Upload"))
+    //   });
+    
+    // console.log(e);
+    // e = document.getElementById(e) as HTMLElement;
+
+    // console.log(e);
+
+    // return e.scrollWidth <= e.clientWidth;
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
 
@@ -28,6 +29,21 @@ export class QueueComponent {
   }
 
   onRadioClick(event: any) {
+    console.log(event.value);
     this.socketService.setMode(event.value)
+  }
+
+  slideToggle(event: MatSlideToggleChange) {
+    if (event.checked) {
+      this.queueMode = 'queue';
+      this.socketService.setMode(true)
+    } else {
+      this.socketService.setMode(false)
+      this.queueMode = 'overwrite';
+    }
+  }
+
+  queueSoundClick(sound: string) {
+    console.log(sound);
   }
 }

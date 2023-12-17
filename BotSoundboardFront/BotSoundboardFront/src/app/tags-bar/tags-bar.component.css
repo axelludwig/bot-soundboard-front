@@ -15,6 +15,7 @@
     /* padding-right: 1vw; */
     /* padding-bottom: 0.5vh;  */
     /* font-family: 'Helvetica 65 Medium', sans-serif; */
+    min-height: 44px;
 }
 
 .tags {

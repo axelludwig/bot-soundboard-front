@@ -35,7 +35,7 @@ mat-slider {
 }
 
 as-split {
-    height: calc(100% - 300px) !important;
+    height: calc(100% - 180px) !important;
 }
 
 
@@ -44,7 +44,6 @@ app-soundboard-menu {
 }
 
 .footer {
-    height: 100px;
     position: fixed;
     display: flex;
     align-items: center;
@@ -52,9 +51,10 @@ app-soundboard-menu {
     justify-content: center;
     width: 100%;
     left: 0;
-    bottom: 0;
+    bottom: 50px;
     text-align: center;
     background-color: rgb(0, 0, 0);
+    height: 12px;
 }
 
 .slider {
@@ -72,10 +72,6 @@ app-soundboard-menu {
     padding-left: 12px;
 }
 
-.clear-button {
-    padding-left: 24px;
-}
-
 .now-playing {
     margin-left: 1vw;
     line-height: 1.5;
@@ -83,6 +79,7 @@ app-soundboard-menu {
     width: 200px;
     text-align: center;
     overflow: hidden;
+    top: 24px;
 }
 
 .link {
@@ -131,10 +128,6 @@ app-soundboard-menu {
     }
 }
 
-.mode-label {
-    color: white !important;
-}
-
 .content {
     padding-right: 24px !important;
 }
@@ -142,3 +135,13 @@ app-soundboard-menu {
 /* .queue-menu {
     margin-right: 24px;
 } */
+
+as-split-area {
+    overflow-y: visible;
+}
+
+.mat-mdc-unelevated-button>.mat-icon,
+.mat-mdc-raised-button>.mat-icon,
+.mat-mdc-outlined-button>.mat-icon {
+    margin-right: -4px !important;
+}
