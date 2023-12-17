@@ -192,7 +192,7 @@ export class SocketService {
 	setVolume(value: number) {
 		this.socket.emit("setVolume", value);
 	}
-	setMode(value: boolean) {
+	setMode(value: string) {
 		this.socket.emit("setMode", value);
 	}
 

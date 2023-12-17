@@ -36,9 +36,9 @@ export class QueueComponent {
   slideToggle(event: MatSlideToggleChange) {
     if (event.checked) {
       this.queueMode = 'queue';
-      this.socketService.setMode(true)
+      this.socketService.setMode('queue')
     } else {
-      this.socketService.setMode(false)
+      this.socketService.setMode('overwrite')
       this.queueMode = 'overwrite';
     }
   }
