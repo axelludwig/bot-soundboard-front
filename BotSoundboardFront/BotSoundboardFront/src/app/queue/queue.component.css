@@ -1,23 +1,32 @@
 @import '../../styles.css';
 
 :host {
-    display: flex;
-    height: 100%;
+    display: block;
+    height: 97%;
     overflow: hidden;
     margin-right: 24px;
     padding: 0 24px 0 24px;
     border-radius: 8px;
     background-color: var(--first-background);
+    position: relative;
+    padding-top: 24px;
 }
 
 .header {
     display: flex;
+    width: calc(100% - 64px);
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    /* flex */
     /* flex-direction: row;
     cursor: pointer;
     height: 38px; */
 }
 
 .queue-list {
+    margin-top: 24px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -41,8 +50,58 @@ h3 {
 
 .empty {
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
-    padding-top: 3vh;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.control {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    /* margin-top: 24px; */
+}
+
+.title {
+    padding-top: 0px;
+    margin-right: 24px;
+}
+
+.header-title {
+    flex: 0 0 100%;
+}
+
+
+.clear-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+}
+
+.mode-label {
+    /* padding-top: 24px; */
+}
+
+.queueItem {
+    color: white;
+    margin-bottom: 12px;
+}
+
+.queueItemFirst {
+    color: var(--primary);
+    margin-right: 8px;
+}
+
+.queueItem:hover {
+    cursor: pointer;
+}
+
+.queueItemFirst:hover {
+    cursor: default;
+}
+
+.vertical-divider {
+    margin-right: 8px;
+    margin-left: 8px;
 }

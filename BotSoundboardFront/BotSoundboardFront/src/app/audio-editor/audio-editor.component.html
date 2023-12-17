@@ -3,13 +3,13 @@
 <div class="play-pause-button">
     <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
     <ng-template #paused>
-        <button (click)="playPause()" mat-mini-fab matTooltip="Primary" color="primary">
+        <button (click)="playPause()" mat-mini-fab matTooltip="Play" color="primary">
             <mat-icon>play_arrow</mat-icon>
         </button>
     </ng-template>
 
     <ng-template #play>
-        <button (click)="playPause()" mat-mini-fab matTooltip="Primary" color="primary">
+        <button (click)="playPause()" mat-mini-fab matTooltip="Pause" color="primary">
             <mat-icon>pause</mat-icon>
         </button>
     </ng-template>
