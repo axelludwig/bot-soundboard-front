@@ -23,13 +23,13 @@
 <div *ngIf="store.queue.length > 0" class="queue-list">
     <div *ngFor="let item of store.queue; index as i" class="item">
 
-        <div *ngIf="i == 0" class="queueItem queueItemFirst" (click)="queueSoundClick(item.name)">
+        <div *ngIf="i == 0" class="queueItem queueItemFirst">
             {{item.name}}
             <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
         </div>
 
         <div *ngIf="i > 0" matTooltip="Click to remove from queue" class="queueItem"
-            (click)="queueSoundClick(item.name)">
+            (click)="removeSoundFromQueue(item.id)">
             {{item.name}}
             <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
         </div>
