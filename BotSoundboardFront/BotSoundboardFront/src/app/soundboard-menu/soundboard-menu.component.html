@@ -1,23 +1,36 @@
-<div>
+<div class="first-row-header">
   <div class="first-row">
-    <div class="title title-sounds">
+    <div *ngIf="store.filteredSounds.length == 0" class="title">
+      Sounds
+    </div>
+    <div *ngIf="store.filteredSounds.length > 0" class="title">
       Sounds ({{store.filteredSounds.length}})
     </div>
 
     <div class="controls">
-      <mat-form-field class="search">
+      <div class="searchbar">
+        <input [(ngModel)]="store.searchValue" (keyup)="textChange()" type="text" class="ghost-input"
+          placeholder="Search" required>
+        <mat-icon (click)="clearText()" class="clear-button"
+          [ngClass]="{'hidden': store.searchValue === ''}">close</mat-icon>
+      </div>
+      <!-- <mat-form-field class="search">
         <mat-label>Search</mat-label>
         <input (keyup)="textChange()" matInput type="text" [(ngModel)]="store.searchValue">
         <button *ngIf="store.searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
           <mat-icon>close</mat-icon>
         </button>
-      </mat-form-field>
+      </mat-form-field> -->
 
-      <div class="upload">
+
+      <!-- <div class="upload">
         <button type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add sounds</button>
-      </div>
+      </div> -->
     </div>
+
   </div>
+  <button class="add-button" type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add
+    sounds</button>
 </div>
 
 <mat-table [dataSource]="dataSource" matSort [class.grayed]="!store.currentChannel" class="grid"

@@ -1,13 +1,27 @@
-.content{
-    height: 0px;
+:host {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    left: 0;
+    bottom: 50px;
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    height: 12px;
+}
+
+.content {
+    /* height: 0px;
     background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: baseline;
+    align-items: baseline; */
 }
 
-.now-playing{
+.now-playing {
     left: 20px;
     position: absolute;
     /* margin-top: 20px; */
@@ -16,7 +30,7 @@
     overflow: hidden;
 }
 
-.controls{
+.controls {
     margin-right: 50px;
 }
 
@@ -26,7 +40,7 @@
     display: inline-block;
 }
 
-.volume{
+.volume {
     right: 50px;
     position: absolute;
     /* margin-top: 20px; */

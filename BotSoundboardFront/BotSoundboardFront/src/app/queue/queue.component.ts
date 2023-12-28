@@ -26,7 +26,7 @@ export class QueueComponent {
 
   clearQueue() {
     this.socketService.clearQueue();
-  }
+    }
 
   onRadioClick(event: any) {
     console.log(event.value);

@@ -153,7 +153,10 @@ mat-cell:hover {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
     height: 80px;
+    width: 80%;
+
 }
 
 .second-row {
@@ -205,4 +208,76 @@ mat-row:not(.playing) mat-cell {
     /* justify-self: normal; */
     align-items: center;
     line-height: 44px;
+}
+
+.title {
+    /* padding-top: 0px; */
+    margin-left: 24px;
+    /* margin-right: 24px; */
+    margin-top: 24px;
+}
+
+
+.ghost-input {
+    display: block;
+    border: 0px;
+    outline: none;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: var(--primary);
+    /* color: var(--text-color); */
+    background: var(--first-background);
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+
+    font-size: 16px;
+    font-family: 'Helvetica Neue', sans-serif;
+
+
+
+    /* padding: 10px 15px;
+    margin: 30px 0px; */
+}
+
+.ghost-input:focus-within {}
+
+.add-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+}
+
+.controls {
+    display: flex;
+    border-bottom: 1px solid black;
+    margin-top: 28px;
+}
+
+.controls:focus-within {
+    border-bottom: 2px solid var(--primary);
+}
+
+.searchbar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    /* margin-left: 24px;
+    margin-right: 24px;
+    margin-top: 24px;
+    margin-bottom: 24px; */
+    padding-bottom: 12px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.first-row-header {
+    position: relative;
 }
