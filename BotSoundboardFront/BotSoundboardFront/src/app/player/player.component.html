@@ -1,5 +1,4 @@
-<div class="content">
-    <div class="now-playing manage-element">
+<!-- <div class="now-playing manage-element">
         <a href="javascript:void(0)" *ngIf="store.soundPlaying && store.soundPlaying.Name.length > 25"
             class="link link_animated" href="">
             {{store.soundPlaying.Name}}
@@ -7,38 +6,42 @@
         <a href="javascript:void(0)" *ngIf="store.soundPlaying && store.soundPlaying.Name.length <= 24" class="link">
             {{store.soundPlaying.Name}} </a>
         <a href="javascript:void(0)" *ngIf="!store.soundPlaying" class="link"> no sound playing </a>
-    </div>
+    </div> -->
+<div class="now-playing manage-element">
+    <p *ngIf="store.soundPlaying && store.soundPlaying.Name.length <= 24" class="link">
+        {{store.soundPlaying.Name}} </p>
+    <p *ngIf="!store.soundPlaying" class="link"> no sound playing </p>
+</div>
 
-    <div class="controls">
-        <div class="control-button">
-            <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
-            <ng-template #paused>
-                <button (click)="togglePause()" mat-mini-fab matTooltip="Play" color="primary">
-                    <mat-icon>play_arrow</mat-icon>
-                </button>
-            </ng-template>
-
-            <ng-template #play>
-                <button (click)="togglePause()" mat-mini-fab matTooltip="Pause" color="primary">
-                    <mat-icon>pause</mat-icon>
-                </button>
-            </ng-template>
-        </div>
-
-        <div class="control-button">
-                <button (click)="skipSound()" mat-mini-fab matTooltip="Skip" color="primary">
-                <mat-icon>skip_next</mat-icon>
+<div class="controls">
+    <div class="control-button">
+        <ng-container *ngIf="isPaused ; then paused else play"> </ng-container>
+        <ng-template #paused>
+            <button (click)="togglePause()" mat-mini-fab matTooltip="Play" color="primary">
+                <mat-icon>play_arrow</mat-icon>
             </button>
-        </div>
+        </ng-template>
+
+        <ng-template #play>
+            <button (click)="togglePause()" mat-mini-fab matTooltip="Pause" color="primary">
+                <mat-icon>pause</mat-icon>
+            </button>
+        </ng-template>
     </div>
 
-    <app-sound-timer></app-sound-timer>
-
-    <div class="volume">
-        <span>
-            <mat-slider min="0" max="1" step="0.01">
-                <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
-            </mat-slider>
-        </span>
+    <div class="control-button">
+        <button (click)="skipSound()" mat-mini-fab matTooltip="Skip" color="primary">
+            <mat-icon>skip_next</mat-icon>
+        </button>
     </div>
+</div>
+
+<app-sound-timer></app-sound-timer>
+
+<div class="volume">
+    <span>
+        <mat-slider min="0" max="1" step="0.01">
+            <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">
+        </mat-slider>
+    </span>
 </div>

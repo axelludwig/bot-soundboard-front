@@ -6,7 +6,6 @@
     padding: 0 24px 0 24px;
     overflow-y: scroll;
     background-color: var(--first-background); */
-
     display: block;
     border-radius: 8px;
     height: 78vh;
@@ -62,9 +61,14 @@
     flex-direction: column;
     align-items: stretch;
     position: relative;
+    /* margin-top: 24px; */
 }
 
 .guilds-buttons {
     /* top: 0; */
     /* background-color: red !important; */
+}
+
+.title {
+    margin-top: 24px;
 }
