@@ -8,10 +8,6 @@
     border-radius: 8px;
 }
 
-.hidden {
-    display: none;
-}
-
 .grid {
     user-select: none;
 }
