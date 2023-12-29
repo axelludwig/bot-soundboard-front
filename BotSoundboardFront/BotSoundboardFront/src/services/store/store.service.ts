@@ -140,7 +140,7 @@ export class StoreService implements OnInit {
     let temp: Sound[] = [];
     this.sounds.forEach((sound: Sound) => {
       sound.Tags.forEach((tag: Tag) => {
-        if (this.selectedTags.some((t) => t.ID === tag.ID)) {
+        if (this.selectedTags.some((t) => t.ID === tag.ID) && !temp.some((s) => s.ID === sound.ID)) {
           temp.push(sound);
         }
       })
