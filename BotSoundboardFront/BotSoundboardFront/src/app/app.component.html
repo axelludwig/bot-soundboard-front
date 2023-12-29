@@ -1,18 +1,19 @@
 <div id="main">
     <div class="menu">
-        <div class="controls">            
+        <div class="controls">
             <app-tags-bar />
         </div>
     </div>
 
-    <as-split id="split" class="content" (dragEnd)="dragEnd($event)" class="sub-menu" unit="pixel" direction="horizontal">
-        <as-split-area >
-            <app-guilds-list (hideParent)="onClose1()"/>
+    <as-split id="split" class="content" (dragEnd)="dragEnd($event)" class="sub-menu" unit="pixel"
+        direction="horizontal">
+        <as-split-area>
+            <app-guilds-list (hideParent)="onClose1()" />
         </as-split-area>
-        <as-split-area [minSize]="800" [size]="menuSize" >
+        <as-split-area [minSize]="800" [size]="menuSize">
             <app-soundboard-menu />
         </as-split-area>
-        <as-split-area [minSize]="300" [size]="queueSize">
+        <as-split-area [minSize]="300" [size]="queueSize" style="overflow-x: hidden; overflow-y: hidden;">
             <app-queue />
         </as-split-area>
     </as-split>
