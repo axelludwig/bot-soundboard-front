@@ -1,6 +1,9 @@
 :host {
     display: flex;
-    align-items: flex-end
+    align-items: flex-end;
+
+    top: 24px;
+    padding-bottom: 6px;
 }
 
 .timeText {
