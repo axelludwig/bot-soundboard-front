@@ -85,13 +85,17 @@ app-soundboard-menu {
 
 .link {
     /* color: #a7b3e2; */
-    color: white;
+    /* color: white; */    
+    color: var(--primary);
     text-decoration: none;
     text-align: center;
     white-space: nowrap;
     display: inline-flex;
     line-height: 2;
     cursor: default;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .link_animated {

@@ -29,6 +29,7 @@
     text-align: center;
     overflow: hidden;
     top: -10px;
+    color: var(--primary);
 }
 
 .controls {
