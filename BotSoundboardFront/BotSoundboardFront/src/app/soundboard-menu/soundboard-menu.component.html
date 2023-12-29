@@ -1,69 +1,77 @@
-<div>
-    <div class="first-row">
-        <div class="title title-sounds">
-            Sounds ({{dataSource.data.length}})
-        </div>
-
-        <mat-form-field class="search">
-            <mat-label>Search</mat-label>
-            <input (keyup)="textChange()" matInput type="text" [(ngModel)]="store.searchValue">
-            <button *ngIf="store.searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
-                <mat-icon>close</mat-icon>
-            </button> 
-        </mat-form-field>
-
-        <div class="upload">
-            <button type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add sounds</button>
-        </div>
+<div class="first-row-header">
+  <div class="first-row">
+    <div *ngIf="dataSource.data.length == 0" class="title">
+      Sounds
     </div>
+    <div *ngIf="store.filteredSounds.length > 0" class="title">
+      Sounds ({{store.filteredSounds.length}})
+    </div>
+
+    <div class="controls">
+      <div class="searchbar">
+        <input [(ngModel)]="store.searchValue" (keyup)="textChange()" type="text" class="ghost-input"
+          placeholder="Search" required>
+        <mat-icon (click)="clearText()" class="clear-button"
+          [ngClass]="{'hidden': store.searchValue === ''}">close</mat-icon>
+      </div>
+    </div>
+
+  </div>
+  <button class="add-button" type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add
+    sounds</button>
 </div>
 
-<mat-table [dataSource]="dataSource" matSort [class.grayed]="!store.currentChannel" class="grid" (matSortChange)="onSortData($event)">
-    <!-- En-têtes de colonnes -->
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Title
-      </mat-header-cell>
-      <mat-cell *matCellDef="let sound">{{ sound.Name }}</mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="tags">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Tags
-      </mat-header-cell>
-      <mat-cell *matCellDef="let sound">
-        <mat-chip-listbox class="sound-infos sound-tags">
-          <mat-chip-option disabled class="tag" *ngFor="let tag of sound.Tags">
-            {{ tag.Name }}
-          </mat-chip-option>
-        </mat-chip-listbox>
-      </mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="duration">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Duration
-      </mat-header-cell>
-      <mat-cell *matCellDef="let sound">{{ sound.SoundLength | date: 'mm:ss' }}</mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="addedDate">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Added date
-      </mat-header-cell>
-      <mat-cell *matCellDef="let sound">{{ sound.PublicationDate | date: 'dd/MM/yyyy' }}</mat-cell>
-    </ng-container>
-  
-    <mat-header-row *matHeaderRowDef="['title', 'tags', 'duration', 'addedDate']; sticky: true"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['title', 'tags', 'duration', 'addedDate']" [class.playing]="store.soundPlaying?.ID == row.ID"  (click)="soundClicked($event, row.ID)" (contextmenu)="menu.open($event, { name: row} )"></mat-row>
-  </mat-table>
+<mat-table [dataSource]="dataSource" matSort [class.grayed]="!store.currentChannel" class="grid"
+  (matSortChange)="onSortData($event)">
+  <!-- En-têtes de colonnes -->
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Title
+    </mat-header-cell>
+    <mat-cell class="matcell-sound" matTooltip="{{sound.Name}}" [id]="sound.Name" [matTooltipPosition]="'before'"
+      *matCellDef="let sound">{{ sound.Name }}</mat-cell>
+    <!-- [matTooltipDisabled]="isDisabled(sound.Name)" -->
+  </ng-container>
+
+  <ng-container matColumnDef="tags">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Tags
+    </mat-header-cell>
+    <mat-cell *matCellDef="let sound">
+      <mat-chip-listbox class="sound-infos sound-tags">
+        <mat-chip-option disabled class="tag" *ngFor="let tag of sound.Tags">
+          {{ tag.Name }}
+        </mat-chip-option>
+      </mat-chip-listbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="duration">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Duration
+    </mat-header-cell>
+    <mat-cell *matCellDef="let sound">{{ sound.SoundLength | date: 'mm:ss' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="addedDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Added date
+    </mat-header-cell>
+    <mat-cell *matCellDef="let sound">{{ sound.PublicationDate | date: 'dd/MM/yyyy' }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['title', 'tags', 'duration', 'addedDate']; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['title', 'tags', 'duration', 'addedDate']"
+    [class.playing]="store.soundPlaying?.ID == row.ID" (click)="soundClicked($event, row.ID)"
+    (contextmenu)="menu.open($event, { name: row} )"></mat-row>
+</mat-table>
 
 <app-context-menu [matMenuTriggerFor]="main" #menu>
-    <mat-menu #main="matMenu">
-        <ng-template matMenuContent let-name="name">
-            <button mat-menu-item (click)="openRenameContextMenu(name)">Rename</button>
-            <button mat-menu-item (click)="openTagsSelectorDialog(name)">Modify tags</button>
-            <button mat-menu-item (click)="delete(name)">Delete</button>
-        </ng-template>
-    </mat-menu>
+  <mat-menu #main="matMenu">
+    <ng-template matMenuContent let-name="name">
+      <button mat-menu-item (click)="openRenameContextMenu(name)">Rename</button>
+      <button mat-menu-item (click)="openTagsSelectorDialog(name)">Modify tags</button>
+      <button mat-menu-item (click)="delete(name)">Delete</button>
+    </ng-template>
+  </mat-menu>
 </app-context-menu>

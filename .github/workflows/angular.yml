@@ -5,6 +5,7 @@ name: Angular deployment
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 jobs:
   build:
     # using Ubuntu
@@ -25,12 +26,12 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
 
-    - name: NPM Install
-      run: npm install
-    - name: NPM Install Angular
-      run: npm install -g @angular/cli > /dev/null
-    - name: NPM build Angular
-      run: ng build --configuration=production
+  #  - name: NPM Install
+  #    run: npm install
+  #  - name: NPM Install Angular
+  #    run: npm install -g @angular/cli > /dev/null
+  #  - name: NPM build Angular
+  #    run: ng build --configuration=production
       
     - name: "Push to server"
       uses: appleboy/scp-action@master
@@ -46,7 +47,7 @@ jobs:
     - name: Restarting nginx
       uses: garygrossgarten/github-action-ssh@release
       with:
-        command: sudo /etc/init.d/nginx restart;cd /var/www/bot-soundboard-back/;pm2 start bot-soundboard-pm2.json;pm2 restart bot-soundboard-back
+        command: cd /var/www/bot-soundboard-front;npm install;ng build --configuration=production #;pm2 start bot-soundboard-pm2.json;pm2 restart bot-soundboard-back
         host: ${{ secrets.SSH_HOST }}
         port: ${{ secrets.SSH_PORT }}
         username: ${{ secrets.SSH_USERNAME }}
