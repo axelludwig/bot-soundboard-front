@@ -28,10 +28,12 @@
     width: 30%;
     text-align: center;
     overflow: hidden;
+    top: -10px;
 }
 
 .controls {
     margin-right: 50px;
+    margin-top: 10px;
 }
 
 .control-button {

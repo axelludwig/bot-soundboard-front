@@ -14,18 +14,6 @@
         <mat-icon (click)="clearText()" class="clear-button"
           [ngClass]="{'hidden': store.searchValue === ''}">close</mat-icon>
       </div>
-      <!-- <mat-form-field class="search">
-        <mat-label>Search</mat-label>
-        <input (keyup)="textChange()" matInput type="text" [(ngModel)]="store.searchValue">
-        <button *ngIf="store.searchValue" (click)="clearText()" matSuffix mat-icon-button aria-label="Clear">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field> -->
-
-
-      <!-- <div class="upload">
-        <button type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add sounds</button>
-      </div> -->
     </div>
 
   </div>
