@@ -299,3 +299,7 @@ body {
 .ghost-input-error {
     color: red;
 }
+
+.slider  {
+    top: 0px;
+}

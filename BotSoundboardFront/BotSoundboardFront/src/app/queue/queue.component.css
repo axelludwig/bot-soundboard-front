@@ -90,6 +90,7 @@ h3 {
 
 .queueItemFirst {
     color: var(--primary);
+    cursor: no-drop !important;
 }
 
 .queueItem:hover {

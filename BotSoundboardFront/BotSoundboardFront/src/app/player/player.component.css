@@ -10,6 +10,8 @@
     text-align: center;
     background-color: rgb(0, 0, 0);
     height: 12px;
+
+    justify-content: space-between;
 }
 
 .content {
@@ -22,15 +24,14 @@
 }
 
 .now-playing {
-    left: 20px;
+    /* left: 12px;
     position: absolute;
-    /* margin-top: 20px; */
     width: 30%;
     text-align: center;
     overflow: hidden;
     top: -10px;
     color: var(--primary);
-    display: flex;
+    display: flex; */
 }
 
 .controls {
@@ -45,7 +46,37 @@
 }
 
 .volume {
-    right: 50px;
-    position: absolute;
+    /* right: 50px; */
+    /* position: absolute; */
     /* margin-top: 20px; */
+}
+
+.left-player {
+    display: flex;
+    /* top: 54px; */
+    position: relative;
+    left: 28px;
+    top: 18px;
+}
+
+.middle-player {
+    display: flex;
+}
+
+.right-player {
+    display: flex;
+    /* top: 54px; */
+    position: relative;
+    right: 28px;
+    top: 18px;
+    align-items: flex-end;
+}
+
+mat-slider {
+    top: 0px;
+}
+
+.settings-button {
+    right: 24px;
+    bottom: 6px;
 }
