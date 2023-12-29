@@ -1,15 +1,5 @@
-<!-- <div class="now-playing manage-element">
-        <a href="javascript:void(0)" *ngIf="store.soundPlaying && store.soundPlaying.Name.length > 25"
-            class="link link_animated" href="">
-            {{store.soundPlaying.Name}}
-        </a>
-        <a href="javascript:void(0)" *ngIf="store.soundPlaying && store.soundPlaying.Name.length <= 24" class="link">
-            {{store.soundPlaying.Name}} </a>
-        <a href="javascript:void(0)" *ngIf="!store.soundPlaying" class="link"> no sound playing </a>
-    </div> -->
 <div class="now-playing manage-element">
-    <p *ngIf="store.soundPlaying && store.soundPlaying.Name.length <= 24" class="link">
-        {{store.soundPlaying.Name}} </p>
+    <p *ngIf="store.soundPlaying" class="link"> {{store.soundPlaying.Name}} </p>
     <p *ngIf="!store.soundPlaying" class="link"> no sound playing </p>
 </div>
 
