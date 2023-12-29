@@ -1,29 +1,42 @@
-<!-- <mat-tab-group> -->
 <div class="youtube">
-
     <div class="form">
-        <mat-form-field class="example-form-field">
+        <!-- <mat-form-field class="example-form-field">
             <mat-label>youtube url</mat-label>
             <input [(ngModel)]="youtubeUrl" (keyup)="onKeyup($event)" placeholder="youtube url" matInput type="text">
-            <!-- <mat-hint *ngIf="(!youtubeUrl || youtubeUrl == '') && modified">empty url</mat-hint> -->
             <mat-hint *ngIf="!urlIsValid && youtubeUrl">invalid url</mat-hint>
             <button matSuffix mat-icon-button (click)="pasteClipboard()">
                 <mat-icon>content_paste</mat-icon>
             </button>
-        </mat-form-field>
+        </mat-form-field> -->
 
-        <mat-form-field appearance="fill">
+        <div [ngClass]="{'input-controls-error': !urlIsValid && youtubeUrl}" class="input-controls">
+            <div class="searchbar">
+                <input [ngClass]="{'ghost-input-error': !urlIsValid && youtubeUrl}" [(ngModel)]="youtubeUrl"
+                    (keyup)="onKeyup($event)" type="text" class="ghost-input" placeholder="youtube URL" required>
+                <mat-icon (click)="pasteClipboard()">content_paste</mat-icon>
+            </div>
+        </div>
+
+        <!-- <mat-form-field appearance="fill">
             <mat-label>sound name</mat-label>
             <input matInput placeholder="New name" (keyup)="updateName()" [(ngModel)]="name">
-        </mat-form-field>
+        </mat-form-field> -->
 
+        <div class="input-controls">
+            <div class="searchbar">
+                <input [(ngModel)]="name" (keyup)="updateName()" type="text" class="ghost-input"
+                    placeholder="sound name" required>
+            </div>
+        </div>
+        <br>
         <button class="cropButton" [disabled]="!urlIsValid" type="button" mat-flat-button color="primary"
             (click)="getSoundFromUrl()" matTooltip="Open crop component" matTooltipPosition="above">Crop sound</button>
 
         <button class="saveButton" [disabled]="!localBase64 || !localBase64.name" type="button" mat-flat-button
             color="primary" (click)="saveInChild()" matTooltip="Upload cropped sound"> Save cropped sound</button>
 
-        <button class="saveCropButton" type="button" mat-flat-button color="primary" (click)="saveWithoutCropping()" matTooltip="Upload the whole video">
+        <button class="saveCropButton" type="button" mat-flat-button color="primary" (click)="saveWithoutCropping()"
+            matTooltip="Upload the whole video">
             Save without cropping</button>
     </div>
 
@@ -41,18 +54,12 @@
 
     <div class="divider"></div>
 
-
     <button type="button" mat-flat-button color="primary" (click)="fileInput.click()">Choose File</button>
     <input accept="sound/mp3, sound/ogg" multiple hidden (change)="onFileChange()" #fileInput type="file" id="file">
-    <button disabled="{{!this.hasFiles}}" mat-flat-button color="primary" (click)="uploadFile()">Upload
-        sound</button>
+    <button disabled="{{!this.hasFiles}}" mat-flat-button color="primary" (click)="uploadFile()">Upload sound</button>
 
-    <mat-tab label="Upload from youtube">
-
-    </mat-tab>
+    <mat-tab label="Upload from youtube"> </mat-tab>
 </div>
 
 <mat-tab label="Upload from mp3 file">
-
 </mat-tab>
-<!-- </mat-tab-group> -->

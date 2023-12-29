@@ -236,5 +236,66 @@ body {
 
 .mdc-form-field>label {
     margin-left: 8px !important;
+}
 
+.ghost-input {
+    display: block;
+    border: 0px;
+    outline: none;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: var(--primary);
+    background: var(--first-background);
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+
+
+.ghost-input:focus-within {}
+
+
+.input-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    margin-top: 28px;
+}
+
+.input-controls:focus-within {
+    border-bottom: 2px solid var(--primary);
+}
+
+.input-controls-error {
+    border-bottom: 2px solid red;
+    color: red;
+}
+
+.input-controls-error:focus-within {
+    border-bottom: 2px solid red;
+    color: red;
+}
+
+.searchbar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    /* padding-bottom: 8px; */
+    padding: 0 12px 8px 12px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.ghost-input-error {
+    color: red;
 }

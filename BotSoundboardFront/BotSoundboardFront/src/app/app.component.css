@@ -81,6 +81,7 @@ app-soundboard-menu {
     text-align: center;
     overflow: hidden;
     top: 24px;
+    display: flex;
 }
 
 .link {
