@@ -18,6 +18,7 @@ export class StoreService implements OnInit {
 
   public sounds: Sound[] = [];
   public filteredSounds: Sound[] = [];
+  public displayedSounds: Sound[] = [];
 
   public soundsObservable: BehaviorSubject<Sound[]> = new BehaviorSubject<Sound[]>([]);
   // public filteredSounds: Sound[] = [];  
@@ -63,10 +64,8 @@ export class StoreService implements OnInit {
     this.socketService.sounds$.subscribe((sounds: Sound[]) => {
       this.sounds = sounds;
       this.updateFilteredSounds();
-      this.soundsObservable.next(this.filteredSounds);
       this.sortSounds();
-      // this.filteredSounds = sounds;
-      
+
     })
 
     this.socketService.newTag$.subscribe((tag: Tag) => {
@@ -89,13 +88,12 @@ export class StoreService implements OnInit {
       });
       this.sortSounds();
       this.updateFilteredSounds();
-      this.soundsObservable.next(this.filteredSounds);
     });
 
     this.socketService.soundPlaying$.subscribe((sound: Sound) => {
       this.soundPlaying = sound;
     });
-  }  
+  }
 
   sortArray(array: Tag[]) {
     return array.sort((a, b) => {
@@ -118,8 +116,13 @@ export class StoreService implements OnInit {
     this.tags = this.sortArray(selectedTagsList).concat(this.sortArray(favoritesTagsList)).concat(this.sortArray(unselectedTagsList));
   }
 
-  applyTestFiler(): void {
-    this.filteredSounds = this.sounds.filter((sound) => {
+  applySearchFiler(): void {
+    if (this.searchValue == ""){
+      this.displayedSounds = this.filteredSounds;
+      return;
+    }
+      
+    this.displayedSounds = this.filteredSounds.filter((sound) => {
       var s = sound.Name.toLocaleLowerCase();
       var search = this.searchValue.toLocaleLowerCase();
 
@@ -128,10 +131,10 @@ export class StoreService implements OnInit {
   }
 
   updateFilteredSounds(): void {
-    //Idée d'opti : séparer le filtre par tags et le filtre par nom pour gagner en perf
-    this.applyTestFiler();
+    this.filteredSounds = this.sounds;
     if (this.selectedTags.length == 0) {
-      this.soundsObservable.next(this.filteredSounds);
+      this.applySearchFiler();
+      this.soundsObservable.next(this.displayedSounds);
       return;
     }
     let temp: Sound[] = [];
@@ -141,10 +144,11 @@ export class StoreService implements OnInit {
           temp.push(sound);
         }
       })
-    }); 
-    
+    });
+
     this.filteredSounds = temp;
-    this.soundsObservable.next(this.filteredSounds);
+    this.applySearchFiler();
+    this.soundsObservable.next(this.displayedSounds);
   }
 
   ngOnInit() {
