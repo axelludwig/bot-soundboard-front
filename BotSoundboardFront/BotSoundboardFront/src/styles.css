@@ -270,13 +270,19 @@ body {
     margin-top: 28px;
 }
 
+.input-controls-selected {
+    border-bottom: 2px solid var(--primary);
+    color: var(--primary);
+
+}
+
 .input-controls:focus-within {
     border-bottom: 2px solid var(--primary);
 }
 
 .input-controls-error {
-    border-bottom: 2px solid red;
     color: red;
+    border-bottom: 2px solid red;
 }
 
 .input-controls-error:focus-within {
@@ -302,4 +308,8 @@ body {
 
 .slider  {
     top: 0px;
+}
+
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic { 
+    stroke: var(--primary) !important;
 }

@@ -1,3 +1,11 @@
+:host{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    min-width: 200px;
+    min-height: 200px;
+}
+
 .form {
     display: flex;
     flex-direction: column;
