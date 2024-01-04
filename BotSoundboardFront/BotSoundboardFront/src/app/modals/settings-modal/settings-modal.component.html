@@ -1,10 +1,16 @@
-<!-- <input [(colorPicker)]="store.primaryColor" [style.background]="store.primaryColor"/> -->
-<!-- {{store.primaryColor}} -->
+<div class="title">
+    Settings
+</div>
 
-<input type="color" (input)="debounce()" [(ngModel)]="primaryColorLocal">
-
-<div class="input-controls-selected">
-    <div class="searchbar">
-        <input type="text" [(ngModel)]="primaryColorLocal" class="ghost-input" placeholder="sound name" required>
+<div class="colorPicker">
+    <input type="color" (input)="debounce()" [(ngModel)]="store.primaryColor">
+    <div class="input-controls-selected">
+        <input (keyup)="updateThemeColor()" type="text" [(ngModel)]="store.primaryColor" class="ghost-input"
+            placeholder="sound name" required>
     </div>
+    <button (click)="pasteClipboard()" mat-flat-button matTooltip="Paste content" color="primary">
+        <mat-icon>content_paste</mat-icon>
+    </button>
+
+
 </div>

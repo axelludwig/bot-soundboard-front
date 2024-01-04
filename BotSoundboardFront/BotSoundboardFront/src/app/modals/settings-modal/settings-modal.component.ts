@@ -11,15 +11,13 @@ import { StoreService } from 'src/services/store/store.service';
 })
 export class SettingsModalComponent {
 
-  public primaryColorLocal: string = this.store.primaryColor;
+  // public primaryColorLocal: string = this.store.primaryColor;
   private primaryColorLocalSubject = new Subject<string>();
 
   private readonly debounceTimeMs = 10; // Set the debounce time (in milliseconds)
 
   ngOnInit() {
     this.primaryColorLocalSubject.pipe(debounceTime(this.debounceTimeMs)).subscribe(() => {
-      console.log("debounce");
-      
       this.updateThemeColor();
     });
   }
@@ -36,6 +34,14 @@ export class SettingsModalComponent {
   }
 
   updateThemeColor() {
-    this.store.changeThemeColor(this.primaryColorLocal)
+    this.store.changeThemeColor(this.store.primaryColor);
+  }
+
+  async pasteClipboard() {
+    let clipboardContent = await navigator.clipboard.readText();
+    if (clipboardContent) {
+      this.store.primaryColor = clipboardContent;
+      this.updateThemeColor();
+    }
   }
 }
