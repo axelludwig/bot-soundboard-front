@@ -51,7 +51,7 @@ export class PlayerComponent {
     let dialog = this.dialog.open(SettingsModalComponent, {
       disableClose: false,
       // data: sound.Name,
-      width: '40%',
+      width: '20%',
     });
 
     dialog.afterClosed().subscribe(result => {
