@@ -1,1 +1,10 @@
-wip
+<!-- <input [(colorPicker)]="store.primaryColor" [style.background]="store.primaryColor"/> -->
+<!-- {{store.primaryColor}} -->
+
+<input type="color" (input)="debounce()" [(ngModel)]="primaryColorLocal">
+
+<div class="input-controls-selected">
+    <div class="searchbar">
+        <input type="text" [(ngModel)]="primaryColorLocal" class="ghost-input" placeholder="sound name" required>
+    </div>
+</div>

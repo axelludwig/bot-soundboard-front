@@ -13,7 +13,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GuildsListComponent } from './guilds-list/guilds-list.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SoundboardMenuComponent } from './soundboard-menu/soundboard-menu.component';
-import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon'
 import { MatDividerModule } from '@angular/material/divider'
 import { ReactiveFormsModule } from '@angular/forms';
@@ -42,6 +41,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSplitModule } from 'angular-split';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { FormsModule } from '@angular/forms';
+import {SettingsModalComponent} from './modals/settings-modal/settings-modal.component';
+
+
 
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
@@ -64,9 +67,14 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     ContextMenuComponent,
     RenameTagModalComponent,
     TagsSelectorComponent,
+    SettingsModalComponent
   ],
   imports: [AngularSplitModule, MatMenuModule, MatTooltipModule, MatRadioModule, MatChipsModule, MatSnackBarModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule, MatTableModule,
-    MatSortModule
+    MatSortModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule 
+
   ],
   exports: [],
   providers: [AxiosService],
