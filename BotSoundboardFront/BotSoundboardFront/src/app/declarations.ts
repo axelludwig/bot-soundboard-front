@@ -40,3 +40,12 @@ export interface Tag {
   Selected?: boolean;
   IsFavorite?: boolean;
 }
+
+export interface YoutubeSearchLink {
+  url: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+  channelTitle: string;
+  publishedAt: string;
+}

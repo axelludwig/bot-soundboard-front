@@ -234,7 +234,7 @@ body {
     color: var(--primary) !important;
 }
 
-.mat-mdc-slide-toggle.mat-primary{
+.mat-mdc-slide-toggle.mat-primary {
     --mdc-switch-selected-focus-state-layer-color: var(--primary) !important;
     --mdc-switch-selected-handle-color: var(--primary) !important;
     --mdc-switch-selected-hover-state-layer-color: var(--primary) !important;
@@ -248,7 +248,7 @@ body {
     --mdc-switch-selected-track-color: var(--primary) !important;
 }
 
-.mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon{
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
     fill: var(--text-color) !important;
 }
 
@@ -340,4 +340,8 @@ body {
 
 .mat-mdc-unelevated-button:not(:disabled) {
     color: var(--text-color) !important;
+}
+
+.mat-icon {
+    cursor: pointer;
 }

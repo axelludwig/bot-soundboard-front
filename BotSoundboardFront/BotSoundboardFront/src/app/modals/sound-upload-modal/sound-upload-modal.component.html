@@ -1,4 +1,4 @@
-<div class="youtube">
+<div id="top" class="youtube">
     <div class="form">
 
         <div class="title">
@@ -8,7 +8,7 @@
         <div [ngClass]="{'input-controls-error': !urlIsValid && youtubeUrl}" class="input-controls">
             <div class="searchbar">
                 <input [ngClass]="{'ghost-input-error': !urlIsValid && youtubeUrl}" [(ngModel)]="youtubeUrl"
-                    (keyup)="onKeyup($event)" type="text" class="ghost-input" placeholder="youtube URL" required>
+                    (keyup)="onKeyup($event)" type="text" class="ghost-input" placeholder="youtube URL">
                 <mat-icon (click)="pasteClipboard()">content_paste</mat-icon>
             </div>
         </div>
@@ -16,7 +16,7 @@
         <div class="input-controls">
             <div class="searchbar">
                 <input [(ngModel)]="name" (keyup)="updateName()" type="text" class="ghost-input"
-                    placeholder="sound name" required>
+                    placeholder="sound name">
             </div>
         </div>
 
@@ -64,6 +64,33 @@
 
         <div class="title">
             Search on youtube
+        </div>
+
+        <div class="input-controls">
+            <div class="searchbar">
+                <input [(ngModel)]="youtubeSearch" (keyup)="onKeyupSearch($event)" type="text" class="ghost-input"
+                    placeholder="youtube search">
+                <mat-icon (click)="SearchOnYoutube()">search</mat-icon>
+            </div>
+        </div>
+
+        <div class="video-results">
+            <div class="youtube-video-list" *ngFor="let video of this.youtubeSearchLinks; index as i ">
+                <div class="youtube-video">
+                    <div (click)="videoClick(video)" class="thumnail-wrapper">
+                        <img class="thumbnail" [src]="video.thumbnail" [alt]="video.title">
+                    </div>
+                    <div class="video">
+                        <div class="video-title">
+                            {{video.title}}
+                        </div>
+                        <div class="video-author">
+                            {{video.channelTitle}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
