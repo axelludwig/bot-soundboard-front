@@ -59,9 +59,9 @@ export class AudioEditorComponent implements OnInit {
 
     this.wavesurfer = WaveSurfer.create({
       container: document.querySelector('#waveform'),
-      waveColor: '#D9DCFF',
-      progressColor: '#4353FF',
-      cursorColor: '#4353FF',
+      waveColor: 'white',
+      progressColor: this.store.primaryColor,
+      cursorColor: this.store.primaryColor,
       barWidth: 3,
       barRadius: 3,
       cursorWidth: 1,
@@ -89,7 +89,7 @@ export class AudioEditorComponent implements OnInit {
       this.wavesurfer.addRegion({
         start: duration * margin, // time in seconds
         end: this.wavesurfer.getDuration() - (duration * margin), // time in seconds
-        color: 'hsla(222, 93%, 74%, 0.5)',
+        color: this.store.getVariable('--primary-opacity'),
         loop: false,
         multiple: false,
         id: "region"

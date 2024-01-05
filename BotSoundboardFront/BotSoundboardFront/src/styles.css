@@ -324,10 +324,20 @@ body {
     color: red;
 }
 
-.slider  {
+.slider {
     top: 0px;
 }
 
-.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic { 
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
+.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
     stroke: var(--primary) !important;
+}
+
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
+    --mat-mdc-fab-color: var(--text-color) !important;
+}
+
+.mat-mdc-unelevated-button:not(:disabled) {
+    color: var(--text-color) !important;
 }

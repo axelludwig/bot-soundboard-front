@@ -22,7 +22,6 @@ export class StoreService implements OnInit {
   public displayedSounds: Sound[] = [];
 
   public soundsObservable: BehaviorSubject<Sound[]> = new BehaviorSubject<Sound[]>([]);
-  // public filteredSounds: Sound[] = [];  
   public selectedTags: Tag[] = [];
   public selectedTagsIds: number[] = [];
   public favoriteTags: Tag[] = [];
@@ -48,7 +47,7 @@ export class StoreService implements OnInit {
 
   public loaded: boolean = false;
 
-  public primaryColor: string = "#6c61fa";
+  public primaryColor: string = "";
 
   constructor(private socketService: SocketService, private _snackBar: MatSnackBar) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
@@ -212,6 +211,11 @@ export class StoreService implements OnInit {
   getPrimaryColor(): string {
     var rs = getComputedStyle(this.root);
     return rs.getPropertyValue('--primary')
+  }
+
+  getVariable(name: string): string {    
+    var rs = getComputedStyle(this.root);
+    return rs.getPropertyValue(name);
   }
 
   myFunction_set() {
