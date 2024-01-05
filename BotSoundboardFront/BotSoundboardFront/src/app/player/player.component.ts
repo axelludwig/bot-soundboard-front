@@ -50,24 +50,11 @@ export class PlayerComponent {
     event.stopPropagation()
     let dialog = this.dialog.open(SettingsModalComponent, {
       disableClose: false,
-      // data: sound.Name,
-      width: '20%',
+      width: '400px',
     });
 
     dialog.afterClosed().subscribe(result => {
       if (result === undefined || result === null || result === '') return;
-
-      //   var options: GetOptions = { url: "/sound" }
-      //   options.params = {
-      //     id: sound.ID,
-      //     newName: result
-      //   };
-
-      //   this.axios.put(options).then((res) => {
-      //   })
-      //     .catch((err) => {
-      //       console.log(err);
-      //     })
     });
   }
 }
