@@ -1,7 +1,7 @@
 import { Component, HostListener, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AudioEditorComponent } from 'src/app/audio-editor/audio-editor.component';
-import { Base64File } from 'src/app/declarations';
+import { Base64File, YoutubeSearchLink } from 'src/app/declarations';
 import { AxiosService, GetOptions, Params } from "src/services/axios/axios.service"
 import { StoreService } from 'src/services/store/store.service';
 
@@ -28,6 +28,9 @@ export class SoundUploadModalComponent {
   public modified: boolean = false;
   public localBase64: any;
 
+  public youtubeSearch: string = '';
+  public youtubeSearchLinks: YoutubeSearchLink[] = [];
+
   private youtubeRegex: RegExp = new RegExp(/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/);
 
   @ViewChild(AudioEditorComponent) child: AudioEditorComponent | undefined;
@@ -35,8 +38,7 @@ export class SoundUploadModalComponent {
   constructor(public dialogRef: MatDialogRef<SoundUploadModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, private axiosService: AxiosService, private store: StoreService) {
     this.dialogRef.backdropClick().subscribe(() => {
       this.child?.unsubscribleAll();
-    });
-    // this.dialog.disableClose = true;
+    });    
   }
 
   onFileSelect(event: any) {
@@ -103,6 +105,25 @@ export class SoundUploadModalComponent {
       })
   }
 
+  SearchOnYoutube(): void {
+    var options: GetOptions = {
+      url: "/youtube/search",
+      params: {
+        "text": this.youtubeSearch
+      }
+    }
+    this.axiosService.get(options)
+      .then((res: any) => {
+        if (res) {
+          console.log(res);
+          this.youtubeSearchLinks = res;
+        } else throw new Error("null response from server");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   updateName() {
     this.store.updateNewSoundName(this.name);
   }
@@ -123,6 +144,10 @@ export class SoundUploadModalComponent {
     this.modified = true;
     if ($event.key == ("Enter" || "NumpadEnter")) this.getSoundFromUrl();
     else this.urlValidation();
+  }
+
+  onKeyupSearch($event: any) {
+    if ($event.key == ("Enter" || "NumpadEnter")) this.SearchOnYoutube();
   }
 
   urlValidation() {
@@ -149,6 +174,24 @@ export class SoundUploadModalComponent {
 
   saveWithoutCropping(): void {
     this.child?.save(this.name, this.youtubeUrl);
+  }
+
+  videoClick(video: YoutubeSearchLink) {
+    this.youtubeUrl = video.url;
+    this.urlIsValid = true;
+    this.name = video.title;
+
+    document.getElementById("top")?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+
+    // const id = 'top';
+    // const yOffset = -10;
+    // const element = document.getElementById(id);
+    // const y = element!.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    // window.scrollTo({ top: y, behavior: 'smooth' });
+
+
+    // this.urlValidation();
   }
 }
 

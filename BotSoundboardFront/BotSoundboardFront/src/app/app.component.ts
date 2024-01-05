@@ -2,7 +2,6 @@ import { Component, HostListener, Inject, QueryList, ViewChild, ViewChildren, Vi
 import { SocketService } from 'src/services/socket/socket.service';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { StoreService } from 'src/services/store/store.service';
-import { SoundUploadModalComponent } from './modals/sound-upload-modal/sound-upload-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Sound } from './declarations';
 import { StickyDirection } from '@angular/cdk/table';
@@ -29,7 +28,6 @@ export class AppComponent {
   public menuSize: number = 1000;
   public queueSize: number = 500;
 
-
   constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
@@ -54,8 +52,6 @@ export class AppComponent {
 
   ngOnInit() { }
 
-
-
   testHttp() {
     var options: GetOptions = {
       url: "/"
@@ -68,28 +64,33 @@ export class AppComponent {
       })
   }
 
-
-
   dragEnd(event: any) {
     this.menuSize = event.sizes[1];
     this.queueSize = event.sizes[2];
     this.saveSizes(event.sizes)
   }
-
+  
   saveSizes(sizes: number[]) {
     localStorage.setItem("sizes", sizes.join(','));
   }
-
+  
   onClose1() {
     let middle: any;
+    let queue: any;
     let count = 0;
     this.areasEl?.forEach(element => {
       if (count == 1) {
         middle = element;
-      }; count++;
+      }
+      else if (count == 2) {
+        queue = element;
+      }
+      count++;
     });
-
-    var width = document.getElementById('split')?.offsetWidth;
+    
+    var width = document.getElementById('split')?.offsetWidth;    
     middle.size = width! - this.queueSize - 48;
+    
+    this.saveSizes([0, middle.size, queue.size]);
   }
 }

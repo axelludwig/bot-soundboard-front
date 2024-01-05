@@ -174,7 +174,7 @@ export class SoundboardMenuComponent {
 
   openUploadDialog() {
     let dialog = this.dialog.open(SoundUploadModalComponent, {
-      height: '60%',
+      height: '80%',
       width: '40%',
     });
 
