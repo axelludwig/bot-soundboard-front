@@ -26,8 +26,8 @@
 }
 
 mat-slider {
-    top: 15px;
-    width: 800px;
+    /* top: 15px; */
+    /* width: 800px; */
 }
 
 #main {
@@ -37,6 +37,7 @@ mat-slider {
 
 as-split {
     height: calc(100% - 200px) !important;
+    width: calc(100% - 24px) !important;
 }
 
 
@@ -58,9 +59,11 @@ app-soundboard-menu {
     height: 12px; */
 }
 
+
+
 .slider {
-    margin-right: 1vw;
-    margin-right: 1vw;
+    /* width: 40vw;
+    max-width: 400px; */
 }
 
 .manage-element {
@@ -86,7 +89,7 @@ app-soundboard-menu {
 
 .link {
     /* color: #a7b3e2; */
-    /* color: white; */    
+    /* color: white; */
     color: var(--primary);
     text-decoration: none;
     text-align: center;

@@ -1,4 +1,7 @@
-<span class="timeText">{{ elapsedTime | date: 'mm:ss' }} / {{soundTime | date: 'mm:ss'}}</span>
-<mat-slider [min]="0" [max]="1"  step="0.001" id="slider">
+<span [ngStyle]="{visibility: soundTime  === 0 ? 'hidden' : 'visible'}" class="timeText">{{ elapsedTime | date:
+    'mm:ss' }}</span>
+<mat-slider [min]="0" [max]="1" step="0.001" id="slider">
     <input matSliderThumb [(ngModel)]="progress" (change)="progressChanged($event)">
 </mat-slider>
+<span [ngStyle]="{visibility: soundTime  === 0 ? 'hidden' : 'visible'}" class="timeText">{{ soundTime | date:
+    'mm:ss' }}</span>

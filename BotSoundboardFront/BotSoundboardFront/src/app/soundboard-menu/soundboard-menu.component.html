@@ -22,7 +22,7 @@
 </div>
 
 <mat-table [dataSource]="dataSource" matSort [class.grayed]="!store.currentChannel" class="grid"
-  (matSortChange)="onSortData($event)">
+  (matSortChange)="onSortData($event)" [ngStyle]="{'display': (store.hideList) ? 'none' : 'block'}">
   <!-- En-têtes de colonnes -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef mat-sort-header>

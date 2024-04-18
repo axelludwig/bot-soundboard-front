@@ -2,14 +2,12 @@
 
 :host {
     display: block;
-    height: 98%;
+    height: 100%;
     overflow: hidden;
-    margin-right: 24px;
     padding: 0 24px 0 24px;
     border-radius: 8px;
     background-color: var(--first-background);
     position: relative;
-    padding-top: 24px;
 }
 
 .header {
@@ -19,6 +17,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    padding-top: 24px;
     /* flex */
     /* flex-direction: row;
     cursor: pointer;
