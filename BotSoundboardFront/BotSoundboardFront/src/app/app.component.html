@@ -5,8 +5,8 @@
         </div>
     </div>
 
-    <as-split id="split" class="content" (dragEnd)="dragEnd($event)" class="sub-menu" unit="pixel"
-        direction="horizontal">
+    <as-split (dragStart)="dragStart()" (dragEnd)="dragEnd($event)" id="split" class="content" class="sub-menu"
+        unit="pixel" direction="horizontal">
         <as-split-area>
             <app-guilds-list (hideParent)="onClose1()" />
         </as-split-area>

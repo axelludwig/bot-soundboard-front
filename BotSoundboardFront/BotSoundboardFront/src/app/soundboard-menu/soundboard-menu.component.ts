@@ -25,7 +25,6 @@ export class SoundboardMenuComponent {
   hiddenSounds: string[] = []
   dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
 
-
   constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
     element: HTMLElement;
     this.store.soundsObservable.subscribe((sounds: Sound[]) => {

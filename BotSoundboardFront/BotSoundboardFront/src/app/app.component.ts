@@ -64,16 +64,21 @@ export class AppComponent {
       })
   }
 
+  dragStart() {
+    this.store.toggleHideSoundsList();
+  }
+
   dragEnd(event: any) {
     this.menuSize = event.sizes[1];
     this.queueSize = event.sizes[2];
     this.saveSizes(event.sizes)
+    this.store.toggleHideSoundsList();
   }
-  
+
   saveSizes(sizes: number[]) {
     localStorage.setItem("sizes", sizes.join(','));
   }
-  
+
   onClose1() {
     let middle: any;
     let queue: any;
@@ -87,10 +92,10 @@ export class AppComponent {
       }
       count++;
     });
-    
-    var width = document.getElementById('split')?.offsetWidth;    
+
+    var width = document.getElementById('split')?.offsetWidth;
     middle.size = width! - this.queueSize - 48;
-    
+
     this.saveSizes([0, middle.size, queue.size]);
   }
 }

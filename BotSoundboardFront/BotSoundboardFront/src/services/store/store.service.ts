@@ -38,16 +38,12 @@ export class StoreService implements OnInit {
   soundName$ = this._soundName.asObservable();
 
   public newSound: string | null = null;
-
   public successSnackbar: any;
-
   public tags: Tag[] = [];
-
   public soundPlaying: Sound | null = null;
-
   public loaded: boolean = false;
-
   public primaryColor: string = "";
+  public hideList = false;
 
   constructor(private socketService: SocketService, private _snackBar: MatSnackBar) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
@@ -213,7 +209,7 @@ export class StoreService implements OnInit {
     return rs.getPropertyValue('--primary')
   }
 
-  getVariable(name: string): string {    
+  getVariable(name: string): string {
     var rs = getComputedStyle(this.root);
     return rs.getPropertyValue(name);
   }
@@ -299,6 +295,10 @@ export class StoreService implements OnInit {
     } else {
       return "rgb(" + r + ", " + g + ", " + b + ")";
     }
+  }
+
+  toggleHideSoundsList() {
+    this.hideList = !this.hideList;
   }
 
   // apply() {

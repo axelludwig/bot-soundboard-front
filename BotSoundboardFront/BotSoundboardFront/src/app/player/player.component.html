@@ -1,7 +1,8 @@
 <div class="left-player">
-    <div *ngIf="store.soundPlaying" class=""> {{store.soundPlaying.Name}} </div>
-    <div *ngIf="!store.soundPlaying" class=""> no sound playing </div>
-    <!-- <div class="now-playing manage-element"> </div> -->
+
+    <div matTooltip="{{store.soundPlaying?.Name}}" class="track"> {{store.soundPlaying ?
+        store.soundPlaying.Name : 'no sound playing'}}
+    </div>
 </div>
 
 <div class="middle-player">
@@ -27,7 +28,9 @@
             </button>
         </div>
     </div>
+
     <app-sound-timer></app-sound-timer>
+
 </div>
 
 <div class="right-player">
