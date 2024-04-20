@@ -10,9 +10,9 @@
     border-radius: 8px;
     height: 78vh;
     margin: 0 0 0 24px;
-    padding: 0 24px 0 24px;
+    padding: 0 24px 0 0;
     background-color: var(--first-background);
-    
+
     /* overflow-x: hidden; */
     /* overflow-x: scroll;
     overflow-y: scroll; */
@@ -24,6 +24,7 @@
     display: inline-block;
     user-select: none;
     color: rgb(255, 255, 255);
+    padding-left: 24px;
 }
 
 .channel:hover {
@@ -64,11 +65,13 @@
     /* margin-top: 24px; */
 }
 
-.guilds-buttons {
-    /* top: 0; */
-    /* background-color: red !important; */
-}
+.guilds-buttons {}
 
 .title {
     margin-top: 24px;
+    display: inline-block;
+    position: sticky;
+    z-index: 2;
+    background-color: var(--first-background);
+    padding-left: 24px;
 }

@@ -11,6 +11,8 @@ import { StoreService } from 'src/services/store/store.service';
 })
 export class SettingsModalComponent {
 
+  constructor(public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService) {
+  }
   // public primaryColorLocal: string = this.store.primaryColor;
   private primaryColorLocalSubject = new Subject<string>();
 
@@ -20,14 +22,15 @@ export class SettingsModalComponent {
     this.primaryColorLocalSubject.pipe(debounceTime(this.debounceTimeMs)).subscribe(() => {
       this.updateThemeColor();
     });
+
+    this.store.avoidDuplicates = JSON.parse(localStorage.getItem('avoidDuplicates') || "false");
+
   }
 
   ngOnDestroy() {
     this.primaryColorLocalSubject.complete();
   }
 
-  constructor(public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService) {
-  }
 
   debounce() {
     this.primaryColorLocalSubject.next('');
@@ -43,5 +46,10 @@ export class SettingsModalComponent {
       this.store.primaryColor = clipboardContent;
       this.updateThemeColor();
     }
+  }
+
+  toggleAvoidDuplicates() {
+    // this.store.avoidDuplicates = !this.store.avoidDuplicates;
+    localStorage.setItem('avoidDuplicates', this.store.avoidDuplicates.toString());
   }
 }

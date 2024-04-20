@@ -208,3 +208,9 @@ mat-row:not(.playing) mat-cell {
 .first-row-header {
     position: relative;
 }
+
+.right-side {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}

@@ -34,9 +34,17 @@
 </div>
 
 <div class="right-player">
-    <button (click)="openSettings($event)" class="settings-button" mat-mini-fab matTooltip="Settings" color="primary">
-        <mat-icon>settings</mat-icon>
-    </button>
+    <div class="settings-buttons">
+        <button (click)="playRandom()" mat-mini-fab matTooltip="Play a random sound" color="primary" class="settings-button">
+            <mat-icon>shuffle</mat-icon>
+        </button>
+
+        <button (click)="openSettings($event)" class="settings-button" mat-mini-fab matTooltip="Settings"
+            color="primary">
+            <mat-icon>settings</mat-icon>
+        </button>
+    </div>
+
     <div class="volume">
         <mat-slider class="mat-slider" min="0" max="1" step="0.01">
             <input (dragEnd)="onSliderChange($event)" matSliderThumb [(ngModel)]="volume">

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, SimpleChanges } from '@angular/core';
 import { SocketService } from 'src/services/socket/socket.service';
 import { Sound } from '../declarations';
 import { StoreService } from 'src/services/store/store.service';
@@ -19,6 +19,7 @@ export class PlayerComponent {
 
   public isPaused = true;
   public volume: number = 0;
+
 
   constructor(private socketService: SocketService, public store: StoreService, public dialog: MatDialog) {
     this.socketService.botChangePauseState$.subscribe((state: boolean) => {
@@ -56,5 +57,45 @@ export class PlayerComponent {
     dialog.afterClosed().subscribe(result => {
       if (result === undefined || result === null || result === '') return;
     });
+  }
+
+  playRandom() {
+    let sounds: Sound[];
+    // console.log(this.store.soundsCopyForDuplicates.length === 0);
+
+    // if (this.store.avoidDuplicates) {
+    //   if (this.store.soundsCopyForDuplicates.length === 0)
+    //     this.store.soundsCopyForDuplicates = this.store.displayedSounds;
+    //   sounds = this.store.soundsCopyForDuplicates;
+    // } else {
+    //   sounds = this.store.displayedSounds;
+    // }
+
+    sounds = this.store.displayedSounds;
+
+    // console.log(this.store.displayedSounds);
+
+    if (this.store.avoidDuplicates) {
+      sounds = this.store.displayedSounds.filter(sound => {
+        return !this.store.randomlyPlayedIDs.includes(sound.ID);
+      });
+      if (sounds.length === 0) {
+        sounds = this.store.displayedSounds;
+        this.store.randomlyPlayedIDs = [];
+      }
+    }
+    // console.log(this.store.randomlyPlayedIDs);
+
+
+    let random = Math.floor(Math.random() * sounds.length);
+    let randomSoundID = sounds[random].ID;
+
+    // console.log(randomSoundID);
+    // this.socketService.playSound(randomSoundID);
+
+
+    if (this.store.avoidDuplicates) {
+      this.store.randomlyPlayedIDs.push(randomSoundID);
+    }
   }
 }

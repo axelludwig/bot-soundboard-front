@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, SimpleChanges } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Channel, queueItem, Base64File, Sound, Tag } from 'src/app/declarations';
@@ -45,6 +45,14 @@ export class StoreService implements OnInit {
   public primaryColor: string = "";
   public hideList = false;
 
+  public uploadAfterUpload: boolean = false;
+
+  public avoidDuplicates: boolean = false;
+
+  // public soundsCopyForDuplicates: Sound[] = [];
+  public randomlyPlayedIDs: number[] = [];
+
+
   constructor(private socketService: SocketService, private _snackBar: MatSnackBar) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
       this.queue = queue;
@@ -63,7 +71,7 @@ export class StoreService implements OnInit {
       this.sounds = sounds;
       this.updateFilteredSounds();
       this.sortSounds();
-
+      // this.updatesSundsCopyForDuplicates();
     })
 
     this.socketService.newTag$.subscribe((tag: Tag) => {
@@ -86,12 +94,17 @@ export class StoreService implements OnInit {
       });
       this.sortSounds();
       this.updateFilteredSounds();
+      // this.updatesSundsCopyForDuplicates();
     });
 
     this.socketService.soundPlaying$.subscribe((sound: Sound) => {
       this.soundPlaying = sound;
     });
   }
+
+  // updatesSundsCopyForDuplicates(): void {
+  //   if (this.avoidDuplicates) this.soundsCopyForDuplicates = this.displayedSounds;
+  // }
 
   sortArray(array: Tag[]) {
     return array.sort((a, b) => {
