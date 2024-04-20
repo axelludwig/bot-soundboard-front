@@ -91,7 +91,7 @@ export class PlayerComponent {
     let randomSoundID = sounds[random].ID;
 
     // console.log(randomSoundID);
-    // this.socketService.playSound(randomSoundID);
+    this.socketService.playSound(randomSoundID);
 
 
     if (this.store.avoidDuplicates) {
