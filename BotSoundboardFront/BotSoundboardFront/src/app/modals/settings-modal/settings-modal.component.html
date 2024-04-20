@@ -12,3 +12,9 @@
         <mat-icon>content_paste</mat-icon>
     </button>
 </div>
+
+<div class="divider"></div>
+<div>
+    <mat-checkbox (change)="toggleAvoidDuplicates()" labelPosition="after" [(ngModel)]="store.avoidDuplicates"> Avoid
+        Duplicates</mat-checkbox>
+</div>

@@ -16,9 +16,9 @@
       </div>
     </div>
 
+    <button class="add-button" type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add
+      sounds</button>
   </div>
-  <button class="add-button" type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add
-    sounds</button>
 </div>
 
 <mat-table [dataSource]="dataSource" matSort [class.grayed]="!store.currentChannel" class="grid"

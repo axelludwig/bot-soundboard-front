@@ -162,8 +162,10 @@ export class AudioEditorComponent implements OnInit {
   }
 
   unsubscribleAll() {
-    this.wavesurfer.pause();
-    if (this.wavesurfer) this.wavesurfer.unAll();
+    if (this.wavesurfer) {
+      this.wavesurfer.pause();
+      this.wavesurfer.unAll();
+    }
   }
 
   save(name?: string, link?: string) {

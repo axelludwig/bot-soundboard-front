@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AudioEditorComponent } from 'src/app/audio-editor/audio-editor.component';
 import { Base64File, YoutubeSearchLink } from 'src/app/declarations';
 import { AxiosService, GetOptions, Params } from "src/services/axios/axios.service"
+import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
 
 enum Troolean {
@@ -35,7 +36,7 @@ export class SoundUploadModalComponent {
 
   @ViewChild(AudioEditorComponent) child: AudioEditorComponent | undefined;
 
-  constructor(public dialogRef: MatDialogRef<SoundUploadModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, private axiosService: AxiosService, private store: StoreService) {
+  constructor(public dialogRef: MatDialogRef<SoundUploadModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, private axiosService: AxiosService, public store: StoreService, private socket: SocketService) {
     this.dialogRef.backdropClick().subscribe(() => {
       this.child?.unsubscribleAll();
     });    
@@ -75,6 +76,10 @@ export class SoundUploadModalComponent {
         this.axiosService.post(options).then((res) => {
           this.hasFiles = false;
           this.filesToUpload = [];
+
+          console.log(res);
+          
+          // this.socket.playSound(res.ID);
         })
           .catch((err) => {
             console.log(err);

@@ -20,17 +20,25 @@
             </div>
         </div>
 
-        <div class="button-group">
-            <button class="cropButton" [disabled]="!urlIsValid" type="button" mat-flat-button color="primary"
-                (click)="getSoundFromUrl()" matTooltip="Open crop component" matTooltipPosition="above">Crop
-                sound</button>
+        <div class="button-controls-group">
+            <div class="button-group-crop">
+                <button class="cropButton" [disabled]="!urlIsValid" type="button" mat-flat-button color="primary"
+                    (click)="getSoundFromUrl()" matTooltip="Open crop component" matTooltipPosition="above">Crop
+                    sound</button>
 
-            <button class="saveButton" [disabled]="!localBase64 || !localBase64.name" type="button" mat-flat-button
-                color="primary" (click)="saveInChild()" matTooltip="Upload cropped sound"> Save cropped sound</button>
+                <button class="saveButton" [disabled]="!localBase64 || !localBase64.name" type="button" mat-flat-button
+                    color="primary" (click)="saveInChild()" matTooltip="Upload cropped sound"> Save cropped
+                    sound</button>
 
-            <button class="saveCropButton" type="button" mat-flat-button color="primary" (click)="saveWithoutCropping()"
-                matTooltip="Upload the whole video">
-                Save without cropping</button>
+                <button class="saveCropButton" type="button" mat-flat-button color="primary"
+                    (click)="saveWithoutCropping()" matTooltip="Upload the whole video">
+                    Save without cropping</button>
+            </div>
+
+            <div class="checkbox-upload">
+                <!-- <mat-checkbox  [(ngModel)]="store.uploadAfterUpload" labelPosition="before" >Add to queue</mat-checkbox> -->
+            </div>
+
         </div>
 
         <div [class.visible]="isLoaded === 0" style="display: none;" class="spinner"> </div>

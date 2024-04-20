@@ -20,7 +20,7 @@ export class SoundboardMenuComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   // @ViewChild('elementId') element: ElementRef;
 
-  editMode = false;
+    editMode = false;
   showHidden = false;
   hiddenSounds: string[] = []
   dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
@@ -200,5 +200,5 @@ export class SoundboardMenuComponent {
     // console.log(e);
 
     // return e.scrollWidth <= e.clientWidth;
-  }
+  }  
 }
