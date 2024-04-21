@@ -364,7 +364,7 @@ body {
     color: var(--text-color-white) !important;
 }
 
-.mat-mdc-checkbox.mat-accent .mdc-checkbox--selected ~ .mat-mdc-checkbox-ripple .mat-ripple-element {
+.mat-mdc-checkbox.mat-accent .mdc-checkbox--selected~.mat-mdc-checkbox-ripple .mat-ripple-element {
     background-color: var(--primary-opacity);
 }
 
@@ -374,4 +374,13 @@ body {
 
 .mat-mdc-checkbox-1-input {
     color: red !important;
+}
+
+.mat-mdc-row,
+.mdc-data-table__content {
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+.mat-mdc-header-row {
+    font-family: 'Helvetica Neue', sans-serif;
 }
