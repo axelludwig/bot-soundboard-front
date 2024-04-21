@@ -94,8 +94,8 @@ export class StoreService implements OnInit {
           s.Tags = sound.Tags;
         }
       });
-      this.sortSounds();
       this.updateFilteredSounds();
+      this.sortSounds();
       // this.updatesSundsCopyForDuplicates();
     });
 
@@ -117,7 +117,6 @@ export class StoreService implements OnInit {
   }
 
   sortTags(tags: Tag[]) {
-
     let selectedTagsList: Tag[] = [];
     let favoritesTagsList: Tag[] = [];
     let unselectedTagsList: Tag[] = [];
@@ -162,7 +161,7 @@ export class StoreService implements OnInit {
 
     this.filteredSounds = temp;
     this.applySearchFiler();
-    this.soundsObservable.next(this.displayedSounds);
+    this.soundsObservable.next(this.displayedSounds);    
   }
 
   ngOnInit() { }
