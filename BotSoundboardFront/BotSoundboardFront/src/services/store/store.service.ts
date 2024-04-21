@@ -52,6 +52,8 @@ export class StoreService implements OnInit {
   // public soundsCopyForDuplicates: Sound[] = [];
   public randomlyPlayedIDs: number[] = [];
 
+  public loading = true;
+
 
   constructor(private socketService: SocketService, private _snackBar: MatSnackBar) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
@@ -115,6 +117,7 @@ export class StoreService implements OnInit {
   }
 
   sortTags(tags: Tag[]) {
+
     let selectedTagsList: Tag[] = [];
     let favoritesTagsList: Tag[] = [];
     let unselectedTagsList: Tag[] = [];

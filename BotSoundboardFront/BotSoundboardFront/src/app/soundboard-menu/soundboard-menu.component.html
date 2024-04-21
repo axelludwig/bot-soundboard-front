@@ -1,3 +1,8 @@
+@if(store.loading) {
+<mat-spinner></mat-spinner>
+}
+
+@else {
 <div class="first-row-header">
   <div class="first-row">
     <div *ngIf="dataSource.data.length == 0" class="title">
@@ -75,3 +80,4 @@
     </ng-template>
   </mat-menu>
 </app-context-menu>
+}

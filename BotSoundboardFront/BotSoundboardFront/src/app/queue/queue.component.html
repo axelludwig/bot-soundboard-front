@@ -9,8 +9,8 @@
                 {{mode}}
             </mat-radio-button>
         </mat-radio-group> -->
-        <mat-slide-toggle (change)="slideToggle($event)" [checked]="queueMode == 'queue'"
-            color="primary">{{queueMode === 'queue' ? 'queue' : 'overwrite'}}</mat-slide-toggle>
+        <mat-slide-toggle (change)="slideToggle($event)" [checked]="queueMode == 'queue'" color="primary">{{queueMode
+            === 'queue' ? 'queue' : 'overwrite'}}</mat-slide-toggle>
     </div>
 
     <div class="clear-button manage-element">
@@ -20,7 +20,15 @@
     </div>
 </div>
 
-<div *ngIf="store.queue.length > 0" class="queue-list">
+<div cdkDropList class="queue-list" (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let item of store.queue; index as i" cdkDrag>
+        <div class="queueItem">{{item.name}}
+            <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
+        </div>
+    </div>
+</div>
+
+<!-- <div *ngIf="store.queue.length > 0" class="queue-list">
     <div *ngFor="let item of store.queue; index as i" class="item">
 
         <div *ngIf="i == 0" class="queueItem queueItemFirst">
@@ -33,13 +41,9 @@
             {{item.name}}
             <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
         </div>
-
-        <!-- <button color="primary" mat-icon-button (click)="removeSoundFromQueue(item.id)">
-                <mat-icon>close</mat-icon>
-            </button>
-             -->
-    </div>
-</div>
+     
+<!-- </div> -->
+<!-- </div> -->
 
 <div class="empty" *ngIf="store.queue.length === 0">
     Empty queue

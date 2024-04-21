@@ -3,6 +3,9 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
 
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Sound, queueItem } from '../declarations';
+
 @Component({
   selector: 'app-queue',
   templateUrl: './queue.component.html',
@@ -14,7 +17,6 @@ export class QueueComponent {
   queueModes: string[] = ['queue', 'overwrite'];
 
   constructor(public store: StoreService, private socketService: SocketService) {
-
     this.socketService.botChangeMode$.subscribe((value: string) => {
       this.queueMode = value;
     })
@@ -26,7 +28,7 @@ export class QueueComponent {
 
   clearQueue() {
     this.socketService.clearQueue();
-    }
+  }
 
   onRadioClick(event: any) {
     console.log(event.value);
@@ -45,5 +47,9 @@ export class QueueComponent {
 
   queueSoundClick(sound: string) {
     console.log(sound);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.store.queue, event.previousIndex, event.currentIndex);
   }
 }
