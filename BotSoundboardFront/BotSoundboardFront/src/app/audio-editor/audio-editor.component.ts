@@ -197,10 +197,12 @@ export class AudioEditorComponent implements OnInit {
 
     options.params = params;
     this.axios.post(options)
-      .then((res) => {
+      .then((res: any) => {
         this.close();
         this.store.openSucessSnackBar();
         this.store.updateSoundName(updateSoundName);
+
+        if (this.store.playAfterUpload) this.store.playSound(res.ID);
       })
       .catch((err) => {
         console.log(err);

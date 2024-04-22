@@ -39,7 +39,7 @@ export class SoundUploadModalComponent {
   constructor(public dialogRef: MatDialogRef<SoundUploadModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, private axiosService: AxiosService, public store: StoreService, private socket: SocketService) {
     this.dialogRef.backdropClick().subscribe(() => {
       this.child?.unsubscribleAll();
-    });    
+    });
   }
 
   onFileSelect(event: any) {
@@ -73,13 +73,10 @@ export class SoundUploadModalComponent {
           "type": file.type
         }
         options.params = params;
-        this.axiosService.post(options).then((res) => {
+        this.axiosService.post(options).then((res: any) => {
           this.hasFiles = false;
           this.filesToUpload = [];
-
-          console.log(res);
-          
-          // this.socket.playSound(res.ID);
+          if (this.store.playAfterUpload) this.store.playSound(res.ID);
         })
           .catch((err) => {
             console.log(err);
@@ -172,6 +169,7 @@ export class SoundUploadModalComponent {
         })
     }
   }
+
 
   saveInChild() {
     this.child?.save();

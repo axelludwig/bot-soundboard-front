@@ -21,7 +21,9 @@
 </div>
 
 <div cdkDropList class="queue-list" (cdkDropListDropped)="drop($event)">
-    <div *ngFor="let item of store.queue; index as i" cdkDrag>
+    <div (click)="managerQueueElementClick(item.id)" [cdkDragDisabled]="!shiftPressed"
+        *ngFor="let item of store.queue; index as i" class="dragElement" cdkDrag #dragItem
+        (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
         <div class="queueItem">{{item.name}}
             <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
         </div>

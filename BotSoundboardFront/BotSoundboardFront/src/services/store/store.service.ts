@@ -45,7 +45,7 @@ export class StoreService implements OnInit {
   public primaryColor: string = "";
   public hideList = false;
 
-  public uploadAfterUpload: boolean = false;
+  public playAfterUpload: boolean = false;
 
   public avoidDuplicates: boolean = false;
 
@@ -161,7 +161,7 @@ export class StoreService implements OnInit {
 
     this.filteredSounds = temp;
     this.applySearchFiler();
-    this.soundsObservable.next(this.displayedSounds);    
+    this.soundsObservable.next(this.displayedSounds);
   }
 
   ngOnInit() { }
@@ -314,6 +314,10 @@ export class StoreService implements OnInit {
 
   toggleHideSoundsList() {
     this.hideList = !this.hideList;
+  }
+
+  playSound(id: number) {
+    this.socketService.playSound(id);
   }
 
   // apply() {

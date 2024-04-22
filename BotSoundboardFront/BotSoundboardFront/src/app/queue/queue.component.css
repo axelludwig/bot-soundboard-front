@@ -18,10 +18,6 @@
     flex-wrap: wrap;
     align-items: center;
     padding-top: 24px;
-    /* flex */
-    /* flex-direction: row;
-    cursor: pointer;
-    height: 38px; */
 }
 
 .queue-list {
@@ -85,6 +81,13 @@ h3 {
 .queueItem {
     color: white;
     margin-bottom: 12px;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .queueItemFirst {
@@ -93,7 +96,7 @@ h3 {
 }
 
 .queueItem:hover {
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .queueItemFirst:hover {
