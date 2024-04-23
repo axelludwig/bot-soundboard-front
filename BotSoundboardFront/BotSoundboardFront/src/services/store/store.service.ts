@@ -45,7 +45,7 @@ export class StoreService implements OnInit {
   public primaryColor: string = "";
   public hideList = false;
 
-  public playAfterUpload: boolean = false;
+  public playAfterUpload: boolean = true;
 
   public avoidDuplicates: boolean = false;
 
