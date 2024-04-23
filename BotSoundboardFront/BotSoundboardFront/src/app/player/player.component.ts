@@ -98,4 +98,9 @@ export class PlayerComponent {
       this.store.randomlyPlayedIDs.push(randomSoundID);
     }
   }
+
+  isEllipsisActive(e: any) {
+    return false;
+    // return (e.offsetWidth < e.scrollWidth);
+  }
 }

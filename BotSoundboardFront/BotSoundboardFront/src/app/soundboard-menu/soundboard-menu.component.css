@@ -27,12 +27,9 @@
 .sound-infos {
     display: flex;
     color: white;
-    /* margin-top: 10px; */
     overflow-x: scroll;
     overflow-y: hidden;
     flex-wrap: nowrap;
-    /* padding: 0 24px 0 24px; */
-    /* margin-right: 24px; */
     align-items: center;
 }
 
@@ -43,7 +40,6 @@
 
 .sound-title {
     flex: 2;
-    /* margin-left: 30px; */
 }
 
 .sound-length {
@@ -79,7 +75,6 @@ mat-cell:hover {
 }
 
 .top-buttons-fixed {
-    /* display: flex; */
     overflow: hidden;
     position: sticky;
     top: 0;
@@ -175,11 +170,11 @@ mat-row:not(.playing) mat-cell {
 }
 
 .mat-column-duration {
-    flex: 0 0 10%;
+    flex: 0 0 76px;
 }
 
 .mat-column-addedDate {
-    flex: 0 0 10%;
+    flex: 0 0 100px;
 }
 
 .matcell-sound {
@@ -193,9 +188,7 @@ mat-row:not(.playing) mat-cell {
 }
 
 .title {
-    /* padding-top: 0px; */
     margin-left: 24px;
-    /* margin-right: 24px; */
     margin-top: 24px;
 }
 
@@ -213,4 +206,17 @@ mat-row:not(.playing) mat-cell {
     display: flex;
     align-items: flex-end;
     gap: 12px;
+}
+
+.mat-sort-header-arrow {
+    margin: 0 0 0 -16px !important;
+}
+
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
+    padding: 0 4px 0 4px !important;
+}
+
+.mat-column-title {
+    padding: 0 0px 0 24px !important;
 }

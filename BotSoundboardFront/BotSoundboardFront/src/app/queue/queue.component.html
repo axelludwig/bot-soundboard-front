@@ -20,12 +20,14 @@
     </div>
 </div>
 
-<div cdkDropList class="queue-list" (cdkDropListDropped)="drop($event)">
-    <div (click)="managerQueueElementClick(item.id)" [cdkDragDisabled]="!shiftPressed"
-        *ngFor="let item of store.queue; index as i" class="dragElement" cdkDrag #dragItem
-        (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
-        <div class="queueItem">{{item.name}}
-            <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
+<div cdkDropList cdkScrollable class="queue-list" (cdkDropListDropped)="drop($event)">
+    <div class="scrollable-list">
+        <div (click)="managerQueueElementClick(item.id)" [cdkDragDisabled]="!shiftPressed || i === 0"
+            *ngFor="let item of store.queue; index as i" class="dragElement" cdkDrag #dragItem
+            (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
+            <div [class]="i == 0 ? 'queueItem-first' : ''" class="queueItem">{{item.name}}
+                <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -33,7 +35,7 @@
 <!-- <div *ngIf="store.queue.length > 0" class="queue-list">
     <div *ngFor="let item of store.queue; index as i" class="item">
 
-        <div *ngIf="i == 0" class="queueItem queueItemFirst">
+        <div *ngIf="i == 0" class="queueItem queueItem-first">
             {{item.name}}
             <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
         </div>

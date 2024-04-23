@@ -75,3 +75,7 @@
     background-color: var(--first-background);
     padding-left: 24px;
 }
+
+.divider {
+    margin-left: 12px;
+}
