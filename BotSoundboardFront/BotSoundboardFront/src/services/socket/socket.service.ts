@@ -44,7 +44,7 @@ export class SocketService {
 	soundRenamed$ = this._soundRenamed.asObservable();
 	private _soundUpdated = new Subject<Sound>();
 	soundUpdated$ = this._soundUpdated.asObservable();
-	
+
 	private _newSound = new Subject<Sound>();
 	newSound$ = this._newSound.asObservable();
 
@@ -143,7 +143,7 @@ export class SocketService {
 			this._tags.next(tags);
 		});
 		this.socket.on('tagUpdated', (tag: Tag) => {
-			this._newTag.next(tag);			
+			this._newTag.next(tag);
 		});
 
 		this.socket.on('log', (message: string) => {
@@ -202,5 +202,10 @@ export class SocketService {
 
 	setAudioTime(time: number) {
 		this.socket.emit('setAudioTime', time);
+	}
+
+	updateQueueIndex(data: string) {
+		//id|newindex
+		this.socket.emit('updateQueueIndex', data);
 	}
 }
