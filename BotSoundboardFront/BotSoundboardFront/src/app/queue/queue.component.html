@@ -22,13 +22,13 @@
 
 <div cdkDropList cdkScrollable class="queue-list" (cdkDropListDropped)="drop($event)">
     <div class="scrollable-list">
-        <div (click)="managerQueueElementClick(item.id)" [cdkDragDisabled]="!shiftPressed || i === 0"
+        <span (click)="managerQueueElementClick(item.id)" [cdkDragDisabled]="!shiftPressed || i === 0"
             *ngFor="let item of store.queue; index as i" class="dragElement" cdkDrag #dragItem
             (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
-            <div [class]="i == 0 ? 'queueItem-first' : ''" class="queueItem">{{item.name}}
+            <span [class]="i == 0 ? 'queueItem-first' : ''" class="queueItem">{{item.name}}
                 <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
-            </div>
-        </div>
+            </span>
+        </span>
     </div>
 </div>
 
