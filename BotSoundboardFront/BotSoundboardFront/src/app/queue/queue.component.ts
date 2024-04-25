@@ -72,6 +72,10 @@ export class QueueComponent {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    if (event.currentIndex === 0) {
+      return;
+    }
+
     moveItemInArray(this.store.queue, event.previousIndex, event.currentIndex);
     this.socketService.updateQueueIndex(this.store.queue[event.currentIndex].id + '|' + event.currentIndex);
 

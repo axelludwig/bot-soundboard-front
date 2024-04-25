@@ -26,7 +26,7 @@
             *ngFor="let item of store.queue; index as i" class="dragElement" cdkDrag #dragItem
             (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
             <span [class]="i == 0 ? 'queueItem-first' : ''" class="queueItem">{{item.name}}
-                <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
+                <!-- <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div> -->
             </span>
         </span>
     </div>
