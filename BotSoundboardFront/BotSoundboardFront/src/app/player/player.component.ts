@@ -59,8 +59,14 @@ export class PlayerComponent {
     });
   }
 
-  playRandom() {
+  playRandom(event: any) {
     let sounds: Sound[];
+    let count = 1;
+    if (event.shiftKey) {
+      count = 10;
+    } else {
+      // do that
+    }
     // console.log(this.store.soundsCopyForDuplicates.length === 0);
 
     // if (this.store.avoidDuplicates) {
@@ -75,27 +81,31 @@ export class PlayerComponent {
 
     // console.log(this.store.displayedSounds);
 
-    if (this.store.avoidDuplicates) {
-      sounds = this.store.displayedSounds.filter(sound => {
-        return !this.store.randomlyPlayedIDs.includes(sound.ID);
-      });
-      if (sounds.length === 0) {
-        sounds = this.store.displayedSounds;
-        this.store.randomlyPlayedIDs = [];
+    while (count > 0) {
+      if (this.store.avoidDuplicates) {
+        sounds = this.store.displayedSounds.filter(sound => {
+          return !this.store.randomlyPlayedIDs.includes(sound.ID);
+        });
+        if (sounds.length === 0) {
+          sounds = this.store.displayedSounds;
+          this.store.randomlyPlayedIDs = [];
+        }
       }
-    }
-    // console.log(this.store.randomlyPlayedIDs);
+      // console.log(this.store.randomlyPlayedIDs);
 
 
-    let random = Math.floor(Math.random() * sounds.length);
-    let randomSoundID = sounds[random].ID;
+      let random = Math.floor(Math.random() * sounds.length);
+      let randomSoundID = sounds[random].ID;
 
-    // console.log(randomSoundID);
-    this.socketService.playSound(randomSoundID);
+      // console.log(randomSoundID);
+      this.socketService.playSound(randomSoundID);
 
 
-    if (this.store.avoidDuplicates) {
-      this.store.randomlyPlayedIDs.push(randomSoundID);
+      if (this.store.avoidDuplicates) {
+        this.store.randomlyPlayedIDs.push(randomSoundID);
+      }
+
+      count--;
     }
   }
 
