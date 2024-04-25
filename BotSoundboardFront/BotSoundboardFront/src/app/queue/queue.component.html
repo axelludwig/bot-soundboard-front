@@ -25,7 +25,8 @@
         <span (click)="managerQueueElementClick(item.id)" [cdkDragDisabled]="!shiftPressed || i === 0"
             *ngFor="let item of store.queue; index as i" class="dragElement" cdkDrag #dragItem
             (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
-            <span [class]="i == 0 ? 'queueItem-first' : ''" class="queueItem">{{item.name}}
+            <span (click)="removeSoundFromQueue(item.id)" [class]="i == 0 ? 'queueItem-first' : ''"
+                class="queueItem">{{item.name}}
                 <!-- <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div> -->
             </span>
         </span>
@@ -40,8 +41,7 @@
             <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
         </div>
 
-        <div *ngIf="i > 0" matTooltip="Click to remove from queue" class="queueItem"
-            (click)="removeSoundFromQueue(item.id)">
+        <div *ngIf="i > 0" matTooltip="Click to remove from queue" class="queueItem" (click)="removeSoundFromQueue(item.id)">
             {{item.name}}
             <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
         </div>
