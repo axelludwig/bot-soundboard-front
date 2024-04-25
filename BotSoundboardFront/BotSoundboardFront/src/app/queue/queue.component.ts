@@ -72,6 +72,8 @@ export class QueueComponent {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+if (!this.shiftPressed) return;
+
     if (event.currentIndex === 0) {
       return;
     }
