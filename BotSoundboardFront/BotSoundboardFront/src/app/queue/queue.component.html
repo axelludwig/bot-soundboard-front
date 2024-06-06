@@ -1,6 +1,6 @@
 <div class="header">
     <div class="title">
-        Queue
+        Queue {{store.queue.length > 0 ? '(' + store.queue.length + ')' : ''}}
     </div>
 
     <div class="control">
@@ -22,8 +22,8 @@
 
 <div cdkDropList cdkScrollable class="queue-list" (cdkDropListDropped)="drop($event)">
     <div class="scrollable-list">
-        <span (click)="managerQueueElementClick(item.id)" [cdkDragDisabled]="!shiftPressed || i === 0"
-            *ngFor="let item of store.queue; index as i" class="dragElement" cdkDrag #dragItem
+        <span *ngFor="let item of store?.queue; index as i" (click)="managerQueueElementClick(item.id)"
+            [cdkDragDisabled]="!shiftPressed || i === 0" class="dragElement" cdkDrag #dragItem
             (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
             <span [class]="i == 0 ? 'queueItem-first' : ''" class="queueItem">{{item.name}}
                 <!-- <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div> -->
@@ -40,8 +40,7 @@
             <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
         </div>
 
-        <div *ngIf="i > 0" matTooltip="Click to remove from queue" class="queueItem"
-            (click)="removeSoundFromQueue(item.id)">
+        <div *ngIf="i > 0" matTooltip="Click to remove from queue" class="queueItem" (click)="removeSoundFromQueue(item.id)">
             {{item.name}}
             <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
         </div>

@@ -64,22 +64,11 @@ export class PlayerComponent {
     let count = 1;
     if (event.shiftKey) {
       count = 10;
-    } else {
-      // do that
+    } else if (event.ctrlKey) {
+      count = 100;
     }
-    // console.log(this.store.soundsCopyForDuplicates.length === 0);
-
-    // if (this.store.avoidDuplicates) {
-    //   if (this.store.soundsCopyForDuplicates.length === 0)
-    //     this.store.soundsCopyForDuplicates = this.store.displayedSounds;
-    //   sounds = this.store.soundsCopyForDuplicates;
-    // } else {
-    //   sounds = this.store.displayedSounds;
-    // }
 
     sounds = this.store.displayedSounds;
-
-    // console.log(this.store.displayedSounds);
 
     while (count > 0) {
       if (this.store.avoidDuplicates) {
@@ -91,26 +80,20 @@ export class PlayerComponent {
           this.store.randomlyPlayedIDs = [];
         }
       }
-      // console.log(this.store.randomlyPlayedIDs);
-
 
       let random = Math.floor(Math.random() * sounds.length);
       let randomSoundID = sounds[random].ID;
 
-      // console.log(randomSoundID);
       this.socketService.playSound(randomSoundID);
-
 
       if (this.store.avoidDuplicates) {
         this.store.randomlyPlayedIDs.push(randomSoundID);
       }
-
       count--;
     }
   }
 
   isEllipsisActive(e: any) {
     return false;
-    // return (e.offsetWidth < e.scrollWidth);
   }
 }
