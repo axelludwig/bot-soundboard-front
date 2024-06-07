@@ -168,8 +168,8 @@ export class SocketService {
 	}
 
 	//sound management
-	playSound(soundId: number) {
-		this.socket.emit("playSound", soundId);
+	playSound(soundIds: number[]) {
+		this.socket.emit("playSound", soundIds);
 	}
 	skipSound() {
 		this.socket.emit('skipSound');

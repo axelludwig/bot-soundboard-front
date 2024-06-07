@@ -317,7 +317,7 @@ export class StoreService implements OnInit {
   }
 
   playSound(id: number) {
-    this.socketService.playSound(id);
+    this.socketService.playSound([id]);
   }
 
   // apply() {
