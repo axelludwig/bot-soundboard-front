@@ -81,7 +81,7 @@ export class SoundboardMenuComponent {
   }
 
   soundClicked(event: any, soundId: number) {
-    this.socket.playSound(soundId);
+    this.socket.playSound([soundId]);
   }
 
   textChange() {

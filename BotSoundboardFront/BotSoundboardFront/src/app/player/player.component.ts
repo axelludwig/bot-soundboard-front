@@ -69,6 +69,7 @@ export class PlayerComponent {
     }
 
     sounds = this.store.displayedSounds;
+    let randomSoundsToPlay: Sound[] = [];
 
     while (count > 0) {
       if (this.store.avoidDuplicates) {
@@ -84,13 +85,15 @@ export class PlayerComponent {
       let random = Math.floor(Math.random() * sounds.length);
       let randomSoundID = sounds[random].ID;
 
-      this.socketService.playSound(randomSoundID);
+      randomSoundsToPlay.push(sounds[random]);
 
       if (this.store.avoidDuplicates) {
         this.store.randomlyPlayedIDs.push(randomSoundID);
       }
       count--;
     }
+
+    this.socketService.playSound(randomSoundsToPlay.map(x => x.ID));
   }
 
   isEllipsisActive(e: any) {
