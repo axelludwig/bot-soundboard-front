@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, OnChanges, Inject, ViewChild, AfterViewInit, ChangeDetectorRef, ElementRef  } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, Inject, ViewChild, AfterViewInit, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service";
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
@@ -20,7 +20,7 @@ export class SoundboardMenuComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   // @ViewChild('elementId') element: ElementRef;
 
-    editMode = false;
+  editMode = false;
   showHidden = false;
   hiddenSounds: string[] = []
   dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
@@ -81,7 +81,11 @@ export class SoundboardMenuComponent {
   }
 
   soundClicked(event: any, soundId: number) {
-    this.socket.playSound([soundId]);
+    if (event.shiftKey) {
+      this.playNext(soundId);
+    } else {
+      this.socket.playSound([soundId]);
+    }
   }
 
   textChange() {
@@ -193,12 +197,18 @@ export class SoundboardMenuComponent {
     // angular.element(document).ready(function() {
     //   console.log(document.getElementById($scope.fileUploadList[0] + "Upload"))
     //   });
-    
+
     // console.log(e);
     // e = document.getElementById(e) as HTMLElement;
 
     // console.log(e);
 
     // return e.scrollWidth <= e.clientWidth;
-  }  
+  }
+
+  playNext(soundId: number) {
+    this.socket.playNext(soundId);
+
+    // this.socket.skipSound();
+  }
 }
