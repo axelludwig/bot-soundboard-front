@@ -208,4 +208,9 @@ export class SocketService {
 		//id|newindex
 		this.socket.emit('updateQueueIndex', data);
 	}
+
+	playNext(soundId: number) {
+		console.log('playNext');		
+		this.socket.emit('playSoundNext', soundId);
+	}
 }
