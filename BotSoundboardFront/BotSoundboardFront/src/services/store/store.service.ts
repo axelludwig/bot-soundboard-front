@@ -54,6 +54,8 @@ export class StoreService implements OnInit {
 
   public loading = true;
 
+  public isLoggedIn = false;
+
 
   constructor(private socketService: SocketService, private _snackBar: MatSnackBar) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {

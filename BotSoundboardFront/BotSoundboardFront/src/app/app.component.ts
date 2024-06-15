@@ -29,7 +29,7 @@ export class AppComponent {
   public menuSize: number = 1000;
   public queueSize: number = 500;
 
-  constructor(private store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
+  constructor(public store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
     })

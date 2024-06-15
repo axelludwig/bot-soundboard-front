@@ -1,3 +1,4 @@
+@if (store.isLoggedIn ) {
 <div id="main">
     <div class="menu">
         <div class="controls">
@@ -23,3 +24,10 @@
 <div class="footer">
     <app-player></app-player>
 </div>
+
+} @else {
+
+<div class="login">
+    <app-login></app-login>
+</div>
+}

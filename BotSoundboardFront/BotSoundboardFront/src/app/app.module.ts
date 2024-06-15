@@ -44,6 +44,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import { SettingsModalComponent } from './modals/settings-modal/settings-modal.component';
 import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
+import { LoginComponent } from './login/login.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -65,10 +66,32 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     ContextMenuComponent,
     RenameTagModalComponent,
     TagsSelectorComponent,
-    SettingsModalComponent
-
+    SettingsModalComponent,
+    LoginComponent
   ],
-  imports: [AngularSplitModule, MatMenuModule, MatTooltipModule, MatRadioModule, MatChipsModule, MatSnackBarModule, MatCardModule, ReactiveFormsModule, CommonModule, MatDividerModule, MatProgressSpinnerModule, MatSliderModule, MatIconModule, FormsModule, BrowserModule, SocketIoModule.forRoot(config), MatSlideToggleModule, MatCheckboxModule, MatButtonModule, BrowserAnimationsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule, MatTableModule,
+  imports: [AngularSplitModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatRadioModule, MatChipsModule,
+    MatSnackBarModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    MatSliderModule,
+    MatIconModule, FormsModule,
+    BrowserModule,
+    SocketIoModule.forRoot(config),
+    MatSlideToggleModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatTabsModule,
+    MatTableModule,
     MatSortModule,
     BrowserModule,
     BrowserAnimationsModule,
