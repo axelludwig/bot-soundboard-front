@@ -16,6 +16,8 @@ export class TagsBarComponent {
   public rightClickedTag: Tag | null = null;
   @ViewChild('menu') menu: ElementRef | undefined;
 
+  public fossassonText: string = "";
+
   constructor(public store: StoreService, private socketService: SocketService, private axios: AxiosService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
     this.store.selectedTags = JSON.parse(localStorage.getItem('selectedTags') || "[]");
     this.store.selectedTagsIds = this.store.selectedTags.map((tag) => tag.ID);
@@ -26,6 +28,8 @@ export class TagsBarComponent {
     this.socketService.tags$.subscribe((tags: Tag[]) => {
       this.store.sortTags(tags);
     });
+
+    this.fossassonText = this.showRandomly() ? "fossasson™" : "fossasson";
   }
 
   saveSelectedTags() {
@@ -115,5 +119,9 @@ export class TagsBarComponent {
 
   setRightClickedTag(tag: Tag) {
     this.rightClickedTag = tag;
+  }
+
+  showRandomly(): boolean {
+    return Math.random() < 0.1;
   }
 }
