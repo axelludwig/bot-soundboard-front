@@ -205,12 +205,10 @@ export class SocketService {
 	}
 
 	updateQueueIndex(data: string) {
-		//id|newindex
 		this.socket.emit('updateQueueIndex', data);
 	}
 
-	playNext(soundId: number) {
-		console.log('playNext');		
+	playNext(soundId: number) {	
 		this.socket.emit('playSoundNext', soundId);
 	}
 }

@@ -92,7 +92,7 @@ export class SoundboardMenuComponent {
 
   soundClicked(event: any, soundId: number) {
     if (event.shiftKey) {
-      this.playNext(soundId);
+      this.store.playNext(soundId);
     } else {
       this.socket.playSound([soundId]);
     }
@@ -214,10 +214,5 @@ export class SoundboardMenuComponent {
     // console.log(e);
 
     // return e.scrollWidth <= e.clientWidth;
-  }
-
-  playNext(soundId: number) {
-    this.socket.playNext(soundId);
-    // this.socket.skipSound();
-  }
+  } 
 }
