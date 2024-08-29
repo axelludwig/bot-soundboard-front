@@ -17,34 +17,21 @@ export class LoginComponent {
     this.getUserInfos();
   }
 
-  login() {
-    window.location.href = environment.serverURL + '/auth/google';
-  }
-
-  logout() {
-
-  }
-
   getUserInfos() {
     var options: GetOptions = {
       url: "/profile"
     }
-    this.axiosService.get(options).then((res: any) => {
-      if (res) {
-        console.log(res);
-        localStorage.setItem('google-connected-user', JSON.stringify(res));
-        this.sessionStorage.isLoggedIn = true;
-      }
-      else
-        throw new Error("null response from server");
-    })
-      .catch((err) => {
-        if (err.response && err.response.status === 403) {
-          // Ignore the 403 error
-        } else {
-          console.error("An error occurred:", err);
-          // You can also handle other specific errors here if needed
+    this.axiosService.get(options)
+      .then((res: any) => {
+        if (res) {
+          console.log(res);
+          localStorage.setItem('google-connected-user', JSON.stringify(res));
+          this.sessionStorage.isLoggedIn = true;
         }
+      })
+      .catch((err) => {
+        this.sessionStorage.isLoggedIn = false;
+        window.location.href = environment.serverURL + '/auth/google';
       })
   }
 }
