@@ -208,7 +208,6 @@ export class SoundboardMenuComponent {
 
   playNext(soundId: number) {
     this.socket.playNext(soundId);
-
     // this.socket.skipSound();
   }
 }

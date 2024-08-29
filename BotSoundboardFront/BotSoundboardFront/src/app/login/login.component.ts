@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AxiosService, GetOptions } from 'src/services/axios/axios.service';
 import { StoreService } from 'src/services/store/store.service';
+import { SessionService } from 'src/services/session/session.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,10 @@ import { StoreService } from 'src/services/store/store.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private axiosService: AxiosService, private storeService: StoreService) { }
+  constructor(private axiosService: AxiosService, private storeService: StoreService, private sessionStorage: SessionService) { }
+
+
+
 
   ngOnInit() {
     this.getUserInfos();
@@ -25,8 +29,8 @@ export class LoginComponent {
   getUserInfos() {
     //Lire dans le localstorage, si un truc on fait rien, sinon on fait la requête
     let existingUser = localStorage.getItem('google-connected-user');
-    if (existingUser) {
-      this.storeService.isLoggedIn = true;
+    if (existingUser && existingUser !== "undefined") {
+      this.sessionStorage.isLoggedIn = true;
       return;
     }
     else {
@@ -37,7 +41,7 @@ export class LoginComponent {
         if (res) {
           console.log(res);
           localStorage.setItem('google-connected-user', JSON.stringify(res.data));
-          this.storeService.isLoggedIn = true;
+          this.sessionStorage.isLoggedIn = true;
         }
         else
           throw new Error("null response from server");

@@ -1,33 +1,32 @@
-@if (store.isLoggedIn ) {
-<div id="main">
-    <div class="menu">
-        <div class="controls">
-            <app-tags-bar />
+@if (sessionService.isLoggedIn && sessionService ) {
+    <div id="main">
+        <div class="menu">
+            <div class="controls">
+                <app-tags-bar />
+            </div>
         </div>
+
+        <as-split (dragStart)="dragStart()" (dragEnd)="dragEnd($event)" id="split" class="content" class="sub-menu"
+            unit="pixel" direction="horizontal">
+            <as-split-area>
+                <app-guilds-list (hideParent)="onClose1()" />
+            </as-split-area>
+            <as-split-area [minSize]="624" [size]="menuSize">
+                <app-soundboard-menu />
+            </as-split-area>
+            <as-split-area [minSize]="224" [size]="queueSize" style="overflow-x: hidden; overflow-y: hidden;">
+                <app-queue />
+            </as-split-area>
+        </as-split>
+
     </div>
 
-    <as-split (dragStart)="dragStart()" (dragEnd)="dragEnd($event)" id="split" class="content" class="sub-menu"
-        unit="pixel" direction="horizontal">
-        <as-split-area>
-            <app-guilds-list (hideParent)="onClose1()" />
-        </as-split-area>
-        <as-split-area [minSize]="624" [size]="menuSize">
-            <app-soundboard-menu />
-        </as-split-area>
-        <as-split-area [minSize]="224" [size]="queueSize" style="overflow-x: hidden; overflow-y: hidden;">
-            <app-queue />
-        </as-split-area>
-    </as-split>
-
-</div>
-
-<div class="footer">
-    <app-player></app-player>
-</div>
+    <div class="footer">
+        <app-player></app-player>
+    </div>
 
 } @else {
-
-<div class="login">
-    <app-login></app-login>
-</div>
+    <div class="login">
+        <app-login></app-login>
+    </div>
 }

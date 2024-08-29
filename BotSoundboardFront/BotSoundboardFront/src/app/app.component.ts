@@ -8,6 +8,7 @@ import { StickyDirection } from '@angular/cdk/table';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
 import { elementAt } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { SessionService } from 'src/services/session/session.service';
 
 declare var WaveSurfer: any;
 
@@ -29,7 +30,7 @@ export class AppComponent {
   public menuSize: number = 1000;
   public queueSize: number = 500;
 
-  constructor(public store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog) {
+  constructor(public store: StoreService, private socketService: SocketService, private axiosService: AxiosService, public dialog: MatDialog, public sessionService: SessionService) {
     this.socketService.connect$.subscribe(() => {
       this.socketConnection = true;
     })
