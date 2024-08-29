@@ -23,24 +23,33 @@ export class LoginComponent {
   }
 
   getUserInfos() {
-    var options: GetOptions = {
-      url: "/profile"
+    //Lire dans le localstorage, si un truc on fait rien, sinon on fait la requête
+    let existingUser = localStorage.getItem('google-connected-user');
+    if (existingUser) {
+      this.storeService.isLoggedIn = true;
+      return;
     }
-    this.axiosService.get(options).then((res: any) => {
-      if (res) {
-        console.log(res);
-        this.storeService.isLoggedIn = true;
+    else {
+      var options: GetOptions = {
+        url: "/profile"
       }
-      else
-        throw new Error("null response from server");
-    })
-      .catch((err) => {
-        if (err.response && err.response.status === 403) {
-          // Ignore the 403 error
-        } else {
-          console.error("An error occurred:", err);
-          // You can also handle other specific errors here if needed
+      this.axiosService.get(options).then((res: any) => {
+        if (res) {
+          console.log(res);
+          localStorage.setItem('google-connected-user', JSON.stringify(res.data));
+          this.storeService.isLoggedIn = true;
         }
+        else
+          throw new Error("null response from server");
       })
+        .catch((err) => {
+          if (err.response && err.response.status === 403) {
+            // Ignore the 403 error
+          } else {
+            console.error("An error occurred:", err);
+            // You can also handle other specific errors here if needed
+          }
+        })
+    }
   }
 }
