@@ -202,7 +202,8 @@ export class AudioEditorComponent implements OnInit {
         this.store.openSucessSnackBar();
         this.store.updateSoundName(updateSoundName);
 
-        if (this.store.playAfterUpload) this.store.playSound(res.ID);
+        if (this.store.playAfterUpload && this.store.playNextAfterUpload) this.store.playNext(res.ID);
+        else if (this.store.playNextAfterUpload) this.store.playSound(res.ID);
       })
       .catch((err) => {
         console.log(err);

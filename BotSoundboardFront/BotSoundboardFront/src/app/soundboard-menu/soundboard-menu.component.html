@@ -70,7 +70,7 @@
   <mat-menu #main="matMenu">
     <ng-template matMenuContent let-name="name">
       <button mat-menu-item (click)="openRenameContextMenu(name)">Rename</button>
-      <button mat-menu-item (click)="playNext(name.ID)">Play next</button>
+      <button mat-menu-item (click)="store.playNext(name.ID)">Play next</button>
       <button mat-menu-item (click)="openTagsSelectorDialog(name)">Modify tags</button>
       <button mat-menu-item (click)="delete(name)">Delete</button>
     </ng-template>

@@ -46,6 +46,7 @@ export class StoreService implements OnInit {
   public hideList = false;
 
   public playAfterUpload: boolean = true;
+  public playNextAfterUpload: boolean = true;
 
   public avoidDuplicates: boolean = false;
 
@@ -317,6 +318,10 @@ export class StoreService implements OnInit {
 
   playSound(id: number) {
     this.socketService.playSound([id]);
+  }
+
+  playNext(soundId: number) {
+    this.socketService.playNext(soundId);
   }
 
   // apply() {
