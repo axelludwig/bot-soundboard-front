@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AxiosService, GetOptions } from 'src/services/axios/axios.service';
 import { StoreService } from 'src/services/store/store.service';
 import { SessionService } from 'src/services/session/session.service';
@@ -9,7 +10,7 @@ import { SessionService } from 'src/services/session/session.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private axiosService: AxiosService, private storeService: StoreService, private sessionStorage: SessionService) { }
+  constructor(private axiosService: AxiosService, private storeService: StoreService, private sessionStorage: SessionService, private router: Router) { }
 
 
 
@@ -19,7 +20,7 @@ export class LoginComponent {
   }
 
   login() {
-    window.location.href = 'http://localhost:3000/auth/google';
+    this.router.navigate(['/auth/google']);
   }
 
   logout() {
