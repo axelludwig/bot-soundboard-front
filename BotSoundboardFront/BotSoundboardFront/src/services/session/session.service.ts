@@ -7,16 +7,26 @@ import { AxiosService } from "../axios/axios.service";
 })
 export class SessionService {
 
-    constructor(private router: Router, private axios: AxiosService) { }
+    constructor(private axios: AxiosService) { }
 
     public isLoggedIn = false;
-    // public isLoggedIn = true;
 
     logout() {
         localStorage.removeItem('google-connected-user');
-        this.axios.get({ url: "/logout" });
-        // this.router.navigate([['/login']]);
-        window.location.replace("./login");
-        this.isLoggedIn = false;
+        this.axios.get({ url: "/logout" }).then(() => {
+            this.isLoggedIn = false;
+        });
+    }
+
+    hasRessource(ressource: string): boolean {
+        let userData = localStorage.getItem('google-connected-user');
+        if (!userData || userData === "undefined") {
+            return false;
+        }
+
+        let ressources: any[] = JSON.parse(userData)?.userData.ressources;
+        let hasRessource: boolean = ressources.map(x => x.Name).includes(ressource);
+        console.log(ressources);
+        return hasRessource;
     }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AxiosService, GetOptions } from 'src/services/axios/axios.service';
 import { StoreService } from 'src/services/store/store.service';
 import { SessionService } from 'src/services/session/session.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -10,17 +11,14 @@ import { SessionService } from 'src/services/session/session.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private axiosService: AxiosService, private storeService: StoreService, private sessionStorage: SessionService, private router: Router) { }
-
-
-
+  constructor(private axiosService: AxiosService, private storeService: StoreService, private sessionStorage: SessionService) { }
 
   ngOnInit() {
     this.getUserInfos();
   }
 
   login() {
-    this.router.navigate(['/auth/google']);
+    window.location.href = environment.serverURL + '/auth/google';
   }
 
   logout() {
@@ -28,33 +26,25 @@ export class LoginComponent {
   }
 
   getUserInfos() {
-    //Lire dans le localstorage, si un truc on fait rien, sinon on fait la requête
-    let existingUser = localStorage.getItem('google-connected-user');
-    if (existingUser && existingUser !== "undefined") {
-      this.sessionStorage.isLoggedIn = true;
-      return;
+    var options: GetOptions = {
+      url: "/profile"
     }
-    else {
-      var options: GetOptions = {
-        url: "/profile"
+    this.axiosService.get(options).then((res: any) => {
+      if (res) {
+        console.log(res);
+        localStorage.setItem('google-connected-user', JSON.stringify(res));
+        this.sessionStorage.isLoggedIn = true;
       }
-      this.axiosService.get(options).then((res: any) => {
-        if (res) {
-          console.log(res);
-          localStorage.setItem('google-connected-user', JSON.stringify(res.data));
-          this.sessionStorage.isLoggedIn = true;
+      else
+        throw new Error("null response from server");
+    })
+      .catch((err) => {
+        if (err.response && err.response.status === 403) {
+          // Ignore the 403 error
+        } else {
+          console.error("An error occurred:", err);
+          // You can also handle other specific errors here if needed
         }
-        else
-          throw new Error("null response from server");
       })
-        .catch((err) => {
-          if (err.response && err.response.status === 403) {
-            // Ignore the 403 error
-          } else {
-            console.error("An error occurred:", err);
-            // You can also handle other specific errors here if needed
-          }
-        })
-    }
   }
 }

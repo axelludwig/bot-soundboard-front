@@ -9,6 +9,7 @@ import { TagsSelectorComponent } from '../modals/tags-selector/tags-selector.com
 import { SoundUploadModalComponent } from '../modals/sound-upload-modal/sound-upload-modal.component';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SessionService } from 'src/services/session/session.service';
 
 
 @Component({
@@ -20,12 +21,17 @@ export class SoundboardMenuComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   // @ViewChild('elementId') element: ElementRef;
 
+  canAddSound = false;
   editMode = false;
   showHidden = false;
   hiddenSounds: string[] = []
   dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
 
-  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
+  constructor(private socket: SocketService, 
+    private axios: AxiosService, 
+    public store: StoreService, 
+    public dialog: MatDialog, 
+    private sessionService: SessionService) {
     element: HTMLElement;
     this.store.soundsObservable.subscribe((sounds: Sound[]) => {
       this.dataSource.data = sounds;
@@ -56,6 +62,10 @@ export class SoundboardMenuComponent {
     this.socket.sounds$.subscribe((sounds: Sound[]) => {
       this.manageSorting();
     });
+  }
+
+  ngOnInit() {
+    this.canAddSound = this.sessionService.hasRessource('editsound');
   }
 
   manageSorting() {

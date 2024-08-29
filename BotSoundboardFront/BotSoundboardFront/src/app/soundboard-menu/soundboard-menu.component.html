@@ -16,8 +16,10 @@
       </div>
     </div>
 
-    <button class="add-button" type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add
+    <button class="add-button" type="button" mat-flat-button color="primary" (click)="openUploadDialog()"
+      [disabled]="!canAddSound">Add
       sounds</button>
+
   </div>
 </div>
 
