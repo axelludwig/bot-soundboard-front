@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AxiosService, GetOptions } from 'src/services/axios/axios.service';
 import { StoreService } from 'src/services/store/store.service';
 
@@ -8,14 +9,14 @@ import { StoreService } from 'src/services/store/store.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private axiosService: AxiosService, private storeService: StoreService) { }
+  constructor(private axiosService: AxiosService, private storeService: StoreService, private router: Router) { }
 
   ngOnInit() {
     this.getUserInfos();
   }
 
   login() {
-    window.location.href = 'http://localhost:3000/auth/google';
+    this.router.navigate(['/auth/google']);
   }
 
   logout() {
@@ -36,7 +37,7 @@ export class LoginComponent {
       this.axiosService.get(options).then((res: any) => {
         if (res) {
           console.log(res);
-          localStorage.setItem('google-connected-user', JSON.stringify(res.data));
+          localStorage.setItem('google-connected-user', JSON.stringify(res));
           this.storeService.isLoggedIn = true;
         }
         else
