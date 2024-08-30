@@ -1,0 +1,26 @@
+:host {
+    background-color: var(--background);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    color: var(--primary);
+    align-items: center;
+
+    font-size: 70px;
+    animation: grow 5s ease-in-out forwards /* Apply both animations */
+
+}
+
+
+
+
+@keyframes grow {
+    from {
+        font-size: 70px;
+    }
+    to {
+        font-size: 100px; /* Change this value to your desired size */
+    }
+}

@@ -53,5 +53,6 @@ export class SettingsModalComponent {
 
   disconnect() {
     this.sessionService.logout();
+    this.dialog.close();
   }
 }

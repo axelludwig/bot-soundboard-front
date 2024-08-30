@@ -1,7 +1,23 @@
 @import '../styles.css';
 
-.menu {
-    /* height: 140px; */
+.app-component {
+    animation: fadeIn 1s ease-in-out;
+}
+
+#main {
+    height: 100vh;
+    overflow-y: hidden;
+
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .status {
@@ -25,16 +41,6 @@
     }
 }
 
-mat-slider {
-    /* top: 15px; */
-    /* width: 800px; */
-}
-
-#main {
-    height: 100vh;
-    overflow-y: hidden;
-}
-
 as-split {
     height: calc(100% - 200px) !important;
     width: calc(100% - 24px) !important;
@@ -43,31 +49,6 @@ as-split {
 
 app-soundboard-menu {
     height: 100%;
-}
-
-.footer {
-    /* position: fixed;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    width: 100%;
-    left: 0;
-    bottom: 50px;
-    text-align: center;
-    background-color: rgb(0, 0, 0);
-    height: 12px; */
-}
-
-
-
-.slider {
-    /* width: 40vw;
-    max-width: 400px; */
-}
-
-.manage-element {
-    /* display: inline-flex; */
 }
 
 .play-pause-button {
@@ -88,8 +69,6 @@ app-soundboard-menu {
 }
 
 .link {
-    /* color: #a7b3e2; */
-    /* color: white; */
     color: var(--primary);
     text-decoration: none;
     text-align: center;
@@ -140,10 +119,6 @@ app-soundboard-menu {
 .content {
     padding-right: 24px !important;
 }
-
-/* .queue-menu {
-    margin-right: 24px;
-} */
 
 as-split-area {
     overflow-y: visible;
