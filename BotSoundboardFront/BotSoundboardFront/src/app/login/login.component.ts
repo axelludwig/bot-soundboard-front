@@ -30,6 +30,7 @@ export class LoginComponent {
         }
       })
       .catch((err) => {
+        //On est pas connecté, go se connecter !
         this.sessionStorage.isLoggedIn = false;
         window.location.href = environment.serverURL + '/auth/google';
       })

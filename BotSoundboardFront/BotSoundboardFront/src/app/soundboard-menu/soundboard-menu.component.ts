@@ -21,7 +21,7 @@ export class SoundboardMenuComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   // @ViewChild('elementId') element: ElementRef;
 
-  canAddSound = false;
+  hasEditRights = false;
   editMode = false;
   showHidden = false;
   hiddenSounds: string[] = []
@@ -65,7 +65,7 @@ export class SoundboardMenuComponent {
   }
 
   ngOnInit() {
-    this.canAddSound = this.sessionService.hasRessource('editsound');
+    this.hasEditRights = this.sessionService.hasRessource('editsound');
   }
 
   manageSorting() {

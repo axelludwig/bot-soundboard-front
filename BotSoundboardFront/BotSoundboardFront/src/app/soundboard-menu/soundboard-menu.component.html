@@ -17,7 +17,7 @@
     </div>
 
     <button class="add-button" type="button" mat-flat-button color="primary" (click)="openUploadDialog()"
-      [disabled]="!canAddSound">Add
+      [disabled]="!hasEditRights">Add
       sounds</button>
 
   </div>
@@ -71,10 +71,12 @@
 <app-context-menu [matMenuTriggerFor]="main" #menu>
   <mat-menu #main="matMenu">
     <ng-template matMenuContent let-name="name">
+      @if (hasEditRights){
       <button mat-menu-item (click)="openRenameContextMenu(name)">Rename</button>
-      <button mat-menu-item (click)="store.playNext(name.ID)">Play next</button>
       <button mat-menu-item (click)="openTagsSelectorDialog(name)">Modify tags</button>
       <button mat-menu-item (click)="delete(name)">Delete</button>
+      }
+      <button mat-menu-item (click)="store.playNext(name.ID)">Play next</button>
     </ng-template>
   </mat-menu>
 </app-context-menu>
