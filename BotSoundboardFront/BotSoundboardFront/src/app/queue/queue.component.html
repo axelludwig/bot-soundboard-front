@@ -1,6 +1,5 @@
 <div class="header">
-    <div class="title">
-        Queue {{store.queue.length > 0 ? '(' + store.queue.length + ')' : ''}}
+    <div class="title" matTooltip="{{store.queue.length > 0 ? store.queue.length : ''}}" matTooltipPosition="above"> Sounds
     </div>
 
     <div class="control">
@@ -26,27 +25,10 @@
             [cdkDragDisabled]="!shiftPressed || i === 0" class="dragElement" cdkDrag #dragItem
             (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
             <span [class]="i == 0 ? 'queueItem-first' : ''" class="queueItem">{{item.name}}
-                <!-- <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div> -->
             </span>
         </span>
     </div>
 </div>
-
-<!-- <div *ngIf="store.queue.length > 0" class="queue-list">
-    <div *ngFor="let item of store.queue; index as i" class="item">
-
-        <div *ngIf="i == 0" class="queueItem queueItem-first">
-            {{item.name}}
-            <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
-        </div>
-
-        <div *ngIf="i > 0" matTooltip="Click to remove from queue" class="queueItem" (click)="removeSoundFromQueue(item.id)">
-            {{item.name}}
-            <div *ngIf="i + 1 !== store.queue.length " class="vertical-divider"></div>
-        </div>
-     
-<!-- </div> -->
-<!-- </div> -->
 
 <div class="empty" *ngIf="store.queue.length === 0">
     Empty queue

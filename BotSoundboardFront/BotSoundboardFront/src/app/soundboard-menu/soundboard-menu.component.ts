@@ -9,6 +9,7 @@ import { TagsSelectorComponent } from '../modals/tags-selector/tags-selector.com
 import { SoundUploadModalComponent } from '../modals/sound-upload-modal/sound-upload-modal.component';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SessionService } from 'src/services/session/session.service';
 
 
 @Component({
@@ -20,12 +21,17 @@ export class SoundboardMenuComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   // @ViewChild('elementId') element: ElementRef;
 
+  hasEditRights = false;
   editMode = false;
   showHidden = false;
   hiddenSounds: string[] = []
   dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
 
-  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog) {
+  constructor(private socket: SocketService, 
+    private axios: AxiosService, 
+    public store: StoreService, 
+    public dialog: MatDialog, 
+    private sessionService: SessionService) {
     element: HTMLElement;
     this.store.soundsObservable.subscribe((sounds: Sound[]) => {
       this.dataSource.data = sounds;
@@ -58,6 +64,10 @@ export class SoundboardMenuComponent {
     });
   }
 
+  ngOnInit() {
+    this.hasEditRights = this.sessionService.hasRessource('editsound');
+  }
+
   manageSorting() {
     this.dataSource.sortingDataAccessor = (sound: any, property) => {
       switch (property) {
@@ -82,7 +92,7 @@ export class SoundboardMenuComponent {
 
   soundClicked(event: any, soundId: number) {
     if (event.shiftKey) {
-      this.playNext(soundId);
+      this.store.playNext(soundId);
     } else {
       this.socket.playSound([soundId]);
     }
@@ -204,11 +214,5 @@ export class SoundboardMenuComponent {
     // console.log(e);
 
     // return e.scrollWidth <= e.clientWidth;
-  }
-
-  playNext(soundId: number) {
-    this.socket.playNext(soundId);
-
-    // this.socket.skipSound();
-  }
+  } 
 }

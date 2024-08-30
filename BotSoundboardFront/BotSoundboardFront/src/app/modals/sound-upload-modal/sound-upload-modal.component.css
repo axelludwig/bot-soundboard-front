@@ -159,3 +159,9 @@ mat-hint {
     padding-top: 12px;
 
 }
+
+.checkbox-upload {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

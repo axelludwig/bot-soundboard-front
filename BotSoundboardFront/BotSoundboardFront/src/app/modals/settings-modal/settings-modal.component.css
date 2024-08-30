@@ -27,3 +27,9 @@
     margin-top: 24px;
     margin-bottom: 12px;
 }
+
+.disconnect-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

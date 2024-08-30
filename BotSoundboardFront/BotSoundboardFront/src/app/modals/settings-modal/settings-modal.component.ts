@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject, debounceTime } from 'rxjs';
+import { SessionService } from 'src/services/session/session.service';
 import { StoreService } from 'src/services/store/store.service';
 
 
@@ -11,12 +12,11 @@ import { StoreService } from 'src/services/store/store.service';
 })
 export class SettingsModalComponent {
 
-  constructor(public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService) {
+  constructor(private sessionService: SessionService, public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService) {
   }
-  // public primaryColorLocal: string = this.store.primaryColor;
   private primaryColorLocalSubject = new Subject<string>();
 
-  private readonly debounceTimeMs = 10; // Set the debounce time (in milliseconds)
+  private readonly debounceTimeMs = 10;
 
   ngOnInit() {
     this.primaryColorLocalSubject.pipe(debounceTime(this.debounceTimeMs)).subscribe(() => {
@@ -24,7 +24,6 @@ export class SettingsModalComponent {
     });
 
     this.store.avoidDuplicates = JSON.parse(localStorage.getItem('avoidDuplicates') || "false");
-
   }
 
   ngOnDestroy() {
@@ -49,7 +48,11 @@ export class SettingsModalComponent {
   }
 
   toggleAvoidDuplicates() {
-    // this.store.avoidDuplicates = !this.store.avoidDuplicates;
     localStorage.setItem('avoidDuplicates', this.store.avoidDuplicates.toString());
+  }
+
+  disconnect() {
+    this.sessionService.logout();
+    this.dialog.close();
   }
 }

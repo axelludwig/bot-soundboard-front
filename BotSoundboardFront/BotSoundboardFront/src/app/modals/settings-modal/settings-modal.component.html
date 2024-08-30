@@ -14,7 +14,17 @@
 </div>
 
 <div class="divider"></div>
+
 <div>
     <mat-checkbox (change)="toggleAvoidDuplicates()" labelPosition="after" [(ngModel)]="store.avoidDuplicates"> Avoid
         Duplicates</mat-checkbox>
+</div>
+
+<div class="divider"></div>
+
+<div class="disconnect-container">
+    <p>Disconnect google account</p>
+    <button (click)="disconnect()" mat-flat-button matTooltip="Disconnect" color="primary">
+        <mat-icon>logout</mat-icon>
+    </button>
 </div>

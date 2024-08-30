@@ -1,10 +1,7 @@
 <div class="first-row-header">
   <div class="first-row">
-    <div *ngIf="dataSource.data.length == 0" class="title">
+    <div matTooltip="{{store.filteredSounds.length}}" matTooltipPosition="above" class="title">
       Sounds
-    </div>
-    <div *ngIf="store.filteredSounds.length > 0" class="title">
-      Sounds ({{store.filteredSounds.length}})
     </div>
 
     <div class="input-controls">
@@ -16,8 +13,10 @@
       </div>
     </div>
 
-    <button class="add-button" type="button" mat-flat-button color="primary" (click)="openUploadDialog()">Add
+    <button class="add-button" type="button" mat-flat-button color="primary" (click)="openUploadDialog()"
+      [disabled]="!hasEditRights">Add
       sounds</button>
+
   </div>
 </div>
 
@@ -69,10 +68,12 @@
 <app-context-menu [matMenuTriggerFor]="main" #menu>
   <mat-menu #main="matMenu">
     <ng-template matMenuContent let-name="name">
+      @if (hasEditRights){
       <button mat-menu-item (click)="openRenameContextMenu(name)">Rename</button>
-      <button mat-menu-item (click)="playNext(name.ID)">Play next</button>
       <button mat-menu-item (click)="openTagsSelectorDialog(name)">Modify tags</button>
       <button mat-menu-item (click)="delete(name)">Delete</button>
+      }
+      <button mat-menu-item (click)="store.playNext(name.ID)">Play next</button>
     </ng-template>
   </mat-menu>
 </app-context-menu>

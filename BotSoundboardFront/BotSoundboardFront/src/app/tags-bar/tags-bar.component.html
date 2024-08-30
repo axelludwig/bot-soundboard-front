@@ -1,15 +1,25 @@
-<div class="tags-bar">
-    <mat-chip-listbox multiple *ngFor="let tag of store.tags" class="tags">
-        <mat-chip-option (contextmenu)="menu.open($event, { name: tag} )"
-            [ngClass]="this.store.selectedTagsIds.includes(tag.ID) ? 'chip selected' : 'chip' "
-            [selected]="this.store.selectedTagsIds.includes(tag.ID)" (selectionChange)="onTagClick($event, tag)">
-            {{tag.Name}}
-            <mat-icon *ngIf="!this.store.favoriteTagsIds.includes(tag.ID)" class="icon"
-                (click)="toggleFavorite($event, tag, true)">star_outlined</mat-icon>
-            <mat-icon *ngIf="this.store.favoriteTagsIds.includes(tag.ID)" class="icon-favorite"
-                (click)="toggleFavorite($event, tag, false)">star</mat-icon>
-        </mat-chip-option>
-    </mat-chip-listbox>
+<div class="tags-bar">    
+
+    <div class="fossasson">
+        {{fossassonText}}
+    </div>
+   
+
+    <div class="vertical-divider"></div>
+
+    <div class="tags-bar-container">
+        <mat-chip-listbox multiple *ngFor="let tag of store.tags" class="tags">
+            <mat-chip-option (contextmenu)="menu.open($event, { name: tag} )"
+                [ngClass]="this.store.selectedTagsIds.includes(tag.ID) ? 'chip selected' : 'chip' "
+                [selected]="this.store.selectedTagsIds.includes(tag.ID)" (selectionChange)="onTagClick($event, tag)">
+                {{tag.Name}}
+                <mat-icon *ngIf="!this.store.favoriteTagsIds.includes(tag.ID)" class="icon"
+                    (click)="toggleFavorite($event, tag, true)">star_outlined</mat-icon>
+                <mat-icon *ngIf="this.store.favoriteTagsIds.includes(tag.ID)" class="icon-favorite"
+                    (click)="toggleFavorite($event, tag, false)">star</mat-icon>
+            </mat-chip-option>
+        </mat-chip-listbox>
+    </div>
 </div>
 
 <app-context-menu [matMenuTriggerFor]="main" #menu>
