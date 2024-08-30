@@ -10,11 +10,13 @@ export class SessionService {
     constructor(private axios: AxiosService) { }
 
     public isLoggedIn = false;
+    mustUseSelectAccount = false;
 
     logout() {
         localStorage.removeItem('google-connected-user');
         this.axios.get({ url: "/logout" }).then(() => {
             this.isLoggedIn = false;
+            this.mustUseSelectAccount = true;
         });
     }
 

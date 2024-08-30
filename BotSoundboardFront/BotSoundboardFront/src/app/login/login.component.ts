@@ -27,12 +27,13 @@ export class LoginComponent {
           console.log(res);
           localStorage.setItem('google-connected-user', JSON.stringify(res));
           this.sessionStorage.isLoggedIn = true;
+          this.sessionStorage.mustUseSelectAccount = false;
         }
       })
       .catch((err) => {
         //On est pas connecté, go se connecter !
         this.sessionStorage.isLoggedIn = false;
-        window.location.href = environment.serverURL + '/auth/google';
+        window.location.href = environment.serverURL + '/auth/google' + (this.sessionStorage.mustUseSelectAccount ? '_select_account' : '');
       })
   }
 }
