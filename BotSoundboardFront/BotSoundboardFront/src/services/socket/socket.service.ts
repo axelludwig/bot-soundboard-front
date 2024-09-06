@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { Channel, Sound, Tag, queueItem, soundRenamedSocketResponse } from 'src/app/declarations';
 import { StoreService } from '../store/store.service';
 
@@ -31,7 +31,7 @@ export class SocketService {
 	soundPlaying$ = this._soundPlaying.asObservable();
 	private _botChangeVolume = new Subject<number>();
 	botChangeVolume$ = this._botChangeVolume.asObservable();
-	private _botChangeMode = new Subject<string>();
+	private _botChangeMode = new ReplaySubject<string>();
 	botChangeMode$ = this._botChangeMode.asObservable();
 	private _botChangePauseState = new Subject<boolean>();
 	botChangePauseState$ = this._botChangePauseState.asObservable();
@@ -63,6 +63,7 @@ export class SocketService {
 	log$ = this._log.asObservable();
 
 	constructor(private socket: Socket) {
+
 		this.socket.on('connect', () => {
 			this.onConnect();
 		})
@@ -208,7 +209,7 @@ export class SocketService {
 		this.socket.emit('updateQueueIndex', data);
 	}
 
-	playNext(soundId: number) {	
+	playNext(soundId: number) {
 		this.socket.emit('playSoundNext', soundId);
 	}
 }
