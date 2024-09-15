@@ -16,7 +16,7 @@ export class TagsBarComponent {
   public rightClickedTag: Tag | null = null;
   @ViewChild('menu') menu: ElementRef | undefined;
 
-  public fossassonText: string = "";
+  public fossasonText: string = "";
 
   constructor(public store: StoreService, private socketService: SocketService, private axios: AxiosService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
     this.store.selectedTags = JSON.parse(localStorage.getItem('selectedTags') || "[]");
@@ -29,7 +29,7 @@ export class TagsBarComponent {
       this.store.sortTags(tags);
     });
 
-    this.fossassonText = this.showRandomly() ? "fossasson™" : "fossasson";
+    this.fossasonText = this.showRandomly() ? "fosssson™" : "fossason";
   }
 
   saveSelectedTags() {
@@ -96,7 +96,6 @@ export class TagsBarComponent {
   }
 
   public showElement(tag: Tag): boolean {
-    console.log(tag);
     return this.store.favoriteTags.some(item => item.ID === tag.ID);
   }
 

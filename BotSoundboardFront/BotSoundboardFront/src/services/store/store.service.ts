@@ -50,7 +50,10 @@ export class StoreService implements OnInit {
 
   public avoidDuplicates: boolean = false;
 
-  // public soundsCopyForDuplicates: Sound[] = [];
+  public blindTestEnabled: boolean = false;
+  public isMaster: boolean = false;
+  public masterUsername: string = "";
+
   public randomlyPlayedIDs: number[] = [];
 
   public loading = true;
@@ -73,11 +76,9 @@ export class StoreService implements OnInit {
       this.sounds = sounds;
       this.updateFilteredSounds();
       this.sortSounds();
-      // this.updatesSundsCopyForDuplicates();
     })
 
     this.socketService.newTag$.subscribe((tag: Tag) => {
-      // this.renameLocalStorageTags()
       this.tags.forEach((t) => {
         if (t.ID == tag.ID) {
           t.Name = tag.Name;
@@ -96,17 +97,29 @@ export class StoreService implements OnInit {
       });
       this.updateFilteredSounds();
       this.sortSounds();
-      // this.updatesSundsCopyForDuplicates();
     });
 
     this.socketService.soundPlaying$.subscribe((sound: Sound) => {
       this.soundPlaying = sound;
     });
-  }
 
-  // updatesSundsCopyForDuplicates(): void {
-  //   if (this.avoidDuplicates) this.soundsCopyForDuplicates = this.displayedSounds;
-  // }
+
+    // blind test
+
+    this.socketService.startBlindTest$.subscribe((data: any) => {
+      console.log(data);      
+      this.blindTestEnabled = true;
+      this.isMaster = data.isMaster;
+      this.masterUsername = data.masterUsername;
+    });
+
+    this.socketService.stopBlindTest$.subscribe(() => {
+      this.blindTestEnabled = false;
+      this.isMaster = false;
+      this.masterUsername = "";
+    });
+
+  }
 
   sortArray(array: Tag[]) {
     return array.sort((a, b) => {
@@ -279,18 +292,15 @@ export class StoreService implements OnInit {
     if (hex.indexOf('#') === 0) {
       hex = hex.slice(1);
     }
-    // convert 3-digit hex to 6-digits.
     if (hex.length === 3) {
       hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
     }
     if (hex.length !== 6) {
       throw new Error('Invalid HEX color.');
     }
-    // invert color components
     var r = (255 - parseInt(hex.slice(0, 2), 16)).toString(16),
       g = (255 - parseInt(hex.slice(2, 4), 16)).toString(16),
       b = (255 - parseInt(hex.slice(4, 6), 16)).toString(16);
-    // pad each with zeros and return
     return '#' + this.padZero(r) + this.padZero(g) + this.padZero(b);
   }
 
@@ -324,8 +334,17 @@ export class StoreService implements OnInit {
     this.socketService.playNext(soundId);
   }
 
-  // apply() {
-  //   let element = <HTMLElement>document.querySelector(':root');
-  //   element.style.setProperty('--primary', this.variable);
-  // }
+  takeLead() {
+    this.socketService.startBlindTest();
+  }
+
+  startBlindTest() {
+    this.socketService.startBlindTest();
+  }
+
+  stopBlindTest() {
+    if (this.isMaster) {
+      this.socketService.stopBlindTest();
+    } this.blindTestEnabled = false;
+  }
 }

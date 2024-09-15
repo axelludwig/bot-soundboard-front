@@ -1,8 +1,10 @@
 <div class="left-player">
 
-    <div matTooltip="{{store.soundPlaying?.Name}}" class="track" > {{store.soundPlaying ?
+    @if (!store.blindTestEnabled) {
+    <div matTooltip="{{store.soundPlaying?.Name}}" class="track"> {{store.soundPlaying ?
         store.soundPlaying.Name : 'no sound playing'}}
     </div>
+    }
 </div>
 
 <div class="middle-player">
@@ -34,13 +36,19 @@
 </div>
 
 <div class="right-player">
-    <div class="settings-buttons">
-        <button (click)="playRandom($event)" mat-mini-fab matTooltip="Play a random sound" color="primary" class="settings-button">
+    <div class="buttons">
+
+        <button (click)="openBlindTest($event)" mat-mini-fab matTooltip="Blind test" color="primary"
+            class="blind-test-button">
+            <mat-icon>{{ blindTestIcon }}</mat-icon>
+        </button>
+
+        <button (click)="playRandom($event)" mat-mini-fab matTooltip="Play a random sound" color="primary"
+            class="settings-button">
             <mat-icon>shuffle</mat-icon>
         </button>
 
-        <button (click)="openSettings($event)" class="settings-button" mat-mini-fab matTooltip="Settings"
-            color="primary">
+        <button (click)="openSettings($event)" mat-mini-fab matTooltip="Settings" color="primary" class="random-button">
             <mat-icon>settings</mat-icon>
         </button>
     </div>

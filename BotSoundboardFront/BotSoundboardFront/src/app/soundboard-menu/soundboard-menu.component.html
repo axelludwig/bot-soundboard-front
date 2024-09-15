@@ -21,7 +21,7 @@
 </div>
 
 <mat-table [dataSource]="dataSource" matSort [class.grayed]="!store.currentChannel" class="grid"
-  (matSortChange)="onSortData($event)" [ngStyle]="{'display': (store.hideList) ? 'none' : 'block'}">
+  (matSortChange)="onSortData($event)" [ngStyle]="{'display': (store.hideList || store.blindTestEnabled) ? 'none' : 'block'}">
   <!-- En-têtes de colonnes -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -64,6 +64,7 @@
     [class.playing]="store.soundPlaying?.ID == row.ID" (click)="soundClicked($event, row.ID)"
     (contextmenu)="menu.open($event, { name: row} )"></mat-row>
 </mat-table>
+
 
 <app-context-menu [matMenuTriggerFor]="main" #menu>
   <mat-menu #main="matMenu">

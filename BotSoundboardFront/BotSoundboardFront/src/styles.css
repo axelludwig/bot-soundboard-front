@@ -1,3 +1,5 @@
+/* @import "~@mdi/font/css/materialdesignicons.min.css"; */
+
 :root {
     --primary: '';
     --primary-opacity: '';
@@ -68,6 +70,15 @@ body {
         margin: 0;
         /* padding-top: 24px; */
         font-size: 30px;
+    }
+
+    .subtitle {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .highlight {
+        color: var(--primary);
     }
 }
 
@@ -181,10 +192,6 @@ body {
     background-color: var(--second-background);
 }
 
-.selected .mdc-evolution-chip__text-label {
-    /* color: var(--primary) !important; */
-}
-
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: var(--first-background) !important;
 }
@@ -216,10 +223,6 @@ body {
 .mat-mdc-radio-button.mat-mdc-radio-checked .mat-ripple-element {
     background-color: var(--primary) !important;
 }
-
-/* .mdc-slider__thumb--focused {
-    background-color: rgba(81, 255, 0, 0.4);
-  } */
 
 .mat-mdc-slider .mat-ripple .mat-mdc-slider-focus-ripple,
 .mat-mdc-slider .mat-ripple .mat-mdc-slider-active-ripple {

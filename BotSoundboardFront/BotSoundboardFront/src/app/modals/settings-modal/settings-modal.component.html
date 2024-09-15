@@ -22,9 +22,20 @@
 
 <div class="divider"></div>
 
+<div class="subtitle">
+    Google account
+</div>
+
 <div class="disconnect-container">
-    <p>Disconnect google account</p>
-    <button (click)="disconnect()" mat-flat-button matTooltip="Disconnect" color="primary">
-        <mat-icon>logout</mat-icon>
-    </button>
+    <div class="display">
+        <p style="align-self: center;">Connected as <span class="highlight">{{ displayName }}</span></p>
+        <img [src]="pfpUrl" class="google-picture" alt="Google picture" width="50" height="50" matTooltip="Disconnect" (click)="disconnect()">
+    </div>
+
+    <!-- <div class="disconnect">
+        <p>Disconnect google account</p>
+        <button  mat-flat-button matTooltip="Disconnect" color="primary">
+            <mat-icon>logout</mat-icon>
+        </button>
+    </div> -->
 </div>

@@ -4,19 +4,19 @@ import { Subject, debounceTime } from 'rxjs';
 import { SessionService } from 'src/services/session/session.service';
 import { StoreService } from 'src/services/store/store.service';
 
-
 @Component({
   selector: 'app-settings-modal',
   templateUrl: './settings-modal.component.html',
   styleUrls: ['./settings-modal.component.css']
 })
 export class SettingsModalComponent {
-
-  constructor(private sessionService: SessionService, public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService) {
-  }
   private primaryColorLocalSubject = new Subject<string>();
-
   private readonly debounceTimeMs = 10;
+
+  public displayName: string = this.sessionService.getName();
+  public pfpUrl: string = this.sessionService.getPfpUrl();
+
+  constructor(private sessionService: SessionService, public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService) { }
 
   ngOnInit() {
     this.primaryColorLocalSubject.pipe(debounceTime(this.debounceTimeMs)).subscribe(() => {
@@ -29,7 +29,6 @@ export class SettingsModalComponent {
   ngOnDestroy() {
     this.primaryColorLocalSubject.complete();
   }
-
 
   debounce() {
     this.primaryColorLocalSubject.next('');
