@@ -4,6 +4,7 @@ import { Sound } from '../declarations';
 import { StoreService } from 'src/services/store/store.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingsModalComponent } from '../modals/settings-modal/settings-modal.component';
+import { BlindTestModalComponent } from '../modals/blind-test-modal/blind-test-modal.component';
 
 @Component({
   selector: 'app-player',
@@ -20,8 +21,11 @@ export class PlayerComponent {
   public isPaused = true;
   public volume: number = 0;
 
+  public blindTestIcon: string = "";
 
   constructor(private socketService: SocketService, public store: StoreService, public dialog: MatDialog) {
+    this.blindTestIcon = this.showRandomly() ? 'blind' : 'visibility_off';
+
     this.socketService.botChangePauseState$.subscribe((state: boolean) => {
       this.isPaused = state;
     });
@@ -56,6 +60,14 @@ export class PlayerComponent {
 
     dialog.afterClosed().subscribe(result => {
       if (result === undefined || result === null || result === '') return;
+    });
+  }
+
+  openBlindTest(event: Event) {
+    event.stopPropagation()
+    let dialog = this.dialog.open(BlindTestModalComponent, {
+      disableClose: false,
+      width: '400px',
     });
   }
 
@@ -98,5 +110,9 @@ export class PlayerComponent {
 
   isEllipsisActive(e: any) {
     return false;
+  }
+
+  showRandomly(): boolean {
+    return Math.random() < 0.1;
   }
 }

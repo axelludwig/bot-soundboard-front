@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { Channel, Sound, Tag, queueItem, soundRenamedSocketResponse } from 'src/app/declarations';
 import { StoreService } from '../store/store.service';
+import { SessionService } from '../session/session.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -31,7 +32,7 @@ export class SocketService {
 	soundPlaying$ = this._soundPlaying.asObservable();
 	private _botChangeVolume = new Subject<number>();
 	botChangeVolume$ = this._botChangeVolume.asObservable();
-	private _botChangeMode = new Subject<string>();
+	private _botChangeMode = new ReplaySubject<string>();
 	botChangeMode$ = this._botChangeMode.asObservable();
 	private _botChangePauseState = new Subject<boolean>();
 	botChangePauseState$ = this._botChangePauseState.asObservable();
@@ -54,15 +55,21 @@ export class SocketService {
 	private _elapsedTime = new Subject<number>();
 	elapsedTime$ = this._elapsedTime.asObservable();
 
-	private _tags = new Subject<Tag[]>();
+	private _tags = new ReplaySubject<Tag[]>();
 	tags$ = this._tags.asObservable();
 	private _newTag = new Subject<Tag>();
 	newTag$ = this._newTag.asObservable();
 
+	private _startBlindTest = new Subject<any>();
+	startBlindTest$ = this._startBlindTest.asObservable();
+	private _stopBlindTest = new Subject<any>();
+	stopBlindTest$ = this._stopBlindTest.asObservable();
+
 	private _log = new Subject<any>();
 	log$ = this._log.asObservable();
 
-	constructor(private socket: Socket) {
+	constructor(private socket: Socket, private sessionService: SessionService) {
+
 		this.socket.on('connect', () => {
 			this.onConnect();
 		})
@@ -149,6 +156,18 @@ export class SocketService {
 		this.socket.on('log', (message: string) => {
 			console.log(message);
 		});
+
+		//blind test
+		this.socket.on('blindTestStarted', (data: any) => {
+			let newData = {
+				isMaster: data.isMaster,
+				masterUsername: data.masterUserName
+			}; this._startBlindTest.next(newData);
+		});
+
+		this.socket.on('blindTestStopped', () => {
+			this._stopBlindTest.next(null);
+		});
 	}
 
 	//emmiting
@@ -208,7 +227,19 @@ export class SocketService {
 		this.socket.emit('updateQueueIndex', data);
 	}
 
-	playNext(soundId: number) {	
+	playNext(soundId: number) {
 		this.socket.emit('playSoundNext', soundId);
+	}
+
+	//blind test
+	startBlindTest() {
+		let data = {
+			isMaster: true,
+			userName: this.sessionService.getDisplayName()
+		}; this.socket.emit('startBlindTest', data);
+	}
+
+	stopBlindTest() {
+		this.socket.emit('stopBlindTest');
 	}
 }

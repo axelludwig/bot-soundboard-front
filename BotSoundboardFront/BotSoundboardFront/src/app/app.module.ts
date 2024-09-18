@@ -27,6 +27,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RenameModalComponent } from './modals/rename-modal/rename-modal.component';
 import { SoundUploadModalComponent } from './modals/sound-upload-modal/sound-upload-modal.component';
 import { DeleteSoundModalComponent } from './modals/delete-sound-modal/delete-sound-modal.component';
+import { RenameTagModalComponent } from './modals/rename-tag-modal/rename-tag-modal.component';
+import { SettingsModalComponent } from './modals/settings-modal/settings-modal.component';
+import { BlindTestModalComponent } from './modals/blind-test-modal/blind-test-modal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoadingSnackbar } from './snackbars/loading-snackbar/loading-snackbar';
 import { PlayerComponent } from './player/player.component';
@@ -35,14 +38,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { ContextMenuComponent } from './context-menu-component/context-menu-component';
 import { MatMenuModule } from '@angular/material/menu';
 import { SoundTimerComponent } from './player/sound-timer/sound-timer.component';
-import { RenameTagModalComponent } from './modals/rename-tag-modal/rename-tag-modal.component';
 import { TagsSelectorComponent } from './modals/tags-selector/tags-selector.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSplitModule } from 'angular-split';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
-import { SettingsModalComponent } from './modals/settings-modal/settings-modal.component';
 import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 import { LoginComponent } from './login/login.component';
 
@@ -53,21 +54,22 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     AppComponent,
     GuildsListComponent,
     SoundboardMenuComponent,
-    RenameModalComponent,
     QueueComponent,
     AudioEditorComponent,
-    SoundUploadModalComponent,
-    DeleteSoundModalComponent,
     LoadingSnackbar,
     PlayerComponent,
     TagsBarComponent,
     SoundTimerComponent,
     TagsBarComponent,
     ContextMenuComponent,
-    RenameTagModalComponent,
     TagsSelectorComponent,
+    LoginComponent,
+    SoundUploadModalComponent,
+    DeleteSoundModalComponent,
+    RenameTagModalComponent,
+    RenameModalComponent,
     SettingsModalComponent,
-    LoginComponent
+    BlindTestModalComponent
   ],
   imports: [AngularSplitModule,
     MatMenuModule,

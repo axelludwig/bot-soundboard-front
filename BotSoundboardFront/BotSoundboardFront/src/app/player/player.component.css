@@ -45,30 +45,31 @@
     white-space: nowrap;
 }
 
-.content {}
-
-.now-playing {}
-
 .controls {
     display: flex;
     gap: 6px;
 }
 
-.control-button {}
-
-.volume {}
-
-
 mat-slider {
     top: 0px;
 }
 
-.settings-buttons {
+.buttons {
     display: flex;
     gap: 6px;
 }
 
 .settings-button {
+    right: 24px;
+    bottom: 6px;
+}
+
+.blind-test-button {
+    right: 24px;
+    bottom: 6px;
+}
+
+.random-button {
     right: 24px;
     bottom: 6px;
 }

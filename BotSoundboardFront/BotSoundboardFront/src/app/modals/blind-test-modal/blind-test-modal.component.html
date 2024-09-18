@@ -1,0 +1,22 @@
+<div class="title">
+    Blind test
+</div>
+
+<div class="display">
+
+    <mat-checkbox class="blind-test-button" (change)="slideToggleChange($event)" [checked]="store.blindTestEnabled"
+        color="primary">
+        Blind test mode
+    </mat-checkbox>
+
+    <div class="leader">
+        <span *ngIf="store.blindTestEnabled"> leader: {{ store.masterUsername }}</span>
+
+        <button *ngIf="store.blindTestEnabled" class="take-lead-button" mat-mini-fab matTooltip="Take lead"
+            color="primary" (click)="takeLead()">
+            <svg style="width:24px;height:24px;margin-top: 6px;" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M5,16L3,8L7,9L9,5L12,10L15,5L17,9L21,8L19,16H5Z" />
+            </svg>
+        </button>
+    </div>
+</div>
