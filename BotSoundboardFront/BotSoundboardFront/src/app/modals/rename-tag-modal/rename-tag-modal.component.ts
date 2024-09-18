@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-rename-modal',
+  selector: 'app-rename-tag-modal',
   templateUrl: './rename-tag-modal.component.html',
   styleUrls: ['./rename-tag-modal.component.css']
 })

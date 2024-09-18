@@ -1,5 +1,6 @@
 <div class="header">
-    <div class="title" matTooltip="{{store.queue.length > 0 ? store.queue.length : ''}}" matTooltipPosition="above"> Sounds
+    <div class="title" matTooltip="{{store.queue.length > 0 ? store.queue.length : ''}}" matTooltipPosition="above">
+        Queue
     </div>
 
     <div class="control">
@@ -19,18 +20,22 @@
     </div>
 </div>
 
-<div cdkDropList cdkScrollable class="queue-list" (cdkDropListDropped)="drop($event)">
-    <div class="scrollable-list">
-        <span *ngFor="let item of store?.queue; index as i" (click)="managerQueueElementClick(item.id)"
-            [cdkDragDisabled]="!shiftPressed || i === 0" class="dragElement" cdkDrag #dragItem
-            (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
-            <span [class]="i == 0 ? 'queueItem-first' : ''" class="queueItem">{{item.name}}
+@if (store.blindTestEnabled) {
+    
+} @else {
+    <div cdkDropList cdkScrollable class="queue-list" (cdkDropListDropped)="drop($event)">
+        <div class="scrollable-list">
+            <span *ngFor="let item of store?.queue; index as i" (click)="managerQueueElementClick(item.id)"
+                [cdkDragDisabled]="!shiftPressed || i === 0" class="dragElement" cdkDrag #dragItem
+                (cdkDragStarted)="onDragStarted($event)" (cdkDragEnded)="onDragEnded($event)">
+                <span [class]="i == 0 ? 'queueItem-first' : ''" class="queueItem">{{item.name}}
+                </span>
             </span>
-        </span>
+        </div>
     </div>
-</div>
 
-<div class="empty" *ngIf="store.queue.length === 0">
-    Empty queue
-    <mat-icon style="padding-left: 12px;" fontIcon="block"></mat-icon>
-</div>
+    <div class="empty" *ngIf="store.queue.length === 0">
+        Empty queue
+        <mat-icon style="padding-left: 12px;" fontIcon="block"></mat-icon>
+    </div>
+}
