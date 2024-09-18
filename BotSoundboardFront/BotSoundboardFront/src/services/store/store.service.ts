@@ -58,7 +58,7 @@ export class StoreService implements OnInit {
 
   public loading = true;
 
-  constructor(private socketService: SocketService, private _snackBar: MatSnackBar) {
+  constructor(private socketService: SocketService, private _snackBar: MatSnackBar, private axios: AxiosService) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
       this.queue = queue;
     })
@@ -107,7 +107,6 @@ export class StoreService implements OnInit {
     // blind test
 
     this.socketService.startBlindTest$.subscribe((data: any) => {
-      console.log(data);      
       this.blindTestEnabled = true;
       this.isMaster = data.isMaster;
       this.masterUsername = data.masterUsername;
@@ -346,5 +345,23 @@ export class StoreService implements OnInit {
     if (this.isMaster) {
       this.socketService.stopBlindTest();
     } this.blindTestEnabled = false;
+  }
+
+  startServer() {
+    let options: GetOptions = {
+      url: "http://linkenparis.com:5000/start"
+    }
+   this.axios.getOutside(options).then((res) => {
+    console.log(res);    
+   });    
+  }
+
+  stopServer() {
+    let options: GetOptions = {
+      url: "http://linkenparis.com:5000/stop"
+    }
+   this.axios.getOutside(options).then((res) => {
+    console.log(res);    
+   });    
   }
 }

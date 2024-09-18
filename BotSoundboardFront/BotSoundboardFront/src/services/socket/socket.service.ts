@@ -159,8 +159,6 @@ export class SocketService {
 
 		//blind test
 		this.socket.on('blindTestStarted', (data: any) => {
-			console.log(data);
-
 			let newData = {
 				isMaster: data.isMaster,
 				masterUsername: data.masterUserName
@@ -168,7 +166,6 @@ export class SocketService {
 		});
 
 		this.socket.on('blindTestStopped', () => {
-			// this._isMaster.next(false);
 			this._stopBlindTest.next(null);
 		});
 	}

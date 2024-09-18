@@ -29,13 +29,39 @@
 <div class="disconnect-container">
     <div class="display">
         <p style="align-self: center;">Connected as <span class="highlight">{{ displayName }}</span></p>
-        <img [src]="pfpUrl" class="google-picture" alt="Google picture" width="50" height="50" matTooltip="Disconnect" (click)="disconnect()">
-    </div>
-
-    <!-- <div class="disconnect">
-        <p>Disconnect google account</p>
-        <button  mat-flat-button matTooltip="Disconnect" color="primary">
+        @if (pfpUrl !== '') {
+        <img [src]="pfpUrl" class="google-picture" alt="Google picture" width="50" height="50" matTooltip="Disconnect"
+            (click)="disconnect()">
+        } @else {
+        <button (click)="disconnect()" mat-flat-button matTooltip="Disconnect" color="primary">
             <mat-icon>logout</mat-icon>
         </button>
-    </div> -->
+        }
+    </div>
 </div>
+
+<div class="divider"></div>
+
+
+@if (1 === 1) {
+<div class="subtitle">
+    Admin panel
+</div>
+
+<div class="admin-panel">
+    <div class="admin-buttons">
+        <button (click)="store.startServer()" mat-mini-fab matTooltip="Start server" color="primary">
+            <mat-icon>power_on</mat-icon>
+        </button>
+        <button (click)="store.stopServer()" mat-mini-fab matTooltip="Stop server" color="primary">
+            <mat-icon>power_off</mat-icon>
+        </button>
+    </div>
+
+    <div class="status-icon-group">
+        @if (status) { <mat-icon matTooltip="Server working" class="status-icon">check_circle</mat-icon> }
+        @else { <mat-icon matTooltip="Server down" class="status-icon">highlight_off</mat-icon> }
+    </div>
+
+</div>
+}

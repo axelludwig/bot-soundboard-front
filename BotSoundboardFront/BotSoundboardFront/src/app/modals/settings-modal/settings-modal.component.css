@@ -56,3 +56,31 @@
 p {
     margin: 0 0 0 0;
 }
+
+.admin-panel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-buttons {
+    margin: 18px 0 0 0;
+    display: flex;
+    gap: 8px;
+}
+
+.status-icon-group {
+    align-self: center;
+    height: 50px;
+    width: 50px;
+}
+
+.status-icon {
+
+    font-size: 50px;
+    line-height: 50px;
+    height: 50px;
+    width: 50px;
+    bottom: 20px;
+    position: absolute;
+    cursor: default;
+}
