@@ -1,9 +1,11 @@
 export class GoogleToken {
     token: string;
+    id_token: string;
     userData: UserData;
 
     constructor(data: any) {
         this.token = data.token;
+        this.id_token = data.id_token;
         this.userData = new UserData(data.userData);
     }
 }

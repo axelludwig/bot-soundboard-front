@@ -69,7 +69,6 @@ export class SocketService {
 	log$ = this._log.asObservable();
 
 	constructor(private socket: Socket, private sessionService: SessionService) {
-
 		this.socket.on('connect', () => {
 			this.onConnect();
 		})
@@ -168,6 +167,11 @@ export class SocketService {
 		this.socket.on('blindTestStopped', () => {
 			this._stopBlindTest.next(null);
 		});
+	}
+
+	connectWithToken(idToken: string) {
+		this.socket.ioSocket.auth = { token: idToken };
+		this.socket.connect();
 	}
 
 	//emmiting
