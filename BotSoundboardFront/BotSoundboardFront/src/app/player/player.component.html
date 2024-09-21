@@ -1,6 +1,6 @@
 <div class="left-player">
 
-    @if (!store.blindTestEnabled) {
+    @if (!store.blindTestEnabled || (store.blindTestEnabled && store.isMaster)) {
     <div matTooltip="{{store.soundPlaying?.Name}}" class="track"> {{store.soundPlaying ?
         store.soundPlaying.Name : 'no sound playing'}}
     </div>

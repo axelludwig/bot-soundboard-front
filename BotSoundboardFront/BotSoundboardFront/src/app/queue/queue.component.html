@@ -20,7 +20,7 @@
     </div>
 </div>
 
-@if (store.blindTestEnabled) {
+@if (store.blindTestEnabled && !store.isMaster) {
     
 } @else {
     <div cdkDropList cdkScrollable class="queue-list" (cdkDropListDropped)="drop($event)">
