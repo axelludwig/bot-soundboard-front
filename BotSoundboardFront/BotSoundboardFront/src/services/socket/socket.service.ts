@@ -169,8 +169,8 @@ export class SocketService {
 		});
 	}
 
-	connectWithToken(googleToken: string) {
-		this.socket.ioSocket.auth = { token: googleToken };
+	connectWithToken(idToken: string) {
+		this.socket.ioSocket.auth = { token: idToken };
 		this.socket.connect();
 	}
 

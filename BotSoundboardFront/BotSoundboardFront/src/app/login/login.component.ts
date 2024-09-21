@@ -29,8 +29,8 @@ export class LoginComponent {
           console.log(res);
           localStorage.setItem('google-connected-user', JSON.stringify(res));
 
-          this.sessionStorage.googleToken = res;
-          this.socketService.connectWithToken(res);
+          this.sessionStorage.googleToken = res.token;
+          this.socketService.connectWithToken(res.id_token);
 
           this.sessionStorage.isLoggedIn = true;
           this.sessionStorage.mustUseSelectAccount = false;
