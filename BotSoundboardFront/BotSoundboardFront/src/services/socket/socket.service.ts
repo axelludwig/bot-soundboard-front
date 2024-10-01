@@ -169,8 +169,7 @@ export class SocketService {
 		});
 	}
 
-	connectWithToken(idToken: string) {
-		this.socket.ioSocket.auth = { token: idToken };
+	connectWithToken() {
 		this.socket.connect();
 	}
 

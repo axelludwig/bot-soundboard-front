@@ -46,12 +46,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 import { LoginComponent } from './login/login.component';
-import { SessionService } from 'src/services/session/session.service';
+
 
 // const config: SocketIoConfig = { url: environment.serverURL, options: { auth: { token: googleToken } } };
 const config: SocketIoConfig = {
   url: environment.serverURL,
   options: {
+    withCredentials: true,
     auth: {
       token: null  // Le token sera ajouté plus tard
     },
