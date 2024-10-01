@@ -26,11 +26,10 @@ export class LoginComponent {
     this.axiosService.get(options)
       .then((res: any) => {
         if (res) {
-          console.log(res);
           localStorage.setItem('google-connected-user', JSON.stringify(res));
 
           this.sessionStorage.googleToken = res.token;
-          this.socketService.connectWithToken(res.id_token);
+          this.socketService.connectWithToken();
 
           this.sessionStorage.isLoggedIn = true;
           this.sessionStorage.mustUseSelectAccount = false;
