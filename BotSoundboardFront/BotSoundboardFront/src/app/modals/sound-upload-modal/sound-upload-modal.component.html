@@ -36,8 +36,11 @@
             </div>
 
             <div class="checkbox-upload">
-                <mat-checkbox [(ngModel)]="store.playAfterUpload" labelPosition="after">Add to queue</mat-checkbox>
-                <mat-checkbox [(ngModel)]="store.playAfterUpload" labelPosition="after">Play next in queue</mat-checkbox>
+                <mat-checkbox [(ngModel)]="store.playAfterUpload" (change)="playAfterUploadChange()"
+                    labelPosition="after">Add to queue</mat-checkbox>
+                <mat-checkbox [(ngModel)]="store.playNextAfterUpload" [disabled]="!store.playAfterUpload"
+                    labelPosition="after">Play next in
+                    queue</mat-checkbox>
             </div>
 
         </div>

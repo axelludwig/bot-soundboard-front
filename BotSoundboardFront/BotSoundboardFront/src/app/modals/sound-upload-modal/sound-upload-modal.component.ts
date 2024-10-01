@@ -186,17 +186,12 @@ export class SoundUploadModalComponent {
     this.name = video.title;
 
     document.getElementById("top")?.scrollIntoView({ block: 'start', behavior: 'smooth' });
-
-    // const id = 'top';
-    // const yOffset = -10;
-    // const element = document.getElementById(id);
-    // const y = element!.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
-    // window.scrollTo({ top: y, behavior: 'smooth' });
-
-
-    // this.urlValidation();
   }
+
+  playAfterUploadChange(): void {
+    this.store.playNextAfterUpload = false;
+  }
+
 }
 
 
