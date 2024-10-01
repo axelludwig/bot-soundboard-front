@@ -33,8 +33,7 @@ export class AxiosService {
       timeout: 0,
       headers: {
         "X-Initialized-At": Date.now().toString()
-      },
-      withCredentials: true
+      }, withCredentials: true
     });
   }
 

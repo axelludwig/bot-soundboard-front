@@ -4,6 +4,8 @@ import { AxiosService, GetOptions } from 'src/services/axios/axios.service';
 import { StoreService } from 'src/services/store/store.service';
 import { SessionService } from 'src/services/session/session.service';
 import { environment } from 'src/environments/environment';
+import { SocketService } from 'src/services/socket/socket.service';
+import { GoogleToken } from 'src/types';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private axiosService: AxiosService, private storeService: StoreService, private sessionStorage: SessionService) { }
+  constructor(private axiosService: AxiosService, private storeService: StoreService, private sessionStorage: SessionService, private socketService: SocketService) { }
 
   ngOnInit() {
     this.getUserInfos();
@@ -24,8 +26,11 @@ export class LoginComponent {
     this.axiosService.get(options)
       .then((res: any) => {
         if (res) {
-          console.log(res);
           localStorage.setItem('google-connected-user', JSON.stringify(res));
+
+          this.sessionStorage.googleToken = res.token;
+          this.socketService.connectWithToken();
+
           this.sessionStorage.isLoggedIn = true;
           this.sessionStorage.mustUseSelectAccount = false;
         }

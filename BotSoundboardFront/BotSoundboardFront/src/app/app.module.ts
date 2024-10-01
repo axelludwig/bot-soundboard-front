@@ -47,7 +47,18 @@ import { FormsModule } from '@angular/forms';
 import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 import { LoginComponent } from './login/login.component';
 
-const config: SocketIoConfig = { url: environment.serverURL, options: {} };
+
+// const config: SocketIoConfig = { url: environment.serverURL, options: { auth: { token: googleToken } } };
+const config: SocketIoConfig = {
+  url: environment.serverURL,
+  options: {
+    withCredentials: true,
+    auth: {
+      token: null  // Le token sera ajouté plus tard
+    },
+    autoConnect: false  // Ne pas se connecter automatiquement
+  }
+};
 
 @NgModule({
   declarations: [
