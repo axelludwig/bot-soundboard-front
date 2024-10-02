@@ -348,20 +348,31 @@ export class StoreService implements OnInit {
   }
 
   startServer() {
-    let options: GetOptions = {
-      url: "https://linkenparis.com:5000/start"
-    }
-   this.axios.getOutside(options).then((res) => {
-    console.log(res);    
-   });    
+    let options = {
+      url: "https://linkenparis.com:5000/start",
+      withCredentials: true // Inclure les informations d'identification
+    };
+
+    this.axios.getOutside(options)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error('Erreur lors du démarrage du serveur :', error);
+      });
   }
 
   stopServer() {
-    let options: GetOptions = {
-      url: "https://linkenparis.com:5000/stop"
-    }
-   this.axios.getOutside(options).then((res) => {
-    console.log(res);    
-   });    
+    let options = {
+      url: "https://linkenparis.com:5000/stop",
+      withCredentials: true // Inclure les informations d'identification
+    };
+    this.axios.getOutside(options)
+      .then((res) => {
+        console.log('Réponse du serveur:', res);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de l\'arrêt du serveur:', error);
+      });
   }
 }
