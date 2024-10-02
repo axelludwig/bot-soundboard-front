@@ -78,8 +78,7 @@ export class SettingsModalComponent {
 
     this.axios.getOutside(options)
       .then((response: any) => {
-        // Accéder à response.data.status au lieu de response.status
-        this.status = response.data.status === 'success';
+        this.status = response.status === 'success';
         console.log('Statut du serveur:', this.status);
       })
   }
