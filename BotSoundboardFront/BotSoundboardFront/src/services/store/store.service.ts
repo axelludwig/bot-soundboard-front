@@ -349,7 +349,7 @@ export class StoreService implements OnInit {
 
   startServer() {
     let options: GetOptions = {
-      url: "http://linkenparis.com:5000/start"
+      url: "https://linkenparis.com:5000/start"
     }
    this.axios.getOutside(options).then((res) => {
     console.log(res);    
@@ -358,7 +358,7 @@ export class StoreService implements OnInit {
 
   stopServer() {
     let options: GetOptions = {
-      url: "http://linkenparis.com:5000/stop"
+      url: "https://linkenparis.com:5000/stop"
     }
    this.axios.getOutside(options).then((res) => {
     console.log(res);    

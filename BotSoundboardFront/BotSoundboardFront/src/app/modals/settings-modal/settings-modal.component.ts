@@ -72,7 +72,7 @@ export class SettingsModalComponent {
 
   getStatus() {
     let option = {
-      url: 'http://linkenparis.com:5000/status',
+      url: 'https://linkenparis.com:5000/status',
     }
     this.axios.getOutside(option).then((response: any) => {
       this.status = response.status == 'success' ? true : false;
