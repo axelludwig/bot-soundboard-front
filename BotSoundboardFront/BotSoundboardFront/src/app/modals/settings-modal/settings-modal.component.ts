@@ -81,5 +81,9 @@ export class SettingsModalComponent {
         this.status = response.status === 'success';
         console.log('Statut du serveur:', this.status);
       })
+      .catch((error: any) => {
+        this.status = false;
+      });
+      
   }
 }
