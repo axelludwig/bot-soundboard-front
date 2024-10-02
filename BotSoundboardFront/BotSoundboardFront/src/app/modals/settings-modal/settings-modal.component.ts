@@ -71,13 +71,16 @@ export class SettingsModalComponent {
   }
 
   getStatus() {
-    let option = {
+    let options = {
       url: 'https://linkenparis.com:5000/status',
-    }
-    this.axios.getOutside(option).then((response: any) => {
-      this.status = response.status == 'success' ? true : false;
-      console.log(this.status);
-    });
+      withCredentials: true // Inclure les informations d'identification
+    };
 
+    this.axios.getOutside(options)
+      .then((response: any) => {
+        // Accéder à response.data.status au lieu de response.status
+        this.status = response.data.status === 'success';
+        console.log('Statut du serveur:', this.status);
+      })
   }
 }
