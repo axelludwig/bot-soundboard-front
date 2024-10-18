@@ -65,7 +65,7 @@
     (contextmenu)="menu.open($event, { name: row} )"></mat-row>
 </mat-table>
 
-<div *ngIf="store.blindTestEnabled" class="blind-test">
+<div *ngIf="store.blindTestEnabled && !store.isMaster" class="blind-test">
   <mat-icon class="blind-test-icon" aria-hidden="blindtest" aria-label="Blindtest on" fontIcon="visibility_off"> </mat-icon> blind test in progress 
 </div>
 
