@@ -37,6 +37,10 @@
 <div class="right-player">
     <div class="buttons">
 
+        <button *ngIf="isDevEnv" (click)="debug()" mat-mini-fab matTooltip="Debug" color="primary" class="debug-button">
+            <mat-icon>bug_report</mat-icon>
+        </button>
+
         <button (click)="openBlindTest($event)" mat-mini-fab matTooltip="Blind test" color="primary"
             class="blind-test-button">
             <mat-icon>{{ blindTestIcon }}</mat-icon>
@@ -50,6 +54,7 @@
         <button (click)="openSettings($event)" mat-mini-fab matTooltip="Settings" color="primary" class="random-button">
             <mat-icon>settings</mat-icon>
         </button>
+
     </div>
 
     <div class="volume">

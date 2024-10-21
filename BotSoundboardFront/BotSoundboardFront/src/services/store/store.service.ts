@@ -216,6 +216,16 @@ export class StoreService implements OnInit {
     });
   }
 
+  openCustomSnackBar(message: string) {
+    this.successSnackbar = this._snackBar.openFromComponent(SuccessSnackbar, {
+      duration: 3000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      panelClass: ['sucess-snackbar'],
+      data: { message: message }
+    });
+  }
+
   renameLocalStorageTags(pTag: Tag, newName: string) {
     let selectedTags = JSON.parse(localStorage.getItem('selectedTags') || "[]");
     let favoriteTags = JSON.parse(localStorage.getItem('favoriteTags') || "[]");

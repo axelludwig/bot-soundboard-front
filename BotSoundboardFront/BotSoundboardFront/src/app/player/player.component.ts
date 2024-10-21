@@ -5,6 +5,7 @@ import { StoreService } from 'src/services/store/store.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingsModalComponent } from '../modals/settings-modal/settings-modal.component';
 import { BlindTestModalComponent } from '../modals/blind-test-modal/blind-test-modal.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-player',
@@ -20,6 +21,7 @@ export class PlayerComponent {
 
   public isPaused = true;
   public volume: number = 0;
+  public isDevEnv: boolean = !environment.production;
 
   public blindTestIcon: string = "";
 
@@ -114,5 +116,10 @@ export class PlayerComponent {
 
   showRandomly(): boolean {
     return Math.random() < 0.01;
+  }
+
+  debug() {
+    console.log();
+    this.store.openCustomSnackBar("test");
   }
 }

@@ -9,6 +9,7 @@ import { SplitAreaDirective, SplitComponent } from 'angular-split';
 import { elementAt } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { SessionService } from 'src/services/session/session.service';
+import { CustomSnackbar } from './snackbars/custom-snackbar/custom-snackbar';
 
 declare var WaveSurfer: any;
 
