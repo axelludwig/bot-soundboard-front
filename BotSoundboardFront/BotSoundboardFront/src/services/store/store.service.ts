@@ -57,6 +57,7 @@ export class StoreService implements OnInit {
   public randomlyPlayedIDs: number[] = [];
 
   public loading = true;
+  public serverStatus = true;
 
   constructor(private socketService: SocketService, private _snackBar: MatSnackBar, private axios: AxiosService) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
