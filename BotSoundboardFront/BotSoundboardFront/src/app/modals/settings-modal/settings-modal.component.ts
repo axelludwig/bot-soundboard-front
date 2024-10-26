@@ -38,6 +38,10 @@ export class SettingsModalComponent {
     }, 1000);
   }
 
+  setStatut(status: boolean) {
+    this.status = status;
+  }
+
   ngOnDestroy() {
     this.primaryColorLocalSubject.complete();
 
