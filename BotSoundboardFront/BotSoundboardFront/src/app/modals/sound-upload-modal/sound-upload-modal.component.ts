@@ -5,6 +5,7 @@ import { Base64File, YoutubeSearchLink } from 'src/app/declarations';
 import { AxiosService, GetOptions, Params } from "src/services/axios/axios.service"
 import { SocketService } from 'src/services/socket/socket.service';
 import { StoreService } from 'src/services/store/store.service';
+import { UtilsService } from 'src/services/utils/utils.service';
 
 enum Troolean {
   notStarted = 0,
@@ -36,7 +37,7 @@ export class SoundUploadModalComponent {
 
   @ViewChild(AudioEditorComponent) child: AudioEditorComponent | undefined;
 
-  constructor(public dialogRef: MatDialogRef<SoundUploadModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, private axiosService: AxiosService, public store: StoreService, private socket: SocketService) {
+  constructor(public dialogRef: MatDialogRef<SoundUploadModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, private axiosService: AxiosService, public store: StoreService, public utils: UtilsService) {
     this.dialogRef.backdropClick().subscribe(() => {
       this.child?.unsubscribleAll();
     });
@@ -118,7 +119,6 @@ export class SoundUploadModalComponent {
     this.axiosService.get(options)
       .then((res: any) => {
         if (res) {
-          console.log(res);
           this.youtubeSearchLinks = res;
         } else throw new Error("null response from server");
       })

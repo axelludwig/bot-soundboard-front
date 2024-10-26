@@ -48,4 +48,5 @@ export interface YoutubeSearchLink {
   description: string;
   channelTitle: string;
   publishedAt: string;
+  duration: number;
 }

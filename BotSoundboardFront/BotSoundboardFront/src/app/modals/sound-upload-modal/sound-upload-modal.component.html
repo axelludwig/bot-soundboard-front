@@ -90,7 +90,10 @@
             <div class="youtube-video-list" *ngFor="let video of this.youtubeSearchLinks; index as i ">
                 <div class="youtube-video">
                     <div (click)="videoClick(video)" class="thumnail-wrapper">
-                        <img class="thumbnail" [src]="video.thumbnail" [alt]="video.title">
+                        <img  class="thumbnail" [src]="video.thumbnail" [alt]="video.title">
+                        <div class="duration">
+                            {{video.duration | date: utils.getFormattedTime(utils.isMoreThanAnHour(video.duration))}}
+                        </div>
                     </div>
                     <div class="video">
                         <div class="video-title">
@@ -107,6 +110,3 @@
 
     </div>
 </div>
-
-<!-- <mat-tab label="Upload from mp3 file">
-</mat-tab> -->

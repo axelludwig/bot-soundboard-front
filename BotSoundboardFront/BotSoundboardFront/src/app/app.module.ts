@@ -46,6 +46,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 import { LoginComponent } from './login/login.component';
+import { ToastrModule } from 'ngx-toastr';
+import { CustomToast } from './snackbars/custom-toast/custom-toast';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 
 // const config: SocketIoConfig = { url: environment.serverURL, options: { auth: { token: googleToken } } };
@@ -80,7 +84,8 @@ const config: SocketIoConfig = {
     RenameTagModalComponent,
     RenameModalComponent,
     SettingsModalComponent,
-    BlindTestModalComponent
+    BlindTestModalComponent,
+    CustomToast
   ],
   imports: [AngularSplitModule,
     MatMenuModule,
@@ -110,13 +115,15 @@ const config: SocketIoConfig = {
     BrowserAnimationsModule,
     FormsModule,
     CdkDropList,
-    DragDropModule
-
+    DragDropModule,
+    BrowserAnimationsModule, // required animations module
+    MatProgressBarModule,
+    ToastrModule.forRoot({
+      toastComponent: CustomToast, // added custom toast!
+    }),
   ],
   exports: [],
   providers: [AxiosService],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-
-}
+export class AppModule { }

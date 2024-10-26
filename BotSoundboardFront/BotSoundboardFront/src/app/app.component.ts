@@ -3,13 +3,8 @@ import { SocketService } from 'src/services/socket/socket.service';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { StoreService } from 'src/services/store/store.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Sound, queueItem } from './declarations';
-import { StickyDirection } from '@angular/cdk/table';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
-import { elementAt } from 'rxjs';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { SessionService } from 'src/services/session/session.service';
-import { CustomSnackbar } from './snackbars/custom-snackbar/custom-snackbar';
 
 declare var WaveSurfer: any;
 

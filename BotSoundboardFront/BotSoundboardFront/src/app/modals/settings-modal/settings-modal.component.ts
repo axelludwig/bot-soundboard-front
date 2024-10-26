@@ -80,7 +80,6 @@ export class SettingsModalComponent {
     this.axios.getOutside(options)
       .then((response: any) => {
         this.setStatut(response.status === 'success');
-        console.log('Statut du serveur:', this.status);
       })
       .catch((error: any) => {
         console.error('Erreur lors de la récupération du statut du serveur:', error);
