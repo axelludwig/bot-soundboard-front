@@ -86,9 +86,4 @@ export class SettingsModalComponent {
         this.setStatut(false);
       });
   }
-
-  setStatut(status: boolean) {
-    this.status = status;
-    this.store.serverStatus = status;
-  }
 }
