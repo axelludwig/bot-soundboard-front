@@ -3,5 +3,6 @@
 <mat-slider [min]="0" [max]="1" step="0.001" id="slider">
     <input matSliderThumb [(ngModel)]="progress" (change)="progressChanged($event)">
 </mat-slider>
-<span [ngStyle]="{visibility: soundTime  === 0 ? 'hidden' : 'visible'}" class="timeText">{{ soundTime | date:
-    'mm:ss' }}</span>
+<span [ngStyle]="{ visibility: utils.isTimeVisible(soundTime) }" class="timeText">
+    {{ soundTime | date: utils.getFormattedTime(moreThanAnHour) }}
+  </span>

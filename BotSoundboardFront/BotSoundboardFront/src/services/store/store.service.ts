@@ -5,6 +5,8 @@ import { Channel, queueItem, Base64File, Sound, Tag } from 'src/app/declarations
 import { SuccessSnackbar } from 'src/app/snackbars/success-snackbar/success-snackbar';
 import { AxiosService, GetOptions } from "src/services/axios/axios.service"
 import { SocketService } from 'src/services/socket/socket.service';
+import { ToastrService, GlobalConfig } from 'ngx-toastr';
+import { CustomToast } from 'src/app/snackbars/custom-toast/custom-toast';
 
 @Injectable({
   providedIn: 'root'
@@ -57,8 +59,11 @@ export class StoreService implements OnInit {
   public randomlyPlayedIDs: number[] = [];
 
   public loading = true;
+  public serverStatus = true;
 
-  constructor(private socketService: SocketService, private _snackBar: MatSnackBar, private axios: AxiosService) {
+  public options: GlobalConfig;
+
+  constructor(private socketService: SocketService, private _snackBar: MatSnackBar, private axios: AxiosService, public toastr: ToastrService) {
     socketService.queueUpdate$.subscribe((queue: queueItem[]) => {
       this.queue = queue;
     })
@@ -118,6 +123,7 @@ export class StoreService implements OnInit {
       this.masterUsername = "";
     });
 
+    this.options = this.toastr.toastrConfig;
   }
 
   sortArray(array: Tag[]) {
@@ -213,6 +219,28 @@ export class StoreService implements OnInit {
       panelClass: ['sucess-snackbar'],
       data: { message: "Sound added to queue" }
     });
+  }
+
+  openCustomSnackBar() {
+    // this._snackBar.openFromComponent(CustomSnackbar, {
+    //   duration: 3000,
+    //   horizontalPosition: 'end',
+    //   verticalPosition: 'top',
+    //   panelClass: ['custom-snackbar'],
+    //   data: { message: message }
+    // });
+
+    const opt = JSON.parse(JSON.stringify(this.options));
+    opt.toastComponent = CustomToast;
+    opt.toastClass = 'custom-toast';
+    const { message, title } = { message: 'Message', title: 'Title' };
+    const inserted = this.toastr.show(message, title, opt);
+    // if (inserted && inserted.toastId) {
+    //   this.lastInserted.push(inserted.toastId);
+    // }
+    return inserted;
+
+
   }
 
   renameLocalStorageTags(pTag: Tag, newName: string) {

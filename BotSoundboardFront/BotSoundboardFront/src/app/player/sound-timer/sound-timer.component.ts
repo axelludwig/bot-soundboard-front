@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Sound } from 'src/app/declarations';
 import { SocketService } from 'src/services/socket/socket.service';
+import { UtilsService } from 'src/services/utils/utils.service';
 
 @Component({
   selector: 'app-sound-timer',
@@ -14,9 +15,10 @@ export class SoundTimerComponent {
 
   elapsedTime: number = 0;
   soundTime: number = 0;
+  moreThanAnHour: boolean = false;
   progress: number = 0;
 
-  constructor(private socket: SocketService) {
+  constructor(private socket: SocketService, public utils: UtilsService) {
     this.socket.elapsedTime$.subscribe((time: number) => {
       this.elapsedTime = time;
       this.setProgress();
@@ -27,11 +29,12 @@ export class SoundTimerComponent {
     });
 
     this.socket.soundPlaying$.subscribe((sound: Sound) => {
-      if (sound){
+      if (sound) {
         this.isPlayingSound = true;
         this.soundTime = sound.SoundLength;
+        this.moreThanAnHour = this.utils.isMoreThanAnHour(this.soundTime);
       }
-      else{
+      else {
         this.isPlayingSound = false;
         this.soundTime = 0;
         this.elapsedTime = 0;
@@ -55,13 +58,13 @@ export class SoundTimerComponent {
     }, this.intervalValue);
   }
 
-  progressChanged(event: any){
+  progressChanged(event: any) {
     let value: number = Number((event.target as HTMLInputElement).value);
     this.progress = value;
     this.socket.setAudioTime(value);
   }
 
-  private setProgress(){
+  private setProgress() {
     this.progress = this.elapsedTime / this.soundTime;
-  }
+  }  
 }

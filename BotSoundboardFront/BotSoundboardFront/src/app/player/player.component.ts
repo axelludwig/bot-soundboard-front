@@ -5,6 +5,8 @@ import { StoreService } from 'src/services/store/store.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingsModalComponent } from '../modals/settings-modal/settings-modal.component';
 import { BlindTestModalComponent } from '../modals/blind-test-modal/blind-test-modal.component';
+import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-player',
@@ -20,10 +22,11 @@ export class PlayerComponent {
 
   public isPaused = true;
   public volume: number = 0;
+  public isDevEnv: boolean = !environment.production;
 
   public blindTestIcon: string = "";
 
-  constructor(private socketService: SocketService, public store: StoreService, public dialog: MatDialog) {
+  constructor(private socketService: SocketService, public store: StoreService, public dialog: MatDialog, private toastr: ToastrService) {
     this.blindTestIcon = this.showRandomly() ? 'blind' : 'visibility_off';
 
     this.socketService.botChangePauseState$.subscribe((state: boolean) => {
@@ -114,5 +117,15 @@ export class PlayerComponent {
 
   showRandomly(): boolean {
     return Math.random() < 0.01;
+  }
+
+  debug() {
+    console.log();
+    // this.store.openCustomSnackBar("test");
+    // this.toastr.success('Hello world!', 'Toastr fun!');
+
+    this.store.openCustomSnackBar();
+
+
   }
 }

@@ -17,7 +17,7 @@ export class SettingsModalComponent {
   public displayName: string = this.sessionService.getName();
   public pfpUrl: string = this.sessionService.getPfpUrl();
 
-  public status: boolean = false;
+  public status: boolean = this.store.serverStatus;
   public loaded: boolean = false;
 
   public intervalId: any;
@@ -26,6 +26,7 @@ export class SettingsModalComponent {
   constructor(private sessionService: SessionService, public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService, private axios: AxiosService) { }
 
   ngOnInit() {
+    this.getStatus();
     this.primaryColorLocalSubject.pipe(debounceTime(this.debounceTimeMs)).subscribe(() => {
       this.updateThemeColor();
     });
@@ -78,12 +79,11 @@ export class SettingsModalComponent {
 
     this.axios.getOutside(options)
       .then((response: any) => {
-        this.status = response.status === 'success';
-        console.log('Statut du serveur:', this.status);
+        this.setStatut(response.status === 'success');
       })
       .catch((error: any) => {
-        this.status = false;
+        console.error('Erreur lors de la récupération du statut du serveur:', error);
+        this.setStatut(false);
       });
-      
   }
 }

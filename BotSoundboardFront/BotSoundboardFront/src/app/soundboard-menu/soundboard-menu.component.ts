@@ -10,6 +10,7 @@ import { SoundUploadModalComponent } from '../modals/sound-upload-modal/sound-up
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SessionService } from 'src/services/session/session.service';
+import { UtilsService } from 'src/services/utils/utils.service';
 
 
 @Component({
@@ -21,17 +22,13 @@ export class SoundboardMenuComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   // @ViewChild('elementId') element: ElementRef;
 
-  hasEditRights = false;
-  editMode = false;
-  showHidden = false;
-  hiddenSounds: string[] = []
-  dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
+  public hasEditRights = false;
+  public editMode = false;
+  public showHidden = false;
+  public hiddenSounds: string[] = []
+  public dataSource: MatTableDataSource<Sound> = new MatTableDataSource<Sound>([]);
 
-  constructor(private socket: SocketService, 
-    private axios: AxiosService, 
-    public store: StoreService, 
-    public dialog: MatDialog, 
-    private sessionService: SessionService) {
+  constructor(private socket: SocketService, private axios: AxiosService, public store: StoreService, public dialog: MatDialog, private sessionService: SessionService, public utils: UtilsService) {
     element: HTMLElement;
     this.store.soundsObservable.subscribe((sounds: Sound[]) => {
       this.dataSource.data = sounds;
@@ -214,5 +211,5 @@ export class SoundboardMenuComponent {
     // console.log(e);
 
     // return e.scrollWidth <= e.clientWidth;
-  } 
+  }
 }
