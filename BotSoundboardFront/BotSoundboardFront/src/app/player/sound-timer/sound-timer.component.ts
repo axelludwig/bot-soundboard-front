@@ -58,13 +58,14 @@ export class SoundTimerComponent {
     }, this.intervalValue);
   }
 
-  progressChanged(event: any) {
+  progressChanged(event: any, soundTime: number) {
     let value: number = Number((event.target as HTMLInputElement).value);
     this.progress = value;
-    this.socket.setAudioTime(value);
+    let time: number = value * soundTime;
+    this.socket.setAudioTime(time);
   }
 
   private setProgress() {
     this.progress = this.elapsedTime / this.soundTime;
-  }  
+  }
 }

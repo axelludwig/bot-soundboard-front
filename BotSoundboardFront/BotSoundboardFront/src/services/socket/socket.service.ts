@@ -223,7 +223,7 @@ export class SocketService {
 	}
 
 	setAudioTime(time: number) {
-		this.socket.emit('setAudioTime', time);
+		this.socket.emit('seekSound', time);
 	}
 
 	updateQueueIndex(data: string) {
