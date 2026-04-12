@@ -16,8 +16,8 @@ export class UtilsService {
         return moreThanAnHour ? 'hh:mm:ss' : 'mm:ss';
     }
 
-    isMoreThanAnHour(seconds: number): boolean {
-        const secondsInAnHour = 3600000;
-        return seconds > secondsInAnHour;
+    isMoreThanAnHour(milliseconds: number): boolean {
+        const millisecondsInAnHour = 3600000;
+        return milliseconds >= millisecondsInAnHour;
       }
 }
