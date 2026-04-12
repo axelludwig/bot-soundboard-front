@@ -120,12 +120,7 @@ export class PlayerComponent {
   }
 
   debug() {
-    console.log();
-    // this.store.openCustomSnackBar("test");
     // this.toastr.success('Hello world!', 'Toastr fun!');
-
-    this.store.openCustomSnackBar();
-
-
+    // this.store.openCustomSnackBar('loader');
   }
 }

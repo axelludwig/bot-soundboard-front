@@ -1,18 +1,31 @@
 @import '../../../styles.css';
+
 :host {
-    background-color: var(--primary);
-    position: relative;
-    overflow: hidden;
-    margin: 0 0 6px;
-    padding: 10px 10px 10px 10px;
-    width: 300px;
-    border-radius: 3px 3px 3px 3px;
-    color: #FFFFFF;
-    pointer-events: all;
-    cursor: pointer;
-  }
-  // .btn-pink {
-  //   -webkit-backface-visibility: hidden;
-  //   -webkit-transform: translateZ(0);
-  // }
-  
+  // background-color: var(--primary);
+  // background-color: var(--second-background);
+
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: 10px 10px 10px 10px;
+  width: 300px;
+  border-radius: 3px 3px 3px 3px;
+  color: #FFFFFF;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.message {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.progress-bar {
+  padding-top: 24px;
+}
+

@@ -53,7 +53,6 @@ export class QueueComponent {
   }
 
   onRadioClick(event: any) {
-    console.log(event.value);
     this.socketService.setMode(event.value)
   }
 

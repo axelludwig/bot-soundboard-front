@@ -37,7 +37,7 @@ export class TagsSelectorComponent {
     };
     this.axios.put(options)
       .then((res) => {
-        this.openSucessSnackBar();
+        // this.openSucessSnackBar();
         this.dialog.close();
       })
       .catch((err) => {
@@ -45,13 +45,13 @@ export class TagsSelectorComponent {
       })
   }
 
-  openSucessSnackBar() {
-    this._snackBar.openFromComponent(SuccessSnackbar, {
-      duration: 3000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-      panelClass: ['sucess-snackbar'],
-      data: { message: "tags successfully saved" }
-    });
-  }
+  // openSucessSnackBar() {
+  //   this._snackBar.openFromComponent(SuccessSnackbar, {
+  //     duration: 3000,
+  //     horizontalPosition: 'end',
+  //     verticalPosition: 'top',
+  //     panelClass: ['sucess-snackbar'],
+  //     data: { message: "tags successfully saved" }
+  //   });
 }
+
