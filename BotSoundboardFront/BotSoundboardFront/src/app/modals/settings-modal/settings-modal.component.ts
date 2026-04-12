@@ -4,6 +4,7 @@ import { Subject, debounceTime } from 'rxjs';
 import { AxiosService } from 'src/services/axios/axios.service';
 import { SessionService } from 'src/services/session/session.service';
 import { StoreService } from 'src/services/store/store.service';
+import { VersionService, VersionInfo } from 'src/services/version/version.service';
 
 @Component({
   selector: 'app-settings-modal',
@@ -21,9 +22,10 @@ export class SettingsModalComponent {
   public loaded: boolean = false;
 
   public intervalId: any;
+  public versions: VersionInfo = { frontend: '', backend: '' };
 
 
-  constructor(private sessionService: SessionService, public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService, private axios: AxiosService) { }
+  constructor(private sessionService: SessionService, public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService, private axios: AxiosService, private versionService: VersionService) { }
 
   ngOnInit() {
     this.getStatus();
@@ -32,6 +34,8 @@ export class SettingsModalComponent {
     });
 
     this.store.avoidDuplicates = JSON.parse(localStorage.getItem('avoidDuplicates') || "false");
+
+    this.loadVersions();
 
     this.intervalId = setInterval(() => {
       this.getStatus();
@@ -89,5 +93,13 @@ export class SettingsModalComponent {
         console.error('Erreur lors de la récupération du statut du serveur:', error);
         this.setStatut(false);
       });
+  }
+
+  async loadVersions() {
+    try {
+      this.versions = await this.versionService.getVersions();
+    } catch (error) {
+      console.error('Failed to load versions:', error);
+    }
   }
 }
