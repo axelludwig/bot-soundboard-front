@@ -123,7 +123,12 @@ export class StoreService implements OnInit {
       this.masterUsername = "";
     });
 
+    // toasts
+
     this.options = this.toastr.toastrConfig;
+    this.socketService.notify$.subscribe((data: any) => {
+      this.openCustomSnackBar(data);
+    });
   }
 
   sortArray(array: Tag[]) {
@@ -211,36 +216,14 @@ export class StoreService implements OnInit {
     this._soundName.next(name);
   }
 
-  openSucessSnackBar() {
-    this.successSnackbar = this._snackBar.openFromComponent(SuccessSnackbar, {
-      duration: 3000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-      panelClass: ['sucess-snackbar'],
-      data: { message: "Sound added to queue" }
-    });
-  }
-
-  openCustomSnackBar() {
-    // this._snackBar.openFromComponent(CustomSnackbar, {
-    //   duration: 3000,
-    //   horizontalPosition: 'end',
-    //   verticalPosition: 'top',
-    //   panelClass: ['custom-snackbar'],
-    //   data: { message: message }
-    // });
-
+  openCustomSnackBar(data: string) {
     const opt = JSON.parse(JSON.stringify(this.options));
     opt.toastComponent = CustomToast;
     opt.toastClass = 'custom-toast';
-    const { message, title } = { message: 'Message', title: 'Title' };
-    const inserted = this.toastr.show(message, title, opt);
-    // if (inserted && inserted.toastId) {
-    //   this.lastInserted.push(inserted.toastId);
-    // }
+    opt.payload = data;
+
+    const inserted = this.toastr.show(opt);
     return inserted;
-
-
   }
 
   renameLocalStorageTags(pTag: Tag, newName: string) {

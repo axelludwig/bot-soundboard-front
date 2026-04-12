@@ -65,6 +65,11 @@ export class SocketService {
 	private _stopBlindTest = new Subject<any>();
 	stopBlindTest$ = this._stopBlindTest.asObservable();
 
+	private _notify = new Subject<any>();
+	notify$ = this._notify.asObservable();
+	private _notifyEdit = new Subject<any>();
+	notifyEdit$ = this._notifyEdit.asObservable();
+
 	private _log = new Subject<any>();
 	log$ = this._log.asObservable();
 
@@ -166,6 +171,14 @@ export class SocketService {
 
 		this.socket.on('blindTestStopped', () => {
 			this._stopBlindTest.next(null);
+		});
+
+		this.socket.on('notification', (data: any) => {
+			this._notify.next(data);
+		});
+
+		this.socket.on('notificationEdit', (data: any) => {
+			this._notifyEdit.next(data);
 		});
 	}
 

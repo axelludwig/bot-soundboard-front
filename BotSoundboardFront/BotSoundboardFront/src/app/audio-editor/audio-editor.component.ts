@@ -41,16 +41,16 @@ export class AudioEditorComponent implements OnInit {
 
   ngOnInit() { }
 
-  openLoadingSnackbar() {
-    this.loadingSnackbar = this._snackBar.openFromComponent(LoadingSnackbar, {
-      duration: 0,
-      horizontalPosition: 'end',
-      verticalPosition: 'top'
-    });
-  }
+  // openLoadingSnackbar() {
+  //   this.loadingSnackbar = this._snackBar.openFromComponent(LoadingSnackbar, {
+  //     duration: 0,
+  //     horizontalPosition: 'end',
+  //     verticalPosition: 'top'
+  //   });
+  // }
 
   close() {
-    this.loadingSnackbar.dismiss();
+    // this.loadingSnackbar.dismiss();
   }
 
   initWaveSurfer() {
@@ -176,7 +176,7 @@ export class AudioEditorComponent implements OnInit {
         "name": name,
         "link": link
       }
-      this.openLoadingSnackbar();
+      // this.openLoadingSnackbar();
       this.closeDialog.next('');
       updateSoundName = name;
     }
@@ -189,7 +189,7 @@ export class AudioEditorComponent implements OnInit {
         "end": this.region.end,
         "name": this.base64File?.name
       }
-      this.openLoadingSnackbar();
+      // this.openLoadingSnackbar();
       this.closeDialog.next('');
       this.wavesurfer.pause();
       updateSoundName = this.base64File?.name;
@@ -199,7 +199,7 @@ export class AudioEditorComponent implements OnInit {
     this.axios.post(options)
       .then((res: any) => {
         this.close();
-        this.store.openSucessSnackBar();
+        // this.store.openSucessSnackBar();
         this.store.updateSoundName(updateSoundName);
 
         if (this.store.playAfterUpload && this.store.playNextAfterUpload) this.store.playNext(res.ID);
