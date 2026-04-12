@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AxiosService } from '../axios/axios.service';
+import packageJson from '../../../package.json';
 
 export interface VersionInfo {
   frontend: string;
@@ -10,7 +11,7 @@ export interface VersionInfo {
   providedIn: 'root'
 })
 export class VersionService {
-  private frontendVersion = require('../../../package.json').version;
+  private frontendVersion = packageJson.version;
 
   constructor(private axios: AxiosService) { }
 
