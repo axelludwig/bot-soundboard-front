@@ -49,6 +49,7 @@ import { LoginComponent } from './login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import { CustomToast } from './snackbars/custom-toast/custom-toast';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FormatTimePipe } from './pipes/format-time.pipe';
 
 
 
@@ -85,7 +86,8 @@ const config: SocketIoConfig = {
     RenameModalComponent,
     SettingsModalComponent,
     BlindTestModalComponent,
-    CustomToast
+    CustomToast,
+    FormatTimePipe
   ],
   imports: [AngularSplitModule,
     MatMenuModule,

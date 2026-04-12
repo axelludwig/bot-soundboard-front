@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Sound } from 'src/app/declarations';
 import { SocketService } from 'src/services/socket/socket.service';
 import { UtilsService } from 'src/services/utils/utils.service';
+import { FormatTimePipe } from 'src/app/pipes/format-time.pipe';
 
 @Component({
   selector: 'app-sound-timer',
