@@ -35,6 +35,8 @@ export class AppComponent {
       this.socketConnection = false;
     })
 
+    this.store.initializeThemeMode();
+
     let primaryColorTemp = localStorage.getItem('primaryColor');
     if (primaryColorTemp == null) primaryColorTemp = '#6c61fa';
     this.store.primaryColor = primaryColorTemp;

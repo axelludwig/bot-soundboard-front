@@ -45,6 +45,7 @@ export class StoreService implements OnInit {
   public soundPlaying: Sound | null = null;
   public loaded: boolean = false;
   public primaryColor: string = "";
+  public isLightMode: boolean = false;
   public hideList = false;
 
   public playAfterUpload: boolean = true;
@@ -283,11 +284,22 @@ export class StoreService implements OnInit {
   changeThemeColor(color: string) {
     this.root.style.setProperty('--primary', color);
     this.root.style.setProperty('--primary-variant', this.shadeColor(color, -40));
-    this.root.style.setProperty('--text-color', this.getContrastYIQ(color));
+    this.root.style.setProperty('--on-primary-text-color', this.getContrastYIQ(color));
     this.root.style.setProperty('--primary-complemantary', this.invertColor(color));
     this.root.style.setProperty('--primary-opacity', this.hexToRGB(color, '0.20'));
 
     localStorage.setItem("primaryColor", color);
+  }
+
+  initializeThemeMode() {
+    const themeMode = localStorage.getItem('themeMode');
+    this.setThemeMode(themeMode === 'light');
+  }
+
+  setThemeMode(isLightMode: boolean) {
+    this.isLightMode = isLightMode;
+    this.root.classList.toggle('light-theme', isLightMode);
+    localStorage.setItem('themeMode', isLightMode ? 'light' : 'dark');
   }
 
   getContrastYIQ(hexcolor: string) {

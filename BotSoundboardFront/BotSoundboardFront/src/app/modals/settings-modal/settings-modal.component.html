@@ -15,6 +15,14 @@
 
 <div class="divider"></div>
 
+<div class="theme-toggle-row">
+    <mat-slide-toggle color="primary" [ngModel]="store.isLightMode" (ngModelChange)="toggleThemeMode($event)">
+        Mode clair
+    </mat-slide-toggle>
+</div>
+
+<div class="divider"></div>
+
 <div>
     <mat-checkbox (change)="toggleAvoidDuplicates()" labelPosition="after" [(ngModel)]="store.avoidDuplicates"> Avoid
         Duplicates</mat-checkbox>
@@ -59,8 +67,7 @@
 
 <div class="divider"></div>
 
-// TODO : ajouter condition : isAdmin
-@if (1 === 1) {
+@if (sessionService.isAdmin()) {
 <div class="subtitle">
     Admin panel
 </div>
