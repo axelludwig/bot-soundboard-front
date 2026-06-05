@@ -1,1 +1,7 @@
-fossason
+<div class="login-wrapper">
+	<div class="brand">fossason</div>
+
+	<button class="login-button" (click)="loginWithGoogle()">Se connecter avec Google</button>
+
+	<p class="error" *ngIf="authErrorMessage">{{ authErrorMessage }}</p>
+</div>

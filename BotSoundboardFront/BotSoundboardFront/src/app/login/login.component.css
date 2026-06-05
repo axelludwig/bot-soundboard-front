@@ -13,6 +13,35 @@
 
 }
 
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.brand {
+    font-size: 70px;
+}
+
+.login-button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: var(--primary);
+    color: var(--background);
+}
+
+.error {
+    font-size: 16px;
+    margin: 0;
+    max-width: 640px;
+    color: #ff7a7a;
+}
+
 
 
 
