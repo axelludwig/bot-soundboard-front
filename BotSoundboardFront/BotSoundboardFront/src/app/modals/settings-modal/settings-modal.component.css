@@ -22,6 +22,11 @@
     margin-bottom: 12px;
 }
 
+.theme-toggle-row {
+    display: flex;
+    align-items: center;
+}
+
 .disconnect-container {
     display: flex;
     flex-direction: column;

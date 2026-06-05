@@ -31,8 +31,11 @@ export class SessionService {
 
         let ressources: any[] = JSON.parse(localStorage.getItem('google-connected-user') || '{}')?.userData.ressources;
         let hasRessource: boolean = ressources.map(x => x.Name).includes(ressource);
-        console.log(ressources);
         return hasRessource;
+    }
+
+    isAdmin(): boolean {
+        return this.hasRessource('admin');
     }
 
     getName(): string {

@@ -25,7 +25,7 @@ export class SettingsModalComponent {
   public versions: VersionInfo = { frontend: '', backend: '' };
 
 
-  constructor(private sessionService: SessionService, public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService, private axios: AxiosService, private versionService: VersionService) { }
+  constructor(public sessionService: SessionService, public dialog: MatDialogRef<SettingsModalComponent>, @Inject(MAT_DIALOG_DATA) public data: string, public store: StoreService, private axios: AxiosService, private versionService: VersionService) { }
 
   ngOnInit() {
     this.getStatus();
@@ -72,6 +72,10 @@ export class SettingsModalComponent {
 
   toggleAvoidDuplicates() {
     localStorage.setItem('avoidDuplicates', this.store.avoidDuplicates.toString());
+  }
+
+  toggleThemeMode(isLightMode: boolean) {
+    this.store.setThemeMode(isLightMode);
   }
 
   disconnect() {

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  serverURL: "https://linkenparis.com:3000"
+  serverURL: "https://api.fossason.linkenparis.com"
 };
 
 /*
