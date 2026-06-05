@@ -17,6 +17,7 @@ export interface ErrorResponse {
   id: string;
   code: string;
   message: string;
+  status?: number;
 }
 
 @Injectable({
@@ -94,12 +95,17 @@ export class AxiosService {
   // the calling context can assume a standard error structure.
   private normalizeError(error: any): ErrorResponse {
     this.errorHandler.handleError(error);
-    // NOTE: Since I'm not really dealing with a production API, this doesn't really
-    // normalize anything (ie, this is not the focus of this demo).
+
+    const status = error?.response?.status;
+    const message = error?.response?.data?.message || error?.message || "An unexpected error occurred.";
+    const code = error?.response?.data?.code || error?.code || "UnknownError";
+    const id = error?.response?.data?.id || "-1";
+
     return ({
-      id: "-1",
-      code: "UnknownError",
-      message: "An unexpected error occurred."
+      id,
+      code,
+      message,
+      status
     });
   }
 }
