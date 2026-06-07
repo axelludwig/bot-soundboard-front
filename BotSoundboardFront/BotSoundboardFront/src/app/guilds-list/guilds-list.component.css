@@ -23,7 +23,7 @@
 .channel {
     display: inline-block;
     user-select: none;
-    color: rgb(255, 255, 255);
+    color: var(--text-color);
     padding-left: 24px;
 }
 
@@ -74,6 +74,7 @@
     z-index: 2;
     background-color: var(--first-background);
     padding-left: 24px;
+    color: var(--primary);
 }
 
 .divider {

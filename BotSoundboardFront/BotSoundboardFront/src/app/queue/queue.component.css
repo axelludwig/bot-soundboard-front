@@ -61,6 +61,7 @@ h3 {
 .title {
     padding-top: 0px;
     margin-right: 24px;
+    color: var(--primary);
 }
 
 .header-title {
@@ -79,7 +80,7 @@ h3 {
 }
 
 .queueItem {
-    color: white;
+    color: var(--text-color);
     margin-bottom: 12px;
 
     -webkit-touch-callout: none;

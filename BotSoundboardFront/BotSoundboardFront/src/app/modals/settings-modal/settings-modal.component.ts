@@ -74,8 +74,8 @@ export class SettingsModalComponent {
     localStorage.setItem('avoidDuplicates', this.store.avoidDuplicates.toString());
   }
 
-  toggleThemeMode(isLightMode: boolean) {
-    this.store.setThemeMode(isLightMode);
+  toggleThemeMode(isDarkMode: boolean) {
+    this.store.setThemeMode(!isDarkMode);
   }
 
   disconnect() {
