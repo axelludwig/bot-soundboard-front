@@ -222,6 +222,14 @@ body {
     color: var(--text-color) !important;
 }
 
+.mdc-text-field__helper-line {
+    color: var(--text-color-gray) !important;
+}
+
+.mat-mdc-form-field-hint {
+    color: var(--text-color-gray) !important;
+}
+
 .mdc-text-field--filled .mdc-line-ripple {
     color: var(--primary) !important;
 }

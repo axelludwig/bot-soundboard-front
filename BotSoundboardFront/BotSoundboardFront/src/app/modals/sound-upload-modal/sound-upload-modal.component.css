@@ -48,7 +48,7 @@
 }
 
 mat-hint {
-    color: var(--primary) !important;
+    color: var(--text-color-gray) !important;
 }
 
 .saveCropButton {}
@@ -95,7 +95,7 @@ mat-hint {
     right: 14px;
     border-radius: 4px;
     padding: 1px 4px;
-    color: #fff;
+    color: white;
     background: rgba(0, 0, 0, 0.6);
 }
 
