@@ -16,6 +16,7 @@
     padding-left: 24px;
     padding-right: 24px;
     font-size: 44px;
+    color: var(--primary);
 }
 
 .tags-bar-container {

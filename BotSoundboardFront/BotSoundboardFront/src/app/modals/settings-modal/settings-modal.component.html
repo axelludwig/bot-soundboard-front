@@ -16,8 +16,8 @@
 <div class="divider"></div>
 
 <div class="theme-toggle-row">
-    <mat-slide-toggle color="primary" [ngModel]="store.isLightMode" (ngModelChange)="toggleThemeMode($event)">
-        Mode clair
+    <mat-slide-toggle color="primary" [ngModel]="!store.isLightMode" (ngModelChange)="toggleThemeMode($event)">
+        Mode nuit
     </mat-slide-toggle>
 </div>
 
